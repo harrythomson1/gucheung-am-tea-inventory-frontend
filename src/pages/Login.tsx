@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
+import { supabase } from '../lib/subabase'
+import { useNavigate } from 'react-router-dom'
 
 type Inputs = {
   email: string
@@ -7,15 +9,29 @@ type Inputs = {
 }
 
 export default function Login() {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    })
+    if (error) {
+      console.error(error.message)
+    } else {
+      navigate('/dashboard', { replace: true })
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input defaultValue="test" {...register('email')} />
+      <input defaultValue="email" {...register('email')} />
       <input {...register('password', { required: true })} />
       {errors.password && <span>This field is required</span>}
       <input type="submit" />

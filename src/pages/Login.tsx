@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 import { supabase } from '../lib/subabase'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 
 type Inputs = {
   email: string
@@ -28,6 +29,10 @@ export default function Login() {
       navigate('/dashboard', { replace: true })
     }
   }
+
+  const { session } = useAuth()
+
+  if (session) return <Navigate to="/dashboard" replace />
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

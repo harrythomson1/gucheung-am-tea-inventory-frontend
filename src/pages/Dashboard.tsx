@@ -10,10 +10,17 @@ type DashboardItem = {
 
 export default function Dashboard() {
   const [data, setData] = useState<DashboardItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    getDashboard().then((response) => setData(response))
-  })
+    getDashboard().then((response) => {
+      setData(response)
+      setIsLoading(false)
+    })
+  }, [])
+
+  if (isLoading) return <div>Loading...</div>
+
   return (
     <div>
       {data.map((item) => (

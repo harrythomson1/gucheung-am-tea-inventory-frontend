@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { supabase } from './subabase'
+import { supabase } from '../lib/subabase'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,

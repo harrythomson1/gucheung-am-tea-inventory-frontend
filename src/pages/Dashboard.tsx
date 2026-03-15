@@ -10,6 +10,7 @@ type DashboardItem = {
   name: string
   packaging: string
   total_stock: number
+  harvest_year: number
 }
 export default function Dashboard() {
   const [data, setData] = useState<DashboardItem[]>([])

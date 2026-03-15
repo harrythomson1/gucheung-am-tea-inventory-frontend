@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
+import { AddStockForm } from '../components/AddStockForm'
 
 type DashboardItem = {
   id: number
@@ -34,5 +35,10 @@ export default function Dashboard() {
     [] as Record<string, unknown>[]
   )
 
-  return <StockChart chartData={chartData} />
+  return (
+    <>
+      <StockChart chartData={chartData} />
+      <AddStockForm />
+    </>
+  )
 }

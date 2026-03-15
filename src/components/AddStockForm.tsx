@@ -25,7 +25,11 @@ export function AddStockForm() {
 
   const onSubmit: SubmitHandler<AddStockInputs> = async (data) => {
     try {
-      await postTransaction({ ...data, transaction_type: 'harvest' })
+      await postTransaction({
+        ...data,
+        transaction_type: 'harvest',
+        notes: data.notes || undefined,
+      })
       navigate('/')
     } catch (error) {
       console.error(error)
@@ -33,7 +37,7 @@ export function AddStockForm() {
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <select {...register('tea_id', { required: true })}>
+      <select {...register('tea_id', { required: true, valueAsNumber: true })}>
         <option value="">Select tea</option>
         {teas.map((tea) => (
           <option key={tea.id} value={tea.id}>
@@ -57,6 +61,7 @@ export function AddStockForm() {
         placeholder="Harvest year"
         {...register('harvest_year', {
           required: true,
+          valueAsNumber: true,
           validate: (value) => {
             const year = Number(value)
             const currentYear = new Date().getFullYear()
@@ -71,6 +76,7 @@ export function AddStockForm() {
         placeholder="Weight"
         {...register('weight_grams', {
           required: true,
+          valueAsNumber: true,
           validate: (value) => {
             const weight = Number(value)
             if (isNaN(weight) || weight <= 0)
@@ -83,6 +89,7 @@ export function AddStockForm() {
         placeholder="Quantity"
         {...register('quantity_change', {
           required: true,
+          valueAsNumber: true,
           validate: (value) => {
             const weight = Number(value)
             if (isNaN(weight)) return 'Please enter a valid'

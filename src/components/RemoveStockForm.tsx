@@ -154,11 +154,16 @@ export function RemoveStockForm() {
           <input
             type="number"
             {...register('quantity_change', {
-              required: true,
+              required: 'Please enter a quantity',
               valueAsNumber: true,
+              validate: (value) => value > 0 || 'Must be greater than 0',
             })}
           />
-          <select {...register('transaction_type', { required: true })}>
+          <select
+            {...register('transaction_type', {
+              required: 'Please select a transaction reason',
+            })}
+          >
             <option value="">Select reason</option>
             <option value="sale">Sale</option>
             <option value="donation">Donation</option>
@@ -168,8 +173,7 @@ export function RemoveStockForm() {
           <input type="submit" />
         </>
       )}
-      {errors.quantity_change && <span>Please enter quantity</span>}
-      {errors.transaction_type && <span>Please select transaction reason</span>}
+      {errors.quantity_change && <span>{errors.quantity_change.message}</span>}
     </form>
   )
 }

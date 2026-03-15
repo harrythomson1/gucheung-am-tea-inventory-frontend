@@ -3,6 +3,7 @@ import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
 import { AddStockForm } from '../components/AddStockForm'
 import { RemoveStockForm } from '../components/RemoveStockForm'
+import { ActivityFeed } from '../components/ActivityFeed'
 
 type DashboardItem = {
   id: number
@@ -41,6 +42,7 @@ export default function Dashboard() {
       <StockChart chartData={chartData} />
       <AddStockForm />
       <RemoveStockForm />
+      <ActivityFeed />
     </>
   )
 }

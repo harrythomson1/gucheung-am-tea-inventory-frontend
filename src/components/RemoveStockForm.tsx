@@ -81,7 +81,7 @@ export function RemoveStockForm() {
       navigate('/')
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status == 400) {
-        setStockError('Insufficient stock')
+        setStockError(error.response.data.detail)
       }
       console.error(error)
     }

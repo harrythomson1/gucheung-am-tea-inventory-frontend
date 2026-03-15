@@ -7,6 +7,7 @@ import type { RemoveTransactionData } from '../types/transaction'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { postRemovalTransaction } from '../api/transaction'
+import axios from 'axios'
 
 type RemoveStockInput = RemoveTransactionData
 
@@ -20,6 +21,7 @@ export function RemoveStockForm() {
   )
   const [selectedFlush, setSelectedFlush] = useState<string | null>(null)
   const [selectedWeight, setSelectedWeight] = useState<number | null>(null)
+  const [stockError, setStockError] = useState<string | null>(null)
 
   const {
     register,
@@ -70,6 +72,7 @@ export function RemoveStockForm() {
   }, [selectedVariant, setValue])
 
   const onSubmit: SubmitHandler<RemoveStockInput> = async (data) => {
+    setStockError(null)
     try {
       await postRemovalTransaction({
         ...data,
@@ -77,6 +80,9 @@ export function RemoveStockForm() {
       })
       navigate('/')
     } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status == 400) {
+        setStockError('Insufficient stock')
+      }
       console.error(error)
     }
   }
@@ -174,6 +180,7 @@ export function RemoveStockForm() {
         </>
       )}
       {errors.quantity_change && <span>{errors.quantity_change.message}</span>}
+      {stockError && <span>{stockError}</span>}
     </form>
   )
 }

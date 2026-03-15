@@ -34,6 +34,7 @@ export function AddStockForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <select {...register('tea_id', { required: true })}>
+        <option value="">Select tea</option>
         {teas.map((tea) => (
           <option key={tea.id} value={tea.id}>
             {tea.name}

@@ -135,6 +135,7 @@ export function RemoveStockForm() {
               type="button"
               onClick={() => {
                 setSelectedHarvestYear(harvest_year)
+                setSelectedPackaging(null)
                 setSelectedFlush(null)
                 setSelectedWeight(null)
               }}

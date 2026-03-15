@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
-import { AddStockForm } from '../components/AddStockForm'
 import { RemoveStockForm } from '../components/RemoveStockForm'
 import { ActivityFeed } from '../components/ActivityFeed'
 
@@ -63,7 +62,6 @@ export default function Dashboard() {
       ))}
       <button onClick={() => setSelectedYear(null)}>All</button>
       <StockChart chartData={chartData} />
-      <AddStockForm />
       <RemoveStockForm />
       <ActivityFeed />
     </>

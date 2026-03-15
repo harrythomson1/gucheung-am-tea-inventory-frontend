@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
+import AddStock from './pages/AddStock'
 import { AuthProvider } from './context/AuthProvider'
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/add-stock" element={<AddStock />} />
         </Route>
       </Routes>
     </AuthProvider>

@@ -35,6 +35,7 @@ export function RemoveStockForm() {
 
   const handleTeaSelect = async (teaId: number) => {
     setSelectedTeaId(teaId)
+    setSelectedHarvestYear(null)
     setSelectedPackaging(null)
     setSelectedFlush(null)
     setSelectedWeight(null)

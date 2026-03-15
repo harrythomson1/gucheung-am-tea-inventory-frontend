@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
-import { RemoveStockForm } from '../components/RemoveStockForm'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
 
@@ -70,7 +69,12 @@ export default function Dashboard() {
       >
         Add stock
       </button>
-      <RemoveStockForm />
+      <button
+        onClick={() => navigate('/remove-stock')}
+        className="bg-gray-200 px-4 py-2 m-1 rounded"
+      >
+        Remove stock
+      </button>
       <ActivityFeed />
     </>
   )

@@ -3,6 +3,7 @@ import { ProtectedRoute } from './components/ProtectedRoute'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import AddStock from './pages/AddStock'
+import RemoveStock from './pages/RemoveStock'
 import { AuthProvider } from './context/AuthProvider'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/add-stock" element={<AddStock />} />
+          <Route path="/remove-stock" element={<RemoveStock />} />
         </Route>
       </Routes>
     </AuthProvider>

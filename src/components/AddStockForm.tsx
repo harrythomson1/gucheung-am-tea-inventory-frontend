@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { getTeas } from "../api/tea"
+import { useEffect, useState } from 'react'
+import { getTeas } from '../api/tea'
 
 type Inputs = {
   tea_id: number
@@ -15,6 +15,6 @@ export default function AddStockForm() {
   const [teas, setTeas] = useState([])
   useEffect(() => {
     getTeas().then((response) => setTeas(response))
-  })
+  }, [])
   return <div>Add stock form</div>
 }

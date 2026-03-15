@@ -14,7 +14,16 @@ type DashboardItem = {
 }
 export default function Dashboard() {
   const [data, setData] = useState<DashboardItem[]>([])
+  const [selectedYear, setSelectedYear] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  const availableYears = [
+    ...new Set(data.map((item) => item.harvest_year)),
+  ].sort((a, b) => b - a)
+
+  const filteredData = selectedYear
+    ? data.filter((item) => item.harvest_year === selectedYear)
+    : data
 
   useEffect(() => {
     getDashboard().then((response) => {
@@ -25,7 +34,7 @@ export default function Dashboard() {
 
   if (isLoading) return <div>Loading...</div>
 
-  const chartData = data.reduce(
+  const chartData = filteredData.reduce(
     (acc, item) => {
       const existing = acc.find((t) => t.name === item.name)
       if (existing) {
@@ -40,6 +49,19 @@ export default function Dashboard() {
 
   return (
     <>
+      {availableYears.map((year) => (
+        <button
+          key={year}
+          className={`px-4 py-2 m-1 rounded`}
+          type="button"
+          onClick={() => {
+            setSelectedYear(year)
+          }}
+        >
+          {year}
+        </button>
+      ))}
+      <button onClick={() => setSelectedYear(null)}>All</button>
       <StockChart chartData={chartData} />
       <AddStockForm />
       <RemoveStockForm />

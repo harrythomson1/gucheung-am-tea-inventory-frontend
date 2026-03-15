@@ -219,6 +219,9 @@ export function RemoveStockForm() {
         </>
       )}
       {errors.quantity_change && <span>{errors.quantity_change.message}</span>}
+      {errors.transaction_type && (
+        <span>{errors.transaction_type.message}</span>
+      )}
       {stockError && <span>{stockError}</span>}
     </form>
   )

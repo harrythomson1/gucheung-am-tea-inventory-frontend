@@ -16,6 +16,16 @@ export type ActivityFeedType = {
   created_at: string
 }
 
+function timeAgo(dateString: string): string {
+  const diff = Date.now() - new Date(dateString).getTime()
+  const minutes = Math.floor(diff / 60000)
+  if (minutes < 60) return `${minutes} minutes ago`
+  const hours = Math.floor(minutes / 60)
+  if (hours < 24) return `${hours} hours ago`
+  const days = Math.floor(hours / 24)
+  return `${days} days ago`
+}
+
 export function ActivityFeed() {
   const [feedData, setFeedData] = useState<ActivityFeedType[]>([])
 
@@ -28,9 +38,24 @@ export function ActivityFeed() {
   return (
     <>
       {feedData.map((feed) => (
-        <div key={`${feed.tea_name}-${feed.created_at}`}>
-          {feed.performed_by_name} {feed.tea_name} {feed.quantity_change}{' '}
-          {feed.weight_grams}g's
+        <div
+          key={`${feed.tea_name}-${feed.created_at}`}
+          className="p-3 mb-2 border rounded-lg"
+        >
+          <div
+            className={`font-bold text-lg ${feed.quantity_change > 0 ? 'text-green-600' : 'text-red-600'}`}
+          >
+            {feed.quantity_change > 0 ? '+' : ''}
+            {feed.quantity_change} {feed.tea_name}
+          </div>
+          <div className="text-sm text-gray-600">
+            {feed.packaging} · {feed.weight_grams}g · {feed.flush} flush ·{' '}
+            {feed.harvest_year}
+          </div>
+          <div className="text-xs text-gray-400 mt-1">
+            {feed.transaction_type} · {feed.performed_by_name} ·{' '}
+            {timeAgo(feed.created_at)}
+          </div>
         </div>
       ))}
     </>

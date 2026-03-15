@@ -43,7 +43,9 @@ export function RemoveStockForm() {
     setVariants(data)
   }
 
-  const availableHarvestYear = [...new Set(variants.map((v) => v.harvest_year))]
+  const availableHarvestYear = [
+    ...new Set(variants.map((v) => v.harvest_year)),
+  ].sort((a, b) => b - a)
 
   const availablePackaging = [
     ...new Set(

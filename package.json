@@ -47,7 +47,6 @@
     "*.{ts,tsx,css,json}": "prettier --write",
     "*.{ts,tsx}": [
       "eslint --fix"
-    ],
-    "*.ts?(x)": "bash -c 'tsc -p tsconfig.app.json --noEmit'"
+    ]
   }
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { getTeas } from '../api/tea'
 import type { SubmitHandler } from 'react-hook-form'
 import type { AddTransactionData } from '../types/transaction'
-import { postTransaction } from '../api/transaction'
+import { postHarvestTransaction } from '../api/transaction'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import type { Tea } from '../types/tea'
@@ -25,7 +25,7 @@ export function AddStockForm() {
 
   const onSubmit: SubmitHandler<AddStockInputs> = async (data) => {
     try {
-      await postTransaction({
+      await postHarvestTransaction({
         ...data,
         transaction_type: 'harvest',
         notes: data.notes || undefined,

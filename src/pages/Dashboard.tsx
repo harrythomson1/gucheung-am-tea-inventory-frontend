@@ -3,6 +3,7 @@ import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
 import { RemoveStockForm } from '../components/RemoveStockForm'
 import { ActivityFeed } from '../components/ActivityFeed'
+import { useNavigate } from 'react-router-dom'
 
 type DashboardItem = {
   id: number
@@ -12,6 +13,7 @@ type DashboardItem = {
   harvest_year: number
 }
 export default function Dashboard() {
+  const navigate = useNavigate()
   const [data, setData] = useState<DashboardItem[]>([])
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -62,6 +64,12 @@ export default function Dashboard() {
       ))}
       <button onClick={() => setSelectedYear(null)}>All</button>
       <StockChart chartData={chartData} />
+      <button
+        onClick={() => navigate('/add-stock')}
+        className="bg-gray-200 px-4 py-2 m-1 rounded"
+      >
+        Add stock
+      </button>
       <RemoveStockForm />
       <ActivityFeed />
     </>

@@ -9,7 +9,7 @@ import type { Tea } from '../types/tea'
 
 type AddStockInputs = Omit<AddTransactionData, 'transaction_type'>
 
-export default function AddStockForm() {
+export function AddStockForm() {
   const navigate = useNavigate()
   const [teas, setTeas] = useState<Tea[]>([])
 
@@ -53,6 +53,7 @@ export default function AddStockForm() {
         <option value="second">Second Flush</option>
       </select>
       <input
+        placeholder="Harvest year"
         {...register('harvest_year', {
           required: true,
           validate: (value) => {
@@ -66,6 +67,7 @@ export default function AddStockForm() {
         })}
       />
       <input
+        placeholder="Weight"
         {...register('weight_grams', {
           required: true,
           validate: (value) => {
@@ -77,6 +79,7 @@ export default function AddStockForm() {
         })}
       />
       <input
+        placeholder="Quantity"
         {...register('quantity_change', {
           required: true,
           validate: (value) => {
@@ -88,10 +91,12 @@ export default function AddStockForm() {
         })}
       />
       <input {...register('notes')} />
+      {errors.tea_id && <span>Tea name is required</span>}
+      {errors.packaging && <span>Packaging type is required is required</span>}
+      {errors.flush && <span>Flush type is required</span>}
       {errors.harvest_year && <span>{errors.harvest_year.message}</span>}
       {errors.weight_grams && <span>{errors.weight_grams.message}</span>}
       {errors.quantity_change && <span>{errors.quantity_change.message}</span>}
-      {errors.packaging && <span>This field is required</span>}
       <input type="submit" />
     </form>
   )

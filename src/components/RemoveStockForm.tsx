@@ -21,6 +21,9 @@ export function RemoveStockForm() {
   )
   const [selectedFlush, setSelectedFlush] = useState<string | null>(null)
   const [selectedWeight, setSelectedWeight] = useState<number | null>(null)
+  const [selectedHarvestYear, setSelectedHarvestYear] = useState<number | null>(
+    null
+  )
   const [stockError, setStockError] = useState<string | null>(null)
 
   const {
@@ -38,24 +41,41 @@ export function RemoveStockForm() {
     const data = await getTeaStock(teaId)
     setVariants(data)
   }
-  const availablePackaging = [...new Set(variants.map((v) => v.packaging))]
+
+  const availableHarvestYear = [...new Set(variants.map((v) => v.harvest_year))]
+
+  const availablePackaging = [
+    ...new Set(
+      variants
+        .filter((v) => v.harvest_year === selectedHarvestYear)
+        .map((v) => v.packaging)
+    ),
+  ]
 
   const availableFlush = [
     ...new Set(
       variants
-        .filter((v) => v.packaging === selectedPackaging)
+        .filter(
+          (v) =>
+            v.harvest_year === selectedHarvestYear &&
+            v.packaging === selectedPackaging
+        )
         .map((v) => v.flush)
     ),
   ]
 
   const availableWeights = variants
     .filter(
-      (v) => v.packaging === selectedPackaging && v.flush === selectedFlush
+      (v) =>
+        v.harvest_year === selectedHarvestYear &&
+        v.packaging === selectedPackaging &&
+        v.flush === selectedFlush
     )
     .map((v) => v.weight_grams)
 
   const selectedVariant = variants.find(
     (v) =>
+      v.harvest_year == selectedHarvestYear &&
       v.packaging === selectedPackaging &&
       v.flush === selectedFlush &&
       v.weight_grams === selectedWeight
@@ -97,6 +117,7 @@ export function RemoveStockForm() {
         {teas.map((tea) => (
           <button
             key={tea.id}
+            className={`px-4 py-2 m-1 rounded ${selectedTeaId === tea.id ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
             type="button"
             onClick={() => handleTeaSelect(tea.id)}
           >
@@ -104,12 +125,30 @@ export function RemoveStockForm() {
           </button>
         ))}
       </div>
-
       {selectedTeaId && (
+        <div>
+          {availableHarvestYear.map((harvest_year) => (
+            <button
+              key={harvest_year}
+              className={`px-4 py-2 m-1 rounded ${selectedHarvestYear === harvest_year ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+              type="button"
+              onClick={() => {
+                setSelectedHarvestYear(harvest_year)
+                setSelectedFlush(null)
+                setSelectedWeight(null)
+              }}
+            >
+              {harvest_year}
+            </button>
+          ))}
+        </div>
+      )}
+      {selectedHarvestYear && (
         <div>
           {availablePackaging.map((packaging) => (
             <button
               key={packaging}
+              className={`px-4 py-2 m-1 rounded ${selectedPackaging === packaging ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
               type="button"
               onClick={() => {
                 setSelectedPackaging(packaging)
@@ -122,13 +161,13 @@ export function RemoveStockForm() {
           ))}
         </div>
       )}
-
       {selectedPackaging && (
         <div>
           {availableFlush.map((flush) => (
             <button
               key={flush}
               type="button"
+              className={`px-4 py-2 m-1 rounded ${selectedFlush === flush ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
               onClick={() => {
                 setSelectedFlush(flush)
                 setSelectedWeight(null)
@@ -139,12 +178,12 @@ export function RemoveStockForm() {
           ))}
         </div>
       )}
-
       {selectedFlush && (
         <div>
           {availableWeights.map((weight) => (
             <button
               key={weight}
+              className={`px-4 py-2 m-1 rounded ${selectedWeight === weight ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
               type="button"
               onClick={() => setSelectedWeight(weight)}
             >
@@ -153,7 +192,6 @@ export function RemoveStockForm() {
           ))}
         </div>
       )}
-
       {selectedVariant && (
         <>
           <p>Current stock: {selectedVariant.current_stock}</p>

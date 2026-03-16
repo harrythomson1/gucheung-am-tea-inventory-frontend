@@ -30,6 +30,7 @@ export function AddStockForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<AddStockInputs>()
 
@@ -65,7 +66,10 @@ export function AddStockForm() {
           key={tea.id}
           className={`px-4 py-2 m-1 rounded ${selectedTeaId === tea.id ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
           type="button"
-          onClick={() => handleTeaSelect(tea.id)}
+          onClick={() => {
+            handleTeaSelect(tea.id)
+            setValue('tea_id', tea.id)
+          }}
         >
           {tea.name}
         </button>
@@ -83,6 +87,7 @@ export function AddStockForm() {
                 setSelectedHarvestYear(null)
                 setSelectedWeight(null)
                 setSelectedQuantityChange(null)
+                setValue('packaging', packaging)
               }}
             >
               {packaging}
@@ -102,6 +107,7 @@ export function AddStockForm() {
                 setSelectedHarvestYear(null)
                 setSelectedWeight(null)
                 setSelectedQuantityChange(null)
+                setValue('flush', flush)
               }}
             >
               {flush}

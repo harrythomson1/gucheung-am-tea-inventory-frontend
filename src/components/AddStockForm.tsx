@@ -123,8 +123,6 @@ export function AddStockForm() {
             {...register('harvest_year', {
               onChange: (e) => {
                 setSelectedHarvestYear(Number(e.target.value))
-                setSelectedWeight(null)
-                setSelectedQuantityChange(null)
               },
               required: true,
               valueAsNumber: true,
@@ -149,7 +147,6 @@ export function AddStockForm() {
             {...register('weight_grams', {
               onChange: (e) => {
                 setSelectedWeight(Number(e.target.value))
-                setSelectedQuantityChange(null)
               },
               required: true,
               valueAsNumber: true,

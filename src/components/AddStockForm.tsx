@@ -45,60 +45,72 @@ export function AddStockForm() {
           </option>
         ))}
       </select>
-      <select {...register('packaging', { required: true })}>
-        <option value="">Select packaging</option>
-        <option value="silver">Silver</option>
-        <option value="wing">Wing</option>
-        <option value="gift">Gift</option>
-        <option value="standard">Standard</option>
-      </select>
-      <select {...register('flush', { required: true })}>
-        <option value="">Select Flush</option>
-        <option value="first">First Flush</option>
-        <option value="second">Second Flush</option>
-      </select>
-      <input
-        placeholder="Harvest year"
-        {...register('harvest_year', {
-          required: true,
-          valueAsNumber: true,
-          validate: (value) => {
-            const year = Number(value)
-            const currentYear = new Date().getFullYear()
-            if (isNaN(year) || year < 2000) return 'Please enter a valid year'
-            if (year > currentYear)
-              return 'Harvest year cannot be in the future'
-            return true
-          },
-        })}
-      />
-      <input
-        placeholder="Weight"
-        {...register('weight_grams', {
-          required: true,
-          valueAsNumber: true,
-          validate: (value) => {
-            const weight = Number(value)
-            if (isNaN(weight) || weight <= 0)
-              return 'Please enter a valid weight'
-            return true
-          },
-        })}
-      />
-      <input
-        placeholder="Quantity"
-        {...register('quantity_change', {
-          required: true,
-          valueAsNumber: true,
-          validate: (value) => {
-            const weight = Number(value)
-            if (isNaN(weight)) return 'Please enter a valid'
-            else if (value <= 0) return 'Value must be positive'
-            return true
-          },
-        })}
-      />
-      <input {...register('notes')} />
+      <div>
+        <select {...register('packaging', { required: true })}>
+          <option value="">Select packaging</option>
+          <option value="silver">Silver</option>
+          <option value="wing">Wing</option>
+          <option value="gift">Gift</option>
+          <option value="standard">Standard</option>
+        </select>
+      </div>
+      <div>
+        <select {...register('flush', { required: true })}>
+          <option value="">Select Flush</option>
+          <option value="first">First Flush</option>
+          <option value="second">Second Flush</option>
+        </select>
+      </div>
+      <div>
+        <input
+          placeholder="Harvest year"
+          {...register('harvest_year', {
+            required: true,
+            valueAsNumber: true,
+            validate: (value) => {
+              const year = Number(value)
+              const currentYear = new Date().getFullYear()
+              if (isNaN(year) || year < 2000) return 'Please enter a valid year'
+              if (year > currentYear)
+                return 'Harvest year cannot be in the future'
+              return true
+            },
+          })}
+        />
+      </div>
+      <div>
+        <input
+          placeholder="Weight"
+          {...register('weight_grams', {
+            required: true,
+            valueAsNumber: true,
+            validate: (value) => {
+              const weight = Number(value)
+              if (isNaN(weight) || weight <= 0)
+                return 'Please enter a valid weight'
+              return true
+            },
+          })}
+        />
+      </div>
+      <div>
+        <input
+          placeholder="Quantity"
+          {...register('quantity_change', {
+            required: true,
+            valueAsNumber: true,
+            validate: (value) => {
+              const weight = Number(value)
+              if (isNaN(weight)) return 'Please enter a valid'
+              else if (value <= 0) return 'Value must be positive'
+              return true
+            },
+          })}
+        />
+      </div>
+      <div>
+        <input {...register('notes')} />
+      </div>
       {errors.tea_id && <span>Tea name is required</span>}
       {errors.packaging && <span>Packaging type is required is required</span>}
       {errors.flush && <span>Flush type is required</span>}

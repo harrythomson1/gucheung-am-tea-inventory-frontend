@@ -12,12 +12,34 @@ type AddStockInputs = Omit<AddTransactionData, 'transaction_type'>
 export function AddStockForm() {
   const navigate = useNavigate()
   const [teas, setTeas] = useState<Tea[]>([])
+  const [selectedTeaId, setSelectedTeaId] = useState<number | null>(null)
+  const [selectedPackaging, setSelectedPackaging] = useState<string | null>(
+    null
+  )
+  const [selectedFlush, setSelectedFlush] = useState<string | null>(null)
+  const [selectedWeight, setSelectedWeight] = useState<number | null>(null)
+  const [selectedHarvestYear, setSelectedHarvestYear] = useState<number | null>(
+    null
+  )
+  const [selectedQuantityChange, setSelectedQuantityChange] = useState<
+    number | null
+  >(null)
+  const PACKAGING_TYPES = ['silver', 'wing', 'gift', 'standard', 'mixed']
+  const FLUSH_TYPES = ['first', 'second', 'mixed']
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<AddStockInputs>()
+
+  const handleTeaSelect = async (teaId: number) => {
+    setSelectedTeaId(teaId)
+    setSelectedHarvestYear(null)
+    setSelectedPackaging(null)
+    setSelectedFlush(null)
+    setSelectedWeight(null)
+  }
 
   useEffect(() => {
     getTeas().then((response) => setTeas(response))
@@ -35,92 +57,138 @@ export function AddStockForm() {
       console.error(error)
     }
   }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <select {...register('tea_id', { required: true, valueAsNumber: true })}>
-        <option value="">Select tea</option>
-        {teas.map((tea) => (
-          <option key={tea.id} value={tea.id}>
-            {tea.name}
-          </option>
-        ))}
-      </select>
-      <div>
-        <select {...register('packaging', { required: true })}>
-          <option value="">Select packaging</option>
-          <option value="silver">Silver</option>
-          <option value="wing">Wing</option>
-          <option value="gift">Gift</option>
-          <option value="standard">Standard</option>
-        </select>
-      </div>
-      <div>
-        <select {...register('flush', { required: true })}>
-          <option value="">Select Flush</option>
-          <option value="first">First Flush</option>
-          <option value="second">Second Flush</option>
-        </select>
-      </div>
-      <div>
-        <input
-          type="number"
-          placeholder="Harvest year"
-          {...register('harvest_year', {
-            required: true,
-            valueAsNumber: true,
-            validate: (value) => {
-              const year = Number(value)
-              const currentYear = new Date().getFullYear()
-              if (isNaN(year) || year < 2000) return 'Please enter a valid year'
-              if (year > currentYear)
-                return 'Harvest year cannot be in the future'
-              return true
-            },
-          })}
-        />
-      </div>
-      <div>
-        <input
-          type="number"
-          placeholder="Weight"
-          {...register('weight_grams', {
-            required: true,
-            valueAsNumber: true,
-            validate: (value) => {
-              const weight = Number(value)
-              if (isNaN(weight) || weight <= 0)
-                return 'Please enter a valid weight'
-              return true
-            },
-          })}
-        />
-      </div>
-      <div>
-        <input
-          type="number"
-          placeholder="Quantity"
-          {...register('quantity_change', {
-            required: true,
-            valueAsNumber: true,
-            validate: (value) => {
-              const weight = Number(value)
-              if (isNaN(weight)) return 'Please enter a valid'
-              else if (value <= 0) return 'Value must be positive'
-              return true
-            },
-          })}
-        />
-      </div>
-      <div>
-        <input {...register('notes')} />
-      </div>
+      {teas.map((tea) => (
+        <button
+          key={tea.id}
+          className={`px-4 py-2 m-1 rounded ${selectedTeaId === tea.id ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          type="button"
+          onClick={() => handleTeaSelect(tea.id)}
+        >
+          {tea.name}
+        </button>
+      ))}
+      {selectedTeaId && (
+        <div>
+          {PACKAGING_TYPES.map((packaging) => (
+            <button
+              key={packaging}
+              className={`px-4 py-2 m-1 rounded ${selectedPackaging === packaging ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+              type="button"
+              onClick={() => {
+                setSelectedPackaging(packaging)
+                setSelectedFlush(null)
+                setSelectedHarvestYear(null)
+                setSelectedWeight(null)
+                setSelectedQuantityChange(null)
+              }}
+            >
+              {packaging}
+            </button>
+          ))}
+        </div>
+      )}
+      {selectedPackaging && (
+        <div>
+          {FLUSH_TYPES.map((flush) => (
+            <button
+              key={flush}
+              className={`px-4 py-2 m-1 rounded ${selectedFlush === flush ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+              type="button"
+              onClick={() => {
+                setSelectedFlush(flush)
+                setSelectedHarvestYear(null)
+                setSelectedWeight(null)
+                setSelectedQuantityChange(null)
+              }}
+            >
+              {flush}
+            </button>
+          ))}
+        </div>
+      )}
+      {selectedFlush && (
+        <div>
+          <input
+            type="number"
+            placeholder="Harvest year"
+            {...register('harvest_year', {
+              onChange: (e) => {
+                setSelectedHarvestYear(Number(e.target.value))
+                setSelectedWeight(null)
+                setSelectedQuantityChange(null)
+              },
+              required: true,
+              valueAsNumber: true,
+              validate: (value) => {
+                const year = Number(value)
+                const currentYear = new Date().getFullYear()
+                if (isNaN(year) || year < 2000)
+                  return 'Please enter a valid year'
+                if (year > currentYear)
+                  return 'Harvest year cannot be in the future'
+                return true
+              },
+            })}
+          />
+        </div>
+      )}
+      {selectedHarvestYear && (
+        <div>
+          <input
+            type="number"
+            placeholder="Weight"
+            {...register('weight_grams', {
+              onChange: (e) => {
+                setSelectedWeight(Number(e.target.value))
+                setSelectedQuantityChange(null)
+              },
+              required: true,
+              valueAsNumber: true,
+              validate: (value) => {
+                const weight = Number(value)
+                if (isNaN(weight) || weight <= 0)
+                  return 'Please enter a valid weight'
+                return true
+              },
+            })}
+          />
+        </div>
+      )}
+      {selectedWeight && (
+        <div>
+          <input
+            type="number"
+            placeholder="Quantity"
+            {...register('quantity_change', {
+              onChange: (e) =>
+                setSelectedQuantityChange(Number(e.target.value)),
+              required: true,
+              valueAsNumber: true,
+              validate: (value) => {
+                const weight = Number(value)
+                if (isNaN(weight)) return 'Please enter a valid'
+                else if (value <= 0) return 'Value must be positive'
+                return true
+              },
+            })}
+          />
+        </div>
+      )}
+      {selectedQuantityChange && (
+        <div>
+          <input {...register('notes')} />
+        </div>
+      )}
       {errors.tea_id && <span>Tea name is required</span>}
       {errors.packaging && <span>Packaging type is required is required</span>}
       {errors.flush && <span>Flush type is required</span>}
       {errors.harvest_year && <span>{errors.harvest_year.message}</span>}
       {errors.weight_grams && <span>{errors.weight_grams.message}</span>}
       {errors.quantity_change && <span>{errors.quantity_change.message}</span>}
-      <input type="submit" />
+      {selectedQuantityChange && <input type="submit" />}
     </form>
   )
 }

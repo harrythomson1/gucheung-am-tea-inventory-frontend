@@ -63,6 +63,7 @@ export function AddStockForm() {
       </div>
       <div>
         <input
+          type="number"
           placeholder="Harvest year"
           {...register('harvest_year', {
             required: true,
@@ -80,6 +81,7 @@ export function AddStockForm() {
       </div>
       <div>
         <input
+          type="number"
           placeholder="Weight"
           {...register('weight_grams', {
             required: true,
@@ -95,6 +97,7 @@ export function AddStockForm() {
       </div>
       <div>
         <input
+          type="number"
           placeholder="Quantity"
           {...register('quantity_change', {
             required: true,

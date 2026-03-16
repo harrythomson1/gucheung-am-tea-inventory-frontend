@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form'
 import type { Tea } from '../types/tea'
 
 type AddStockInputs = Omit<AddTransactionData, 'transaction_type'>
+const PACKAGING_TYPES = ['silver', 'wing', 'gift', 'standard', 'mixed']
+const FLUSH_TYPES = ['first', 'second', 'mixed']
 
 export function AddStockForm() {
   const navigate = useNavigate()
@@ -24,8 +26,6 @@ export function AddStockForm() {
   const [selectedQuantityChange, setSelectedQuantityChange] = useState<
     number | null
   >(null)
-  const PACKAGING_TYPES = ['silver', 'wing', 'gift', 'standard', 'mixed']
-  const FLUSH_TYPES = ['first', 'second', 'mixed']
 
   const {
     register,

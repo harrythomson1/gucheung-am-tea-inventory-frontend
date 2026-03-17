@@ -33,6 +33,7 @@ export function ActivityFeed() {
   const [showExportModal, setShowExportModal] = useState(false)
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
+  const [transactionType, setTransactionType] = useState<string>(null)
 
   useEffect(() => {
     getActivityFeed().then((response) => {
@@ -65,6 +66,19 @@ export function ActivityFeed() {
                 onChange={(date: Date | null) => setEndDate(date)}
                 placeholderText="End date"
               />
+              <div>
+                <select
+                  value={transactionType}
+                  onChange={(e) => setTransactionType(e.target.value)}
+                >
+                  <option value="">All types</option>
+                  <option value="harvest">Harvest</option>
+                  <option value="sale">Sale</option>
+                  <option value="donation">Donation</option>
+                  <option value="ceremony">Ceremony</option>
+                  <option value="damaged">Damaged</option>
+                </select>
+              </div>
               <button onClick={() => setShowExportModal(false)}>Cancel</button>
               <button onClick={handleExport}>Download</button>
             </div>

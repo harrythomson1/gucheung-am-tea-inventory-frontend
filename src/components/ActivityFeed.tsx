@@ -33,7 +33,7 @@ export function ActivityFeed() {
   const [showExportModal, setShowExportModal] = useState(false)
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
-  const [transactionType, setTransactionType] = useState<string>(null)
+  const [transactionType, setTransactionType] = useState<string>('')
 
   useEffect(() => {
     getActivityFeed().then((response) => {

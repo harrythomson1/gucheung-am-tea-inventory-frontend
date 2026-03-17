@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { getActivityFeed } from '../api/transaction'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import type { Tea } from '../types/tea'
+import { getTeas } from '../api/tea'
 
 export type ActivityFeedType = {
   quantity_change: number
@@ -34,10 +36,15 @@ export function ActivityFeed() {
   const [startDate, setStartDate] = useState<Date | null>(null)
   const [endDate, setEndDate] = useState<Date | null>(null)
   const [transactionType, setTransactionType] = useState<string>('')
+  const [teas, setTeas] = useState<Tea[]>([])
+  const [tea, setTea] = useState<number | ''>('')
 
   useEffect(() => {
     getActivityFeed().then((response) => {
       setFeedData(response)
+    })
+    getTeas().then((response) => {
+      setTeas(response)
     })
   }, [])
 
@@ -77,6 +84,21 @@ export function ActivityFeed() {
                   <option value="donation">Donation</option>
                   <option value="ceremony">Ceremony</option>
                   <option value="damaged">Damaged</option>
+                </select>
+              </div>
+              <div>
+                <select
+                  value={tea}
+                  onChange={(e) =>
+                    setTea(e.target.value ? Number(e.target.value) : '')
+                  }
+                >
+                  <option value="">All teas</option>
+                  {teas.map((tea_data) => (
+                    <option key={tea_data.id} value={tea_data.id}>
+                      {tea_data.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               <button onClick={() => setShowExportModal(false)}>Cancel</button>

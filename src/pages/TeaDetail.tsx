@@ -41,9 +41,24 @@ export function TeaDetail() {
 
   return (
     <>
-      <button onClick={() => setGroupBy('packaging')}>By Packaging</button>
-      <button onClick={() => setGroupBy('flush')}>By Flush</button>
-      <button onClick={() => setGroupBy('harvest_year')}>By Year</button>
+      <button
+        onClick={() => setGroupBy('packaging')}
+        className={`px-4 py-2 m-1 rounded ${groupBy === 'packaging' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+      >
+        By Packaging
+      </button>
+      <button
+        onClick={() => setGroupBy('flush')}
+        className={`px-4 py-2 m-1 rounded ${groupBy === 'flush' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+      >
+        By Flush
+      </button>
+      <button
+        onClick={() => setGroupBy('harvest_year')}
+        className={`px-4 py-2 m-1 rounded ${groupBy === 'harvest_year' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+      >
+        By Year
+      </button>
       <StockChart chartData={chartData} />
     </>
   )

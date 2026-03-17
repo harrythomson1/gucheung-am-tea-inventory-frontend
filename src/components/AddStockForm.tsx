@@ -26,7 +26,8 @@ export function AddStockForm() {
   const [selectedQuantityChange, setSelectedQuantityChange] = useState<
     number | null
   >(null)
-
+  const currentYear = new Date().getFullYear()
+  const HARVEST_YEARS = [currentYear, currentYear - 1, currentYear - 2]
   const {
     register,
     handleSubmit,
@@ -117,26 +118,21 @@ export function AddStockForm() {
       )}
       {selectedFlush && (
         <div>
-          <input
-            type="number"
-            placeholder="Harvest year"
-            {...register('harvest_year', {
-              onChange: (e) => {
-                setSelectedHarvestYear(Number(e.target.value))
-              },
-              required: true,
-              valueAsNumber: true,
-              validate: (value) => {
-                const year = Number(value)
-                const currentYear = new Date().getFullYear()
-                if (isNaN(year) || year < 2000)
-                  return 'Please enter a valid year'
-                if (year > currentYear)
-                  return 'Harvest year cannot be in the future'
-                return true
-              },
-            })}
-          />
+          {HARVEST_YEARS.map((harvestYear) => (
+            <button
+              key={harvestYear}
+              className={`px-4 py-2 m-1 rounded ${selectedHarvestYear === harvestYear ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+              type="button"
+              onClick={() => {
+                setSelectedHarvestYear(harvestYear)
+                setSelectedWeight(null)
+                setSelectedQuantityChange(null)
+                setValue('harvest_year', harvestYear)
+              }}
+            >
+              {harvestYear}
+            </button>
+          ))}
         </div>
       )}
       {selectedHarvestYear && (

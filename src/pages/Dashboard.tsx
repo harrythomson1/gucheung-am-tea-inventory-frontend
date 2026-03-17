@@ -3,6 +3,7 @@ import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
+import { TeaDetail } from './TeaDetail'
 
 type DashboardItem = {
   id: number
@@ -76,6 +77,7 @@ export default function Dashboard() {
         Remove stock
       </button>
       <ActivityFeed />
+      <TeaDetail tea_id={1} />
     </>
   )
 }

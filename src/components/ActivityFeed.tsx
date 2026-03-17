@@ -28,6 +28,7 @@ function timeAgo(dateString: string): string {
 
 export function ActivityFeed() {
   const [feedData, setFeedData] = useState<ActivityFeedType[]>([])
+  const [showExportModal, setShowExportModal] = useState(false)
 
   useEffect(() => {
     getActivityFeed().then((response) => {
@@ -35,8 +36,27 @@ export function ActivityFeed() {
     })
   }, [])
 
+  const handleExport = () => console.log('button pressed')
+
   return (
     <>
+      <div>
+        <button
+          onClick={() => setShowExportModal(true)}
+          className="cursor-pointer px-4 py-2 m-1 rounded bg-gray-200"
+        >
+          Export
+        </button>
+        {showExportModal && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-lg w-80">
+              <h2>Export Transactions</h2>
+              <button onClick={() => setShowExportModal(false)}>Cancel</button>
+              <button onClick={handleExport}>Download</button>
+            </div>
+          </div>
+        )}
+      </div>
       {feedData.map((feed) => (
         <div
           key={`${feed.tea_name}-${feed.created_at}`}

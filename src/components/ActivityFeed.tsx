@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getActivityFeed } from '../api/transaction'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 export type ActivityFeedType = {
   quantity_change: number
@@ -29,6 +31,8 @@ function timeAgo(dateString: string): string {
 export function ActivityFeed() {
   const [feedData, setFeedData] = useState<ActivityFeedType[]>([])
   const [showExportModal, setShowExportModal] = useState(false)
+  const [startDate, setStartDate] = useState<Date | null>(null)
+  const [endDate, setEndDate] = useState<Date | null>(null)
 
   useEffect(() => {
     getActivityFeed().then((response) => {
@@ -51,6 +55,16 @@ export function ActivityFeed() {
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
             <div className="bg-white p-6 rounded-lg w-80">
               <h2>Export Transactions</h2>
+              <DatePicker
+                selected={startDate}
+                onChange={(date: Date | null) => setStartDate(date)}
+                placeholderText="Start date"
+              />
+              <DatePicker
+                selected={endDate}
+                onChange={(date: Date | null) => setEndDate(date)}
+                placeholderText="End date"
+              />
               <button onClick={() => setShowExportModal(false)}>Cancel</button>
               <button onClick={handleExport}>Download</button>
             </div>

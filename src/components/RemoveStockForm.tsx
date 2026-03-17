@@ -43,13 +43,15 @@ export function RemoveStockForm() {
     setVariants(data)
   }
 
+  const variantsWithStock = variants.filter((v) => v.current_stock > 0)
+
   const availableHarvestYear = [
-    ...new Set(variants.map((v) => v.harvest_year)),
+    ...new Set(variantsWithStock.map((v) => v.harvest_year)),
   ].sort((a, b) => b - a)
 
   const availablePackaging = [
     ...new Set(
-      variants
+      variantsWithStock
         .filter((v) => v.harvest_year === selectedHarvestYear)
         .map((v) => v.packaging)
     ),
@@ -57,7 +59,7 @@ export function RemoveStockForm() {
 
   const availableFlush = [
     ...new Set(
-      variants
+      variantsWithStock
         .filter(
           (v) =>
             v.harvest_year === selectedHarvestYear &&
@@ -67,7 +69,7 @@ export function RemoveStockForm() {
     ),
   ]
 
-  const availableWeights = variants
+  const availableWeights = variantsWithStock
     .filter(
       (v) =>
         v.harvest_year === selectedHarvestYear &&

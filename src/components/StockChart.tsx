@@ -8,15 +8,26 @@ import {
   YAxis,
 } from 'recharts'
 
-type ChartData = {
+type StockChartProps = {
   chartData: Record<string, unknown>[]
+  onBarClick?: (teaId: number) => void
 }
 
-export function StockChart({ chartData }: ChartData) {
+export function StockChart({ chartData, onBarClick }: StockChartProps) {
   return (
     <div>
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={chartData}>
+        <BarChart
+          data={chartData}
+          onClick={(data) => {
+            if (onBarClick && data?.activeLabel) {
+              const tea = chartData.find((t) => t.name === data.activeLabel)
+              if (tea) {
+                onBarClick(tea.id as number)
+              }
+            }
+          }}
+        >
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />

@@ -1,6 +1,7 @@
 import { StockChart } from '../components/StockChart'
 import { useState, useEffect } from 'react'
 import { getTeaStock } from '../api/tea'
+import { useParams } from 'react-router-dom'
 
 type TeaVariantStockItem = {
   id: number
@@ -11,19 +12,18 @@ type TeaVariantStockItem = {
   current_stock: number
 }
 
-type TeaDetailProps = {
-  tea_id: number
-}
-export function TeaDetail({ tea_id }: TeaDetailProps) {
+export function TeaDetail() {
+  const { teaId } = useParams<{ teaId: string }>()
   const [data, setData] = useState<TeaVariantStockItem[]>([])
   const [groupBy, setGroupBy] = useState<
     'flush' | 'packaging' | 'harvest_year'
   >('packaging')
   useEffect(() => {
-    getTeaStock(tea_id).then((response) => {
+    const id = Number(teaId)
+    getTeaStock(id).then((response) => {
       setData(response)
     })
-  }, [tea_id])
+  }, [teaId])
 
   const chartData = data.reduce(
     (acc, item) => {

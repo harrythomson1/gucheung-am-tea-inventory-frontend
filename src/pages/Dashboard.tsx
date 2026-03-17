@@ -3,7 +3,6 @@ import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
-import { TeaDetail } from './TeaDetail'
 
 type DashboardItem = {
   id: number
@@ -41,7 +40,11 @@ export default function Dashboard() {
       if (existing) {
         existing[item.packaging] = item.total_stock
       } else {
-        acc.push({ name: item.name, [item.packaging]: item.total_stock })
+        acc.push({
+          id: item.id,
+          name: item.name,
+          [item.packaging]: item.total_stock,
+        })
       }
       return acc
     },
@@ -63,7 +66,10 @@ export default function Dashboard() {
         </button>
       ))}
       <button onClick={() => setSelectedYear(null)}>All</button>
-      <StockChart chartData={chartData} />
+      <StockChart
+        chartData={chartData}
+        onBarClick={(id) => navigate(`/teas/${id}`)}
+      />
       <button
         onClick={() => navigate('/add-stock')}
         className="bg-gray-200 px-4 py-2 m-1 rounded"
@@ -77,7 +83,6 @@ export default function Dashboard() {
         Remove stock
       </button>
       <ActivityFeed />
-      <TeaDetail tea_id={1} />
     </>
   )
 }

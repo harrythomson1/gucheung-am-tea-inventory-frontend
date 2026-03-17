@@ -28,6 +28,7 @@ export function AddStockForm() {
     number | null
   >(null)
   const [variants, setVariants] = useState<Variant[]>([])
+  const [showCustomWeight, setShowCustomWeight] = useState(false)
   const currentYear = new Date().getFullYear()
   const HARVEST_YEARS = [currentYear, currentYear - 1, currentYear - 2]
   const {
@@ -152,23 +153,62 @@ export function AddStockForm() {
           ))}
         </div>
       )}
-      {selectedHarvestYear &&
-        suggestedWeights.map((weight) => (
-          <div>
-            <button
-              key={weight}
-              className={`px-4 py-2 m-1 rounded ${selectedWeight === weight ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-              type="button"
-              onClick={() => {
-                setSelectedWeight(weight)
-                setSelectedQuantityChange(null)
-                setValue('weight_grams', weight)
-              }}
-            >
-              {weight}
-            </button>
-          </div>
-        ))}
+      {selectedHarvestYear && (
+        <div>
+          {suggestedWeights.length > 0 ? (
+            <>
+              {suggestedWeights.map((weight) => (
+                <button
+                  key={weight}
+                  className={`px-4 py-2 m-1 rounded ${selectedWeight === weight ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                  type="button"
+                  onClick={() => {
+                    setSelectedWeight(weight)
+                    setSelectedQuantityChange(null)
+                    setValue('weight_grams', weight)
+                  }}
+                >
+                  {weight}g
+                </button>
+              ))}
+              <button
+                type="button"
+                className="px-4 py-2 m-1 rounded bg-gray-200"
+                onClick={() => {
+                  setShowCustomWeight(true)
+                  setSelectedWeight(null)
+                }}
+              >
+                Other
+              </button>
+              {showCustomWeight && (
+                <input
+                  type="number"
+                  placeholder="Weight (g)"
+                  {...register('weight_grams', {
+                    onChange: (e) => setSelectedWeight(Number(e.target.value)),
+                    required: true,
+                    valueAsNumber: true,
+                    validate: (value) =>
+                      value > 0 || 'Please enter a valid weight',
+                  })}
+                />
+              )}
+            </>
+          ) : (
+            <input
+              type="number"
+              placeholder="Weight (g)"
+              {...register('weight_grams', {
+                onChange: (e) => setSelectedWeight(Number(e.target.value)),
+                required: true,
+                valueAsNumber: true,
+                validate: (value) => value > 0 || 'Please enter a valid weight',
+              })}
+            />
+          )}
+        </div>
+      )}
       {selectedWeight && (
         <div>
           <input

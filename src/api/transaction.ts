@@ -22,3 +22,10 @@ export const getActivityFeed = async () => {
   const response = await api.get('/transactions')
   return response.data
 }
+
+export const getCSVExport = async (params: URLSearchParams) => {
+  const response = await api.get(`/transactions/export?${params.toString()}`, {
+    responseType: 'blob',
+  })
+  return response.data
+}

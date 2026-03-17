@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getActivityFeed } from '../api/transaction'
+import { getActivityFeed, getCSVExport } from '../api/transaction'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import type { Tea } from '../types/tea'
@@ -48,7 +48,25 @@ export function ActivityFeed() {
     })
   }, [])
 
-  const handleExport = () => console.log('button pressed')
+  const handleExport = async () => {
+    const params = new URLSearchParams()
+    if (startDate) params.append('start_date', startDate.toISOString())
+    if (endDate) params.append('end_date', endDate.toISOString())
+    if (transactionType) params.append('transaction_type', transactionType)
+    if (tea) {
+      const teaName = teas.find((t) => t.id === tea)?.name
+      if (teaName) params.append('tea_name', teaName)
+    }
+    const response = await getCSVExport(params)
+    const url = window.URL.createObjectURL(new Blob([response]))
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', 'transactions.csv')
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+    setShowExportModal(false)
+  }
 
   return (
     <>

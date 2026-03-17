@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 
 type TeaVariantStockItem = {
   id: number
+  tea_name: string
   packaging: string
   flush: string
   harvest_year: number
@@ -15,6 +16,7 @@ type TeaVariantStockItem = {
 export function TeaDetail() {
   const { teaId } = useParams<{ teaId: string }>()
   const [data, setData] = useState<TeaVariantStockItem[]>([])
+  const teaName = data[0]?.tea_name
   const [groupBy, setGroupBy] = useState<
     'flush' | 'packaging' | 'harvest_year'
   >('packaging')
@@ -41,6 +43,7 @@ export function TeaDetail() {
 
   return (
     <>
+      <div>{teaName}</div>
       <button
         onClick={() => setGroupBy('packaging')}
         className={`px-4 py-2 m-1 rounded ${groupBy === 'packaging' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}

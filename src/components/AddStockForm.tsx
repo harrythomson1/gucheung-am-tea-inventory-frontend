@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { getTeas } from '../api/tea'
+import { getTeas, getTeaStock } from '../api/tea'
 import type { SubmitHandler } from 'react-hook-form'
 import type { AddTransactionData } from '../types/transaction'
 import { postHarvestTransaction } from '../api/transaction'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import type { Tea } from '../types/tea'
+import type { Variant } from '../types/variant'
 
 type AddStockInputs = Omit<AddTransactionData, 'transaction_type'>
 const PACKAGING_TYPES = ['silver', 'wing', 'gift', 'standard', 'mixed']
@@ -26,6 +27,7 @@ export function AddStockForm() {
   const [selectedQuantityChange, setSelectedQuantityChange] = useState<
     number | null
   >(null)
+  const [variants, setVariants] = useState<Variant[]>([])
   const currentYear = new Date().getFullYear()
   const HARVEST_YEARS = [currentYear, currentYear - 1, currentYear - 2]
   const {
@@ -37,11 +39,26 @@ export function AddStockForm() {
 
   const handleTeaSelect = async (teaId: number) => {
     setSelectedTeaId(teaId)
+    const data = await getTeaStock(teaId)
+    setVariants(data)
     setSelectedHarvestYear(null)
     setSelectedPackaging(null)
     setSelectedFlush(null)
     setSelectedWeight(null)
   }
+
+  const suggestedWeights = [
+    ...new Set(
+      variants
+        .filter(
+          (v) =>
+            v.packaging === selectedPackaging &&
+            v.flush === selectedFlush &&
+            v.harvest_year === selectedHarvestYear
+        )
+        .map((v) => v.weight_grams)
+    ),
+  ]
 
   useEffect(() => {
     getTeas().then((response) => setTeas(response))
@@ -135,27 +152,23 @@ export function AddStockForm() {
           ))}
         </div>
       )}
-      {selectedHarvestYear && (
-        <div>
-          <input
-            type="number"
-            placeholder="Weight"
-            {...register('weight_grams', {
-              onChange: (e) => {
-                setSelectedWeight(Number(e.target.value))
-              },
-              required: true,
-              valueAsNumber: true,
-              validate: (value) => {
-                const weight = Number(value)
-                if (isNaN(weight) || weight <= 0)
-                  return 'Please enter a valid weight'
-                return true
-              },
-            })}
-          />
-        </div>
-      )}
+      {selectedHarvestYear &&
+        suggestedWeights.map((weight) => (
+          <div>
+            <button
+              key={weight}
+              className={`px-4 py-2 m-1 rounded ${selectedWeight === weight ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+              type="button"
+              onClick={() => {
+                setSelectedWeight(weight)
+                setSelectedQuantityChange(null)
+                setValue('weight_grams', weight)
+              }}
+            >
+              {weight}
+            </button>
+          </div>
+        ))}
       {selectedWeight && (
         <div>
           <input

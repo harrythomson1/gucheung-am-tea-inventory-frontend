@@ -31,18 +31,24 @@ export function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input
-        defaultValue="email"
-        {...register('email')}
-        className="border border-black"
-      />
-      <input
-        defaultValue="password"
-        {...register('password', { required: true })}
-        className="border border-black"
-      />
-      {errors.password && <span>This field is required</span>}
-      <input type="submit" />
+      <div>
+        <input
+          defaultValue="email"
+          {...register('email')}
+          className="border border-black"
+        />
+      </div>
+      <div>
+        <input
+          defaultValue="password"
+          {...register('password', { required: true })}
+          className="border border-black"
+        />
+      </div>
+      <div>
+        <input type="submit" />
+      </div>
+      <div>{errors.password && <span>This field is required</span>}</div>
     </form>
   )
 }

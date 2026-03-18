@@ -24,3 +24,11 @@ export const BUTTON_LABELS = {
   addTea: '차 추가',
   export: '내보내기',
 }
+
+export const TRANSACTION_TYPE_LABELS = {
+  harvest: '수확',
+  sale: '판매',
+  donation: '기증',
+  ceremony: '다례',
+  damaged: '손상',
+}

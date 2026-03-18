@@ -4,7 +4,11 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import type { Tea } from '../types/tea'
 import { getTeas } from '../api/tea'
-import { BUTTON_LABELS, TEA_NAMES } from '../constants/transalations'
+import {
+  BUTTON_LABELS,
+  PACKAGING_LABELS,
+  TEA_NAMES,
+} from '../constants/transalations'
 
 export type ActivityFeedType = {
   quantity_change: number
@@ -139,8 +143,10 @@ export function ActivityFeed() {
             {`${TEA_NAMES[feed.tea_name as keyof typeof TEA_NAMES] ?? feed.tea_name}`}
           </div>
           <div className="text-sm text-gray-600">
-            {feed.packaging} · {feed.weight_grams}g · {feed.flush} flush ·{' '}
-            {feed.harvest_year}
+            {PACKAGING_LABELS[
+              feed.packaging as keyof typeof PACKAGING_LABELS
+            ] ?? feed.packaging}{' '}
+            · {feed.weight_grams}g · {feed.flush} flush · {feed.harvest_year}
           </div>
           <div className="text-xs text-gray-400 mt-1">
             {feed.transaction_type} · {feed.performed_by_name} ·{' '}

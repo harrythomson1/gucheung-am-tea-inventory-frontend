@@ -52,7 +52,20 @@ export function StockChart({ chartData, onBarClick }: StockChartProps) {
             }
           />
           <YAxis />
-          <Tooltip />
+          <Tooltip
+            formatter={(value, name) => [
+              value,
+              PACKAGING_LABELS[name as keyof typeof PACKAGING_LABELS] ??
+                FLUSH_LABELS[name as keyof typeof FLUSH_LABELS] ??
+                name,
+            ]}
+            labelFormatter={(label) =>
+              TEA_NAMES[label as keyof typeof TEA_NAMES] ??
+              PACKAGING_LABELS[label as keyof typeof PACKAGING_LABELS] ??
+              FLUSH_LABELS[label as keyof typeof FLUSH_LABELS] ??
+              label
+            }
+          />
           <Legend
             formatter={(value) =>
               PACKAGING_LABELS[value as keyof typeof PACKAGING_LABELS] ??

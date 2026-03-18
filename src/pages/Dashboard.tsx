@@ -56,18 +56,19 @@ export default function Dashboard() {
 
   return (
     <>
-      {availableYears.map((year) => (
-        <button
-          key={year}
-          className={`px-4 py-2 m-1 rounded`}
-          type="button"
-          onClick={() => {
-            setSelectedYear(year)
-          }}
-        >
-          {year}
-        </button>
-      ))}
+      <select
+        value={selectedYear ?? ''}
+        onChange={(e) =>
+          setSelectedYear(e.target.value ? Number(e.target.value) : null)
+        }
+      >
+        <option value="">전체</option>
+        {availableYears.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
       <button onClick={() => setSelectedYear(null)}>{BUTTON_LABELS.all}</button>
       <StockChart
         chartData={chartData}

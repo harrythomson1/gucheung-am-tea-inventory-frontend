@@ -11,7 +11,7 @@ export default function Login() {
     <div className="bg-[#f2f2e1] min-h-screen flex flex-col">
       <div className="flex-1 flex items-center justify-center">
         <div>
-          <h1 className="text-center text-2xl font-bold">화엄구층제다</h1>
+          <h1 className="text-center text-2xl font-bold">구층암</h1>
           <h1 className="text-center text-2xl font-bold">관리 페이지</h1>
         </div>
       </div>

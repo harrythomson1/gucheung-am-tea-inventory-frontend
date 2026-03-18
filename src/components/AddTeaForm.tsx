@@ -15,9 +15,9 @@ export default function AddTeaForm() {
       <input
         value={teaName}
         onChange={(e) => setTeaName(e.target.value)}
-        placeholder="Tea name"
+        placeholder="차 이름"
       ></input>
-      <button onClick={handleSubmit}>Add Tea</button>
+      <button onClick={handleSubmit}>차 추가</button>
     </div>
   )
 }

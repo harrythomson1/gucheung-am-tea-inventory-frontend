@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { postRemovalTransaction } from '../api/transaction'
 import axios from 'axios'
+import { PACKAGING_LABELS } from '../constants/transalations'
 
 type RemoveStockInput = RemoveTransactionData
 
@@ -162,7 +163,7 @@ export function RemoveStockForm() {
                 setSelectedWeight(null)
               }}
             >
-              {packaging}
+              {PACKAGING_LABELS[packaging as keyof typeof PACKAGING_LABELS]}
             </button>
           ))}
         </div>

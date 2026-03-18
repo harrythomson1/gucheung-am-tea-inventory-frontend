@@ -228,7 +228,7 @@ export function RemoveStockForm() {
             <option value="damaged">{TRANSACTION_TYPE_LABELS.damaged}</option>
           </select>
           <input {...register('notes')} placeholder="메모" />
-          <input type="submit" />
+          <input type="submit" value="제출" />
         </>
       )}
       {errors.quantity_change && <span>{errors.quantity_change.message}</span>}

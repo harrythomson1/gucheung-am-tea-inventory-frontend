@@ -245,7 +245,7 @@ export function AddStockForm() {
       {errors.harvest_year && <span>{errors.harvest_year.message}</span>}
       {errors.weight_grams && <span>{errors.weight_grams.message}</span>}
       {errors.quantity_change && <span>{errors.quantity_change.message}</span>}
-      {selectedQuantityChange && <input type="submit" />}
+      {selectedQuantityChange && <input type="submit" value="제출" />}
     </form>
   )
 }

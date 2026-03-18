@@ -2,7 +2,7 @@ import { StockChart } from '../components/StockChart'
 import { useState, useEffect } from 'react'
 import { getTeaStock } from '../api/tea'
 import { useParams } from 'react-router-dom'
-import { BUTTON_LABELS } from '../constants/transalations'
+import { BUTTON_LABELS, TEA_NAMES } from '../constants/transalations'
 
 type TeaVariantStockItem = {
   id: number
@@ -47,7 +47,7 @@ export function TeaDetail() {
 
   return (
     <>
-      <div>{teaName}</div>
+      <div>{TEA_NAMES[teaName as keyof typeof TEA_NAMES]}</div>
       <button
         onClick={() => setGroupBy('packaging')}
         className={`px-4 py-2 m-1 rounded ${groupBy === 'packaging' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}

@@ -56,10 +56,10 @@ export function LoginForm() {
             className="border border-black rounded-md w-full"
           />
         </div>
-        <div className="bg-[#2a5034] mt-6 rounded-2xl p-1.5 shadow-md flex justify-center">
+        <div className="bg-[#2a5034] mt-6 rounded-2xl p-1.5 shadow-md flex justify-center cursor-pointer">
           <input
             type="submit"
-            className="text-white bg-transparent cursor-pointer text-center"
+            className="text-white bg-transparent cursor-pointer text-center w-full"
             value="제출"
           />
         </div>

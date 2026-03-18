@@ -24,6 +24,9 @@ export const BUTTON_LABELS = {
   addTea: '차 추가',
   export: '내보내기',
   all: '전체',
+  packaging: '포장',
+  flush: '등급',
+  year: '연도',
 }
 
 export const TRANSACTION_TYPE_LABELS = {

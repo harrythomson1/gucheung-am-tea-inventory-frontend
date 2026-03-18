@@ -2,6 +2,7 @@ import { StockChart } from '../components/StockChart'
 import { useState, useEffect } from 'react'
 import { getTeaStock } from '../api/tea'
 import { useParams } from 'react-router-dom'
+import { BUTTON_LABELS } from '../constants/transalations'
 
 type TeaVariantStockItem = {
   id: number
@@ -51,19 +52,19 @@ export function TeaDetail() {
         onClick={() => setGroupBy('packaging')}
         className={`px-4 py-2 m-1 rounded ${groupBy === 'packaging' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
       >
-        By Packaging
+        {BUTTON_LABELS.packaging}
       </button>
       <button
         onClick={() => setGroupBy('flush')}
         className={`px-4 py-2 m-1 rounded ${groupBy === 'flush' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
       >
-        By Flush
+        {BUTTON_LABELS.flush}
       </button>
       <button
         onClick={() => setGroupBy('harvest_year')}
         className={`px-4 py-2 m-1 rounded ${groupBy === 'harvest_year' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
       >
-        By Year
+        {BUTTON_LABELS.year}
       </button>
       <StockChart chartData={chartData} />
     </>

@@ -7,7 +7,11 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { FLUSH_LABELS, PACKAGING_LABELS } from '../constants/transalations'
+import {
+  FLUSH_LABELS,
+  PACKAGING_LABELS,
+  TEA_NAMES,
+} from '../constants/transalations'
 
 type StockChartProps = {
   chartData: Record<string, unknown>[]
@@ -43,6 +47,7 @@ export function StockChart({ chartData, onBarClick }: StockChartProps) {
             tickFormatter={(value) =>
               PACKAGING_LABELS[value as keyof typeof PACKAGING_LABELS] ??
               FLUSH_LABELS[value as keyof typeof FLUSH_LABELS] ??
+              TEA_NAMES[value as keyof typeof TEA_NAMES] ??
               value
             }
           />

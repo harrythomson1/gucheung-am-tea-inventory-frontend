@@ -38,7 +38,8 @@ export function LoginForm() {
         <div>
           <input
             placeholder="이메일"
-            {...register('email')}
+            {...(register('email'),
+            { required: true, onChange: () => setAuthError(null) })}
             className="border border-black rounded-md w-full"
           />
         </div>
@@ -46,7 +47,10 @@ export function LoginForm() {
           <input
             type="password"
             placeholder="비밀번호"
-            {...register('password', { required: true })}
+            {...register('password', {
+              required: true,
+              onChange: () => setAuthError(null),
+            })}
             className="border border-black rounded-md w-full"
           />
         </div>
@@ -61,6 +65,9 @@ export function LoginForm() {
       <div className="mt-2">
         {authError && <span className="text-red-500 text-sm">{authError}</span>}
         {errors.password && (
+          <span className="text-red-500 text-sm">필수 입력 항목입니다</span>
+        )}
+        {errors.email && (
           <span className="text-red-500 text-sm">필수 입력 항목입니다</span>
         )}
       </div>

@@ -206,7 +206,7 @@ export function RemoveStockForm() {
       )}
       {selectedVariant && (
         <>
-          <p>Current stock: {selectedVariant.current_stock}</p>
+          <p>현재 재고: {selectedVariant.current_stock}</p>
           <input
             type="number"
             placeholder="수량"
@@ -221,17 +221,11 @@ export function RemoveStockForm() {
               required: 'Please select a transaction reason',
             })}
           >
-            <option value="">Select reason</option>
+            <option value="">이유 선택</option>
             <option value="sale">{TRANSACTION_TYPE_LABELS.sale}</option>
-            <option value="donation">
-              {TRANSACTION_TYPE_LABELS.donation}Donation
-            </option>
-            <option value="ceremony">
-              {TRANSACTION_TYPE_LABELS.ceremony}Ceremony
-            </option>
-            <option value="damaged">
-              {TRANSACTION_TYPE_LABELS.damaged}Damaged
-            </option>
+            <option value="donation">{TRANSACTION_TYPE_LABELS.donation}</option>
+            <option value="ceremony">{TRANSACTION_TYPE_LABELS.ceremony}</option>
+            <option value="damaged">{TRANSACTION_TYPE_LABELS.damaged}</option>
           </select>
           <input {...register('notes')} placeholder="메모" />
           <input type="submit" />

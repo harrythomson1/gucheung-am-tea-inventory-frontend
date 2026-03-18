@@ -21,9 +21,11 @@ export default function Dashboard() {
     ...new Set(data.map((item) => item.harvest_year)),
   ].sort((a, b) => b - a)
 
-  const filteredData = selectedYear
-    ? data.filter((item) => item.harvest_year === selectedYear)
-    : data
+  const filteredData = (
+    selectedYear
+      ? data.filter((item) => item.harvest_year === selectedYear)
+      : data
+  ).filter((item) => item.total_stock > 0)
 
   useEffect(() => {
     getDashboard().then((response) => {

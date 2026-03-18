@@ -7,6 +7,7 @@ import { getTeas } from '../api/tea'
 import {
   BUTTON_LABELS,
   FLUSH_LABELS,
+  FORM_LABELS,
   PACKAGING_LABELS,
   TEA_NAMES,
   TRANSACTION_TYPE_LABELS,
@@ -87,7 +88,7 @@ export function ActivityFeed() {
         {showExportModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
             <div className="bg-white p-6 rounded-lg w-80">
-              <h2>Export Transactions</h2>
+              <h2>{FORM_LABELS.exportTransactions}</h2>
               <DatePicker
                 selected={startDate}
                 onChange={(date: Date | null) => setStartDate(date)}
@@ -103,12 +104,20 @@ export function ActivityFeed() {
                   value={transactionType}
                   onChange={(e) => setTransactionType(e.target.value)}
                 >
-                  <option value="">All types</option>
-                  <option value="harvest">Harvest</option>
-                  <option value="sale">Sale</option>
-                  <option value="donation">Donation</option>
-                  <option value="ceremony">Ceremony</option>
-                  <option value="damaged">Damaged</option>
+                  <option value="">{FORM_LABELS.transactionSelect}</option>
+                  <option value="harvest">
+                    {TRANSACTION_TYPE_LABELS.harvest}
+                  </option>
+                  <option value="sale">{TRANSACTION_TYPE_LABELS.sale}</option>
+                  <option value="donation">
+                    {TRANSACTION_TYPE_LABELS.donation}
+                  </option>
+                  <option value="ceremony">
+                    {TRANSACTION_TYPE_LABELS.ceremony}
+                  </option>
+                  <option value="damaged">
+                    {TRANSACTION_TYPE_LABELS.damaged}
+                  </option>
                 </select>
               </div>
               <div>
@@ -118,7 +127,7 @@ export function ActivityFeed() {
                     setTea(e.target.value ? Number(e.target.value) : '')
                   }
                 >
-                  <option value="">All teas</option>
+                  <option value="">{FORM_LABELS.allOptions}</option>
                   {teas.map((tea_data) => (
                     <option key={tea_data.id} value={tea_data.id}>
                       {tea_data.name}
@@ -126,8 +135,10 @@ export function ActivityFeed() {
                   ))}
                 </select>
               </div>
-              <button onClick={() => setShowExportModal(false)}>Cancel</button>
-              <button onClick={handleExport}>Download</button>
+              <button onClick={() => setShowExportModal(false)}>
+                {FORM_LABELS.cancel}
+              </button>
+              <button onClick={handleExport}>{FORM_LABELS.download}</button>
             </div>
           </div>
         )}

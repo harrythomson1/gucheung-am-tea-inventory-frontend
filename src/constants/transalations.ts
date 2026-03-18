@@ -33,3 +33,11 @@ export const TRANSACTION_TYPE_LABELS = {
   ceremony: '다례',
   damaged: '손상',
 }
+
+export const FORM_LABELS = {
+  transactionSelect: '이유 선택',
+  allOptions: '전체',
+  exportTransactions: '거래 내보내기',
+  cancel: '취소',
+  download: '다운로드',
+}

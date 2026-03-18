@@ -10,6 +10,7 @@ import { postRemovalTransaction } from '../api/transaction'
 import axios from 'axios'
 import {
   FLUSH_LABELS,
+  FORM_LABELS,
   PACKAGING_LABELS,
   TEA_NAMES,
   TRANSACTION_TYPE_LABELS,
@@ -221,7 +222,7 @@ export function RemoveStockForm() {
               required: 'Please select a transaction reason',
             })}
           >
-            <option value="">이유 선택</option>
+            <option value="">{FORM_LABELS.transactionSelect}</option>
             <option value="sale">{TRANSACTION_TYPE_LABELS.sale}</option>
             <option value="donation">{TRANSACTION_TYPE_LABELS.donation}</option>
             <option value="ceremony">{TRANSACTION_TYPE_LABELS.ceremony}</option>

@@ -23,6 +23,7 @@ export const BUTTON_LABELS = {
   removeStock: '재고 제거',
   addTea: '차 추가',
   export: '내보내기',
+  all: '전체',
 }
 
 export const TRANSACTION_TYPE_LABELS = {

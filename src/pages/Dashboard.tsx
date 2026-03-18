@@ -68,7 +68,7 @@ export default function Dashboard() {
           {year}
         </button>
       ))}
-      <button onClick={() => setSelectedYear(null)}>All</button>
+      <button onClick={() => setSelectedYear(null)}>{BUTTON_LABELS.all}</button>
       <StockChart
         chartData={chartData}
         onBarClick={(id) => navigate(`/teas/${id}`)}

@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 import { supabase } from '../lib/subabase'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 type Inputs = {
   email: string
@@ -10,6 +11,7 @@ type Inputs = {
 
 export function LoginForm() {
   const navigate = useNavigate()
+  const [authError, setAuthError] = useState<string | null>(null)
 
   const {
     register,
@@ -24,6 +26,7 @@ export function LoginForm() {
     })
     if (error) {
       console.error(error.message)
+      setAuthError('이메일 또는 비밀번호가 올바르지 않습니다')
     } else {
       navigate('/dashboard', { replace: true })
     }
@@ -53,7 +56,15 @@ export function LoginForm() {
             value="제출"
           />
         </div>
-        <div>{errors.password && <span>This field is required</span>}</div>
+        <div>
+          {authError && (
+            <span className="text-red-500 text-sm">{authError}</span>
+          )}
+
+          {errors.password && (
+            <span className="text-red-500 text-sm">This field is required</span>
+          )}
+        </div>
       </div>
     </form>
   )

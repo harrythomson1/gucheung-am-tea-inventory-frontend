@@ -40,4 +40,6 @@ export const FORM_LABELS = {
   exportTransactions: '거래 내보내기',
   cancel: '취소',
   download: '다운로드',
+  startDate: '시작 날짜',
+  endDate: '종료 날짜',
 }

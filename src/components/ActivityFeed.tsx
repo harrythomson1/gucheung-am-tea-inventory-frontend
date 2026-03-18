@@ -92,12 +92,12 @@ export function ActivityFeed() {
               <DatePicker
                 selected={startDate}
                 onChange={(date: Date | null) => setStartDate(date)}
-                placeholderText="Start date"
+                placeholderText={FORM_LABELS.startDate}
               />
               <DatePicker
                 selected={endDate}
                 onChange={(date: Date | null) => setEndDate(date)}
-                placeholderText="End date"
+                placeholderText={FORM_LABELS.endDate}
               />
               <div>
                 <select

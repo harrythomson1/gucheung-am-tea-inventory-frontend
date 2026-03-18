@@ -11,6 +11,6 @@ export const getTeaStock = async (teaId: number) => {
 }
 
 export const addTea = async (teaName: string) => {
-  const response = await api.post('/teas', teaName)
+  const response = await api.post('/teas', { name: teaName })
   return response.data
 }

@@ -33,38 +33,35 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="w-72">
       <div className="space-y-2">
         <div>
           <input
             placeholder="이메일"
             {...register('email')}
-            className="border border-black rounded-md"
+            className="border border-black rounded-md w-full"
           />
         </div>
         <div>
           <input
             placeholder="비밀번호"
             {...register('password', { required: true })}
-            className="border border-black rounded-md"
+            className="border border-black rounded-md w-full"
           />
         </div>
         <div className="bg-[#2a5034] mt-6 rounded-2xl p-1.5 shadow-md flex justify-center">
           <input
             type="submit"
-            className="text-white bg-transparent cursor-pointer w-full text-center"
+            className="text-white bg-transparent cursor-pointer text-center"
             value="제출"
           />
         </div>
-        <div>
-          {authError && (
-            <span className="text-red-500 text-sm">{authError}</span>
-          )}
-
-          {errors.password && (
-            <span className="text-red-500 text-sm">This field is required</span>
-          )}
-        </div>
+      </div>
+      <div className="mt-2">
+        {authError && <span className="text-red-500 text-sm">{authError}</span>}
+        {errors.password && (
+          <span className="text-red-500 text-sm">This field is required</span>
+        )}
       </div>
     </form>
   )

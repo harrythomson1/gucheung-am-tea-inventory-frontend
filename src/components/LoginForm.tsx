@@ -44,6 +44,7 @@ export function LoginForm() {
         </div>
         <div>
           <input
+            type="password"
             placeholder="비밀번호"
             {...register('password', { required: true })}
             className="border border-black rounded-md w-full"

@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import type { Tea } from '../types/tea'
 import { getTeas } from '../api/tea'
-import { BUTTON_LABELS } from '../constants/transalations'
+import { BUTTON_LABELS, TEA_NAMES } from '../constants/transalations'
 
 export type ActivityFeedType = {
   quantity_change: number
@@ -135,7 +135,8 @@ export function ActivityFeed() {
             className={`font-bold text-lg ${feed.quantity_change > 0 ? 'text-green-600' : 'text-red-600'}`}
           >
             {feed.quantity_change > 0 ? '+' : ''}
-            {feed.quantity_change} {feed.tea_name}
+            {feed.quantity_change}{' '}
+            {`${TEA_NAMES[feed.tea_name as keyof typeof TEA_NAMES] ?? feed.tea_name}`}
           </div>
           <div className="text-sm text-gray-600">
             {feed.packaging} · {feed.weight_grams}g · {feed.flush} flush ·{' '}

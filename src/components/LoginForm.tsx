@@ -45,8 +45,11 @@ export function LoginForm() {
           className="border border-black"
         />
       </div>
-      <div>
-        <input type="submit" />
+      <div className="bg-[#2a5034] mt-4 rounded-2xl p-1.5 shadow-md flex justify-center">
+        <input
+          type="submit"
+          className="text-white bg-transparent cursor-pointer w-full text-center"
+        />
       </div>
       <div>{errors.password && <span>This field is required</span>}</div>
     </form>

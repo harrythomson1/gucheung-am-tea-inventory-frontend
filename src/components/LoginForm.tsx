@@ -34,7 +34,7 @@ export function LoginForm() {
       <div className="space-y-2">
         <div>
           <input
-            defaultValue="이메일"
+            placeholder="이메일"
             {...register('email')}
             className="border border-black rounded-md"
           />

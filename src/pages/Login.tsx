@@ -8,8 +8,10 @@ export default function Login() {
   if (session) return <Navigate to="/dashboard" replace />
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <LoginForm />
+    <div className="bg-[#f2f2e1] min-h-screen">
+      <div className="flex items-center justify-center min-h-screen">
+        <LoginForm />
+      </div>
     </div>
   )
 }

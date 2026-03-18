@@ -60,7 +60,7 @@ export function LoginForm() {
       <div className="mt-2">
         {authError && <span className="text-red-500 text-sm">{authError}</span>}
         {errors.password && (
-          <span className="text-red-500 text-sm">This field is required</span>
+          <span className="text-red-500 text-sm">필수 입력 항목입니다</span>
         )}
       </div>
     </form>

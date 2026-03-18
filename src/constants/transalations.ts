@@ -17,3 +17,10 @@ export const TEA_NAMES = {
   '청차 (Cheongcha)': '청차',
   '발효차 (Fermented Tea)': '발효차',
 }
+
+export const BUTTONS = {
+  add_stock: '재고 추가',
+  remove_stock: '재고 제거',
+  add_tea: '차 추가',
+  export: '내보내기',
+}

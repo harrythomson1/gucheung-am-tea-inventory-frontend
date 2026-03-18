@@ -189,7 +189,7 @@ export function AddStockForm() {
               {showCustomWeight && (
                 <input
                   type="number"
-                  placeholder="Weight (g)"
+                  placeholder="무게 (g)"
                   {...register('weight_grams', {
                     onChange: (e) => setSelectedWeight(Number(e.target.value)),
                     required: true,
@@ -203,7 +203,7 @@ export function AddStockForm() {
           ) : (
             <input
               type="number"
-              placeholder="Weight (g)"
+              placeholder="무게 (g)"
               {...register('weight_grams', {
                 onChange: (e) => setSelectedWeight(Number(e.target.value)),
                 required: true,
@@ -218,7 +218,7 @@ export function AddStockForm() {
         <div>
           <input
             type="number"
-            placeholder="Quantity"
+            placeholder="수량"
             {...register('quantity_change', {
               onChange: (e) =>
                 setSelectedQuantityChange(Number(e.target.value)),
@@ -236,7 +236,7 @@ export function AddStockForm() {
       )}
       {selectedQuantityChange && (
         <div>
-          <input {...register('notes')} />
+          <input {...register('notes')} placeholder="수량" />
         </div>
       )}
       {errors.tea_id && <span>Tea name is required</span>}

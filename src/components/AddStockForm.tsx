@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import type { Tea } from '../types/tea'
 import type { Variant } from '../types/variant'
+import { PACKAGING_LABELS } from '../constants/transalations'
 
 type AddStockInputs = Omit<AddTransactionData, 'transaction_type'>
 const PACKAGING_TYPES = ['silver', 'wing', 'gift', 'standard', 'mixed']
@@ -109,7 +110,7 @@ export function AddStockForm() {
                 setValue('packaging', packaging)
               }}
             >
-              {packaging}
+              {PACKAGING_LABELS[packaging as keyof typeof PACKAGING_LABELS]}
             </button>
           ))}
         </div>

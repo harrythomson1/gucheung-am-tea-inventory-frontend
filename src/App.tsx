@@ -6,6 +6,7 @@ import AddStock from './pages/AddStock'
 import RemoveStock from './pages/RemoveStock'
 import { AuthProvider } from './context/AuthProvider'
 import { TeaDetail } from './pages/TeaDetail'
+import AddTea from './pages/AddTea'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/add-stock" element={<AddStock />} />
           <Route path="/remove-stock" element={<RemoveStock />} />
+          <Route path="/add-tea" element={<AddTea />} />
           <Route path="/teas/:teaId" element={<TeaDetail />} />
         </Route>
       </Routes>

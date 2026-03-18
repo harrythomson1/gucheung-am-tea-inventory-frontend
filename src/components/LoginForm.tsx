@@ -33,14 +33,14 @@ export function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <input
-          defaultValue="email"
+          defaultValue="이메일"
           {...register('email')}
           className="border border-black"
         />
       </div>
       <div>
         <input
-          defaultValue="password"
+          placeholder="비밀번호"
           {...register('password', { required: true })}
           className="border border-black"
         />
@@ -49,6 +49,7 @@ export function LoginForm() {
         <input
           type="submit"
           className="text-white bg-transparent cursor-pointer w-full text-center"
+          value="제출"
         />
       </div>
       <div>{errors.password && <span>This field is required</span>}</div>

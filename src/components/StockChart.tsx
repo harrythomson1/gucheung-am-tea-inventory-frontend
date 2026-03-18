@@ -7,6 +7,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import { PACKAGING_LABELS } from '../constants/transalations'
 
 type StockChartProps = {
   chartData: Record<string, unknown>[]
@@ -40,7 +41,11 @@ export function StockChart({ chartData, onBarClick }: StockChartProps) {
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          <Legend />
+          <Legend
+            formatter={(value) =>
+              PACKAGING_LABELS[value as keyof typeof PACKAGING_LABELS] ?? value
+            }
+          />
           {barKeys.map((key, index) => (
             <Bar
               key={key}

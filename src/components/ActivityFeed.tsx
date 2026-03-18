@@ -6,6 +6,7 @@ import type { Tea } from '../types/tea'
 import { getTeas } from '../api/tea'
 import {
   BUTTON_LABELS,
+  FLUSH_LABELS,
   PACKAGING_LABELS,
   TEA_NAMES,
 } from '../constants/transalations'
@@ -146,7 +147,10 @@ export function ActivityFeed() {
             {PACKAGING_LABELS[
               feed.packaging as keyof typeof PACKAGING_LABELS
             ] ?? feed.packaging}{' '}
-            · {feed.weight_grams}g · {feed.flush} flush · {feed.harvest_year}
+            · {feed.weight_grams}g ·{' '}
+            {FLUSH_LABELS[feed.flush as keyof typeof FLUSH_LABELS] ??
+              feed.flush}{' '}
+            · {feed.harvest_year}
           </div>
           <div className="text-xs text-gray-400 mt-1">
             {feed.transaction_type} · {feed.performed_by_name} ·{' '}

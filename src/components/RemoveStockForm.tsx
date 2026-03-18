@@ -233,6 +233,7 @@ export function RemoveStockForm() {
               {TRANSACTION_TYPE_LABELS.damaged}Damaged
             </option>
           </select>
+          <input {...register('notes')} placeholder="메모" />
           <input type="submit" />
         </>
       )}

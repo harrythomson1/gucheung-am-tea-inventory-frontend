@@ -19,8 +19,8 @@ export const TEA_NAMES = {
 }
 
 export const BUTTON_LABELS = {
-  add_stock: '재고 추가',
-  remove_stock: '재고 제거',
-  add_tea: '차 추가',
+  addStock: '재고 추가',
+  removeStock: '재고 제거',
+  addTea: '차 추가',
   export: '내보내기',
 }

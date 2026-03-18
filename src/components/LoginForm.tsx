@@ -38,8 +38,10 @@ export function LoginForm() {
         <div>
           <input
             placeholder="이메일"
-            {...(register('email'),
-            { required: true, onChange: () => setAuthError(null) })}
+            {...register('email', {
+              required: true,
+              onChange: () => setAuthError(null),
+            })}
             className="border border-black rounded-md w-full"
           />
         </div>

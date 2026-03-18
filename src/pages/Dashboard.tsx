@@ -3,6 +3,7 @@ import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
+import { BUTTON_LABELS } from '../constants/transalations'
 
 type DashboardItem = {
   id: number
@@ -76,19 +77,19 @@ export default function Dashboard() {
         onClick={() => navigate('/add-stock')}
         className="bg-gray-200 px-4 py-2 m-1 rounded"
       >
-        Add stock
+        {BUTTON_LABELS.addStock}
       </button>
       <button
         onClick={() => navigate('/remove-stock')}
         className="bg-gray-200 px-4 py-2 m-1 rounded"
       >
-        Remove stock
+        {BUTTON_LABELS.removeStock}
       </button>
       <button
         onClick={() => navigate('/add-tea')}
         className="bg-gray-200 px-4 py-2 m-1 rounded"
       >
-        Add tea
+        {BUTTON_LABELS.addTea}
       </button>
       <ActivityFeed />
     </>

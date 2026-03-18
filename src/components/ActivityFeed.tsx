@@ -9,6 +9,7 @@ import {
   FLUSH_LABELS,
   PACKAGING_LABELS,
   TEA_NAMES,
+  TRANSACTION_TYPE_LABELS,
 } from '../constants/transalations'
 
 export type ActivityFeedType = {
@@ -153,8 +154,10 @@ export function ActivityFeed() {
             · {feed.harvest_year}
           </div>
           <div className="text-xs text-gray-400 mt-1">
-            {feed.transaction_type} · {feed.performed_by_name} ·{' '}
-            {timeAgo(feed.created_at)}
+            {TRANSACTION_TYPE_LABELS[
+              feed.transaction_type as keyof typeof TRANSACTION_TYPE_LABELS
+            ] ?? feed.transaction_type}{' '}
+            · {feed.performed_by_name} · {timeAgo(feed.created_at)}
           </div>
         </div>
       ))}

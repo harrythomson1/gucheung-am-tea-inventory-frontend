@@ -18,7 +18,7 @@ export const TEA_NAMES = {
   '발효차 (Fermented Tea)': '발효차',
 }
 
-export const BUTTONS = {
+export const BUTTON_LABELS = {
   add_stock: '재고 추가',
   remove_stock: '재고 제거',
   add_tea: '차 추가',

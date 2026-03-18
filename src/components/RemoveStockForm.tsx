@@ -8,7 +8,12 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { postRemovalTransaction } from '../api/transaction'
 import axios from 'axios'
-import { PACKAGING_LABELS } from '../constants/transalations'
+import {
+  FLUSH_LABELS,
+  PACKAGING_LABELS,
+  TEA_NAMES,
+  TRANSACTION_TYPE_LABELS,
+} from '../constants/transalations'
 
 type RemoveStockInput = RemoveTransactionData
 
@@ -127,7 +132,7 @@ export function RemoveStockForm() {
             type="button"
             onClick={() => handleTeaSelect(tea.id)}
           >
-            {tea.name}
+            {TEA_NAMES[tea.name as keyof typeof TEA_NAMES] ?? tea.name}
           </button>
         ))}
       </div>
@@ -180,7 +185,7 @@ export function RemoveStockForm() {
                 setSelectedWeight(null)
               }}
             >
-              {flush}
+              {FLUSH_LABELS[flush as keyof typeof FLUSH_LABELS]}
             </button>
           ))}
         </div>
@@ -204,6 +209,7 @@ export function RemoveStockForm() {
           <p>Current stock: {selectedVariant.current_stock}</p>
           <input
             type="number"
+            placeholder="수량"
             {...register('quantity_change', {
               required: 'Please enter a quantity',
               valueAsNumber: true,
@@ -216,10 +222,16 @@ export function RemoveStockForm() {
             })}
           >
             <option value="">Select reason</option>
-            <option value="sale">Sale</option>
-            <option value="donation">Donation</option>
-            <option value="ceremony">Ceremony</option>
-            <option value="damaged">Damaged</option>
+            <option value="sale">{TRANSACTION_TYPE_LABELS.sale}</option>
+            <option value="donation">
+              {TRANSACTION_TYPE_LABELS.donation}Donation
+            </option>
+            <option value="ceremony">
+              {TRANSACTION_TYPE_LABELS.ceremony}Ceremony
+            </option>
+            <option value="damaged">
+              {TRANSACTION_TYPE_LABELS.damaged}Damaged
+            </option>
           </select>
           <input type="submit" />
         </>

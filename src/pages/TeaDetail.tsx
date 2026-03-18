@@ -20,6 +20,7 @@ export function TeaDetail() {
   const [groupBy, setGroupBy] = useState<
     'flush' | 'packaging' | 'harvest_year'
   >('packaging')
+  const stackBy = groupBy === 'packaging' ? 'flush' : 'packaging'
   useEffect(() => {
     const id = Number(teaId)
     getTeaStock(id).then((response) => {
@@ -32,9 +33,11 @@ export function TeaDetail() {
       const key = String(item[groupBy])
       const existing = acc.find((t) => t.name === key)
       if (existing) {
-        existing[item.packaging] = item.current_stock
+        const stackKey = String(item[stackBy])
+        existing[stackKey] =
+          ((existing[stackKey] as number) || 0) + item.current_stock
       } else {
-        acc.push({ name: key, [item.packaging]: item.current_stock })
+        acc.push({ name: key, [String(item[stackBy])]: item.current_stock })
       }
       return acc
     },

@@ -13,7 +13,16 @@ type StockChartProps = {
   onBarClick?: (teaId: number) => void
 }
 
+const COLOURS = ['#94a3b8', '#60a5fa', '#f472b6', '#4ade80', '#fb923c']
+
 export function StockChart({ chartData, onBarClick }: StockChartProps) {
+  const barKeys = [
+    ...new Set(
+      chartData.flatMap((d) =>
+        Object.keys(d).filter((k) => k !== 'name' && k !== 'id')
+      )
+    ),
+  ]
   return (
     <div>
       <ResponsiveContainer width="100%" height={300}>
@@ -32,10 +41,14 @@ export function StockChart({ chartData, onBarClick }: StockChartProps) {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="silver" stackId="a" fill="#94a3b8" />
-          <Bar dataKey="wing" stackId="a" fill="#60a5fa" />
-          <Bar dataKey="gift" stackId="a" fill="#f472b6" />
-          <Bar dataKey="standard" stackId="a" fill="#4ade80" />
+          {barKeys.map((key, index) => (
+            <Bar
+              key={key}
+              dataKey={key}
+              stackId="a"
+              fill={COLOURS[index % COLOURS.length]}
+            />
+          ))}
         </BarChart>
       </ResponsiveContainer>
     </div>

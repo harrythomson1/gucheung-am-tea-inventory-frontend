@@ -35,7 +35,7 @@ export default function Dashboard() {
     })
   }, [])
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <div>로딩 중...</div>
 
   const chartData = filteredData.reduce(
     (acc, item) => {

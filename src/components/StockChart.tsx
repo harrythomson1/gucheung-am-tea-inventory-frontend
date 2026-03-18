@@ -38,7 +38,14 @@ export function StockChart({ chartData, onBarClick }: StockChartProps) {
             }
           }}
         >
-          <XAxis dataKey="name" />
+          <XAxis
+            dataKey="name"
+            tickFormatter={(value) =>
+              PACKAGING_LABELS[value as keyof typeof PACKAGING_LABELS] ??
+              FLUSH_LABELS[value as keyof typeof FLUSH_LABELS] ??
+              value
+            }
+          />
           <YAxis />
           <Tooltip />
           <Legend

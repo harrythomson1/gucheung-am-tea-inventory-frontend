@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import type { Tea } from '../types/tea'
 import { getTeas } from '../api/tea'
+import { BUTTON_LABELS } from '../constants/transalations'
 
 export type ActivityFeedType = {
   quantity_change: number
@@ -75,7 +76,7 @@ export function ActivityFeed() {
           onClick={() => setShowExportModal(true)}
           className="cursor-pointer px-4 py-2 m-1 rounded bg-gray-200"
         >
-          Export
+          {BUTTON_LABELS.export}
         </button>
         {showExportModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center">

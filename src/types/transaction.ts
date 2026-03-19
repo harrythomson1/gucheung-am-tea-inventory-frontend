@@ -13,8 +13,6 @@ export type RemoveTransactionData = {
   transaction_type: string
   tea_variant_id: number
   quantity_change: number
-  buyer_name?: string
-  buyer_phone?: string
   sales_channel?: string
   notes?: string
 }

@@ -4,6 +4,7 @@ import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
 import { BUTTON_LABELS } from '../constants/transalations'
+import { CustomerSearch } from '../components/CustomerSearch'
 
 type DashboardItem = {
   id: number
@@ -93,6 +94,7 @@ export default function Dashboard() {
         {BUTTON_LABELS.addTea}
       </button>
       <ActivityFeed />
+      <CustomerSearch />
     </>
   )
 }

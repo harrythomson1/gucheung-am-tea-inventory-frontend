@@ -29,11 +29,10 @@ export function CustomerSearch({ onSelect }: CustomerSearchProps) {
       ></input>
       {results.map((result) => (
         <div
-          className={`px-4 py-2 m-1 rounded w-fit 'bg-gray-200'}`}
+          className={`px-4 py-2 m-1 rounded w-fit 'bg-gray-200'`}
           key={result.id}
         >
           <button
-            key={result.id}
             type="button"
             onClick={() => {
               onSelect(result)

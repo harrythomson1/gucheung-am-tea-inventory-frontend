@@ -16,7 +16,7 @@ export function AddCustomerModal({
   const [address, setAddress] = useState<string>('')
   const [phone, setPhone] = useState<string>('')
   const [notes, setNote] = useState<string>('')
-  const [error, setError] = useState<string | null>('')
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async () => {
     if (!name.trim()) {

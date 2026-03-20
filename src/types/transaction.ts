@@ -15,4 +15,5 @@ export type RemoveTransactionData = {
   quantity_change: number
   sales_channel?: string
   notes?: string
+  customer_id: number
 }

@@ -233,7 +233,9 @@ export function RemoveStockForm() {
             <option value="ceremony">{TRANSACTION_TYPE_LABELS.ceremony}</option>
             <option value="damaged">{TRANSACTION_TYPE_LABELS.damaged}</option>
           </select>
-          {selectedTransactionType === 'sale' && <CustomerSearch />}
+          {selectedTransactionType === 'sale' && (
+            <CustomerSearch onSelect={(id) => setValue('customer_id', id)} />
+          )}
           <input {...register('notes')} placeholder="메모" />
           <input type="submit" value="제출" />
         </>

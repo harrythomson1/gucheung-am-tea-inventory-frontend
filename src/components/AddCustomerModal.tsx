@@ -16,8 +16,18 @@ export function AddCustomerModal({
   const [address, setAddress] = useState<string>('')
   const [phone, setPhone] = useState<string>('')
   const [notes, setNote] = useState<string>('')
+  const [error, setError] = useState<string | null>('')
 
   const handleSubmit = async () => {
+    if (!name.trim()) {
+      setError('이름을 입력해주세요')
+      return
+    }
+    if (!city.trim()) {
+      setError('도시를 입력해주세요')
+      return
+    }
+    setError(null)
     const customer = await createCustomer({
       name,
       city,
@@ -58,6 +68,7 @@ export function AddCustomerModal({
           <button onClick={() => handleSubmit()} type="button">
             Submit
           </button>
+          {error && <span className="text-red-500 text-sm">{error}</span>}
         </div>
       </div>
     </>

@@ -1,10 +1,20 @@
 import type { CreateCustomerData } from '../types/customer'
 import api from './api'
 
-export const searchCustomers = async (search: string) => {
-  const response = await api.get(
-    `/customers?search=${encodeURIComponent(search)}`
-  )
+export const getCustomers = async ({
+  skip = 0,
+  limit = 20,
+  search,
+}: {
+  skip?: number
+  limit?: number
+  search?: string
+} = {}) => {
+  const params = new URLSearchParams()
+  params.append('skip', String(skip))
+  params.append('limit', String(limit))
+  if (search) params.append('search', search)
+  const response = await api.get(`/customers?${params.toString()}`)
   return response.data
 }
 

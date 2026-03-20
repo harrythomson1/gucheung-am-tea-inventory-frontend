@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { searchCustomers } from '../api/customers'
+import { getCustomers } from '../api/customers'
 import type { Customer } from '../types/customer'
 
 type CustomerSearchProps = {
@@ -17,7 +17,7 @@ export function CustomerSearch({ onSelect }: CustomerSearchProps) {
       return
     }
     const timer = setTimeout(() => {
-      searchCustomers(search).then((response) => setResults(response))
+      getCustomers({ search: search }).then((response) => setResults(response))
     }, 300)
     return () => clearTimeout(timer)
   }, [search])

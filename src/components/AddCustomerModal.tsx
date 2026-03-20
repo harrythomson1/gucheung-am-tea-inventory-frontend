@@ -49,7 +49,9 @@ export function AddCustomerModal({ onClose }: AddCustomerModalProps) {
               onChange={(e) => setNote(e.target.value)}
             ></input>
           </div>
-          <button onClick={() => handleSubmit()}>Submit</button>
+          <button onClick={() => handleSubmit()} type="button">
+            Submit
+          </button>
         </div>
       </div>
     </>

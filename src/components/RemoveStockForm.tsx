@@ -15,6 +15,7 @@ import {
   TEA_NAMES,
   TRANSACTION_TYPE_LABELS,
 } from '../constants/transalations'
+import { CustomerSearch } from './CustomerSearch'
 
 type RemoveStockInput = RemoveTransactionData
 
@@ -31,6 +32,9 @@ export function RemoveStockForm() {
   const [selectedHarvestYear, setSelectedHarvestYear] = useState<number | null>(
     null
   )
+  const [selectedTransactionType, setSelectedTransactionType] = useState<
+    string | null
+  >(null)
   const [stockError, setStockError] = useState<string | null>(null)
 
   const {
@@ -220,6 +224,7 @@ export function RemoveStockForm() {
           <select
             {...register('transaction_type', {
               required: 'Please select a transaction reason',
+              onChange: (e) => setSelectedTransactionType(e.target.value),
             })}
           >
             <option value="">{FORM_LABELS.transactionSelect}</option>
@@ -228,6 +233,7 @@ export function RemoveStockForm() {
             <option value="ceremony">{TRANSACTION_TYPE_LABELS.ceremony}</option>
             <option value="damaged">{TRANSACTION_TYPE_LABELS.damaged}</option>
           </select>
+          {selectedTransactionType === 'sale' && <CustomerSearch />}
           <input {...register('notes')} placeholder="메모" />
           <input type="submit" value="제출" />
         </>

@@ -76,25 +76,25 @@ export default function Dashboard() {
       />
       <button
         onClick={() => navigate('/add-stock')}
-        className="bg-gray-200 px-4 py-2 m-1 rounded"
+        className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
       >
         {BUTTON_LABELS.addStock}
       </button>
       <button
         onClick={() => navigate('/remove-stock')}
-        className="bg-gray-200 px-4 py-2 m-1 rounded"
+        className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
       >
         {BUTTON_LABELS.removeStock}
       </button>
       <button
         onClick={() => navigate('/add-tea')}
-        className="bg-gray-200 px-4 py-2 m-1 rounded"
+        className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
       >
         {BUTTON_LABELS.addTea}
       </button>
       <button
         onClick={() => navigate('/customers')}
-        className="bg-gray-200 px-4 py-2 m-1 rounded"
+        className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
       >
         {BUTTON_LABELS.viewCustomers}
       </button>

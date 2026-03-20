@@ -23,7 +23,10 @@ export function CustomerSearch({ onSelect }: CustomerSearchProps) {
   }, [search])
   return (
     <div>
-      <input onChange={(e) => setSearch(e.target.value)}></input>
+      <input
+        placeholder="고객 검색"
+        onChange={(e) => setSearch(e.target.value)}
+      ></input>
       {results.map((result) => (
         <div
           className={`px-4 py-2 m-1 rounded w-fit 'bg-gray-200'}`}

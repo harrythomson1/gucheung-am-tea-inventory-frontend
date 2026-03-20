@@ -241,6 +241,7 @@ export function RemoveStockForm() {
           {selectedTransactionType === 'sale' && (
             <CustomerSearch onSelect={(id) => setValue('customer_id', id)} />
           )}
+          <input type="hidden" {...register('customer_id')} />
           <input {...register('notes')} placeholder="메모" />
           <input type="submit" value="제출" />
         </>

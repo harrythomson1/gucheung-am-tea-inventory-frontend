@@ -7,7 +7,7 @@ import RemoveStock from './pages/RemoveStock'
 import { AuthProvider } from './context/AuthProvider'
 import { TeaDetail } from './pages/TeaDetail'
 import AddTea from './pages/AddTea'
-import { Customers } from './pages/Cusomers'
+import { Customers } from './pages/Customers'
 
 function App() {
   return (

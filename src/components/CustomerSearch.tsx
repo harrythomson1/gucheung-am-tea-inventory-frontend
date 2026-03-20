@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react'
 import { searchCustomers } from '../api/customers'
 import type { Customer } from '../types/customer'
 
-export function CustomerSearch() {
+type CustomerSearchProps = {
+  onSelect: (customerId: number) => void
+}
+
+export function CustomerSearch({ onSelect }: CustomerSearchProps) {
   const [search, setSearch] = useState<string>('')
   const [results, setResults] = useState<Customer[]>([])
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
@@ -33,6 +37,7 @@ export function CustomerSearch() {
             type="button"
             onClick={() => {
               setSelectedCustomer(result)
+              onSelect(result.id)
             }}
           >
             {result.name} - {result.city} - {result.phone}

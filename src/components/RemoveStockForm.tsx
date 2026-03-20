@@ -16,6 +16,7 @@ import {
   TRANSACTION_TYPE_LABELS,
 } from '../constants/transalations'
 import { CustomerSearch } from './CustomerSearch'
+import { AddCustomerModal } from './AddCustomerModal'
 
 type RemoveStockInput = RemoveTransactionData
 
@@ -36,6 +37,7 @@ export function RemoveStockForm() {
     string | null
   >(null)
   const [stockError, setStockError] = useState<string | null>(null)
+  const [showAddCustomerModal, setShowAddCustomerModal] = useState(false)
 
   const {
     register,
@@ -241,6 +243,12 @@ export function RemoveStockForm() {
           {selectedTransactionType === 'sale' && (
             <CustomerSearch onSelect={(id) => setValue('customer_id', id)} />
           )}
+          {showAddCustomerModal && (
+            <AddCustomerModal onClose={() => setShowAddCustomerModal(false)} />
+          )}
+          <button type="button" onClick={() => setShowAddCustomerModal(true)}>
+            새 고객 추가
+          </button>
           <input type="hidden" {...register('customer_id')} />
           <input {...register('notes')} placeholder="메모" />
           <input type="submit" value="제출" />

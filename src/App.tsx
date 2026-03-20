@@ -8,6 +8,7 @@ import { AuthProvider } from './context/AuthProvider'
 import { TeaDetail } from './pages/TeaDetail'
 import AddTea from './pages/AddTea'
 import { Customers } from './pages/Customers'
+import { CustomerDetail } from './pages/CustomerDetail'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/add-tea" element={<AddTea />} />
           <Route path="/teas/:teaId" element={<TeaDetail />} />
           <Route path="/customers" element={<Customers />} />
+          <Route path="/customers/:customerId" element={<CustomerDetail />} />
         </Route>
       </Routes>
     </AuthProvider>

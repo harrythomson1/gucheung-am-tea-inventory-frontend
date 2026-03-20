@@ -5,6 +5,9 @@ import type { Customer } from '../types/customer'
 export function CustomerSearch() {
   const [search, setSearch] = useState<string>('')
   const [results, setResults] = useState<Customer[]>([])
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
+    null
+  )
 
   useEffect(() => {
     if (!search) {
@@ -21,11 +24,16 @@ export function CustomerSearch() {
     <div>
       <input onChange={(e) => setSearch(e.target.value)}></input>
       {results.map((result) => (
-        <div>
+        <div
+          className={`px-4 py-2 m-1 rounded w-fit ${selectedCustomer?.id === result.id ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          key={result.id}
+        >
           <button
             key={result.id}
             type="button"
-            onClick={() => console.log('clicked')}
+            onClick={() => {
+              setSelectedCustomer(result)
+            }}
           >
             {result.name} - {result.city} - {result.phone}
           </button>

@@ -244,18 +244,28 @@ export function RemoveStockForm() {
             <option value="ceremony">{TRANSACTION_TYPE_LABELS.ceremony}</option>
             <option value="damaged">{TRANSACTION_TYPE_LABELS.damaged}</option>
           </select>
-          {selectedCustomer && (
-            <div className="px-4 py-2 m-1 rounded w-fit bg-blue-500 text-white">
-              {selectedCustomer.name} - {selectedCustomer.city}
-            </div>
-          )}
           {selectedTransactionType === 'sale' && (
-            <CustomerSearch
-              onSelect={(customer) => {
-                setValue('customer_id', customer.id)
-                setSelectedCustomer(customer)
-              }}
-            />
+            <div>
+              {selectedCustomer ? (
+                <button
+                  type="button"
+                  className="px-4 py-2 m-1 rounded bg-blue-500 text-white"
+                  onClick={() => {
+                    setSelectedCustomer(null)
+                    setValue('customer_id', undefined)
+                  }}
+                >
+                  {selectedCustomer.name} - {selectedCustomer.city}
+                </button>
+              ) : (
+                <CustomerSearch
+                  onSelect={(customer) => {
+                    setValue('customer_id', customer.id)
+                    setSelectedCustomer(customer)
+                  }}
+                />
+              )}
+            </div>
           )}
           {showAddCustomerModal && (
             <AddCustomerModal

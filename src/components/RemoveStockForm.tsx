@@ -265,6 +265,12 @@ export function RemoveStockForm() {
                   }}
                 />
               )}
+              <button
+                type="button"
+                onClick={() => setShowAddCustomerModal(true)}
+              >
+                새 고객 추가
+              </button>
             </div>
           )}
           {showAddCustomerModal && (
@@ -276,9 +282,6 @@ export function RemoveStockForm() {
               }}
             />
           )}
-          <button type="button" onClick={() => setShowAddCustomerModal(true)}>
-            새 고객 추가
-          </button>
           <input type="hidden" {...register('customer_id')} />
           <input {...register('notes')} placeholder="메모" />
           <input type="submit" value="제출" />

@@ -17,6 +17,7 @@ import {
 } from '../constants/transalations'
 import { CustomerSearch } from './CustomerSearch'
 import { AddCustomerModal } from './AddCustomerModal'
+import type { Customer } from '../types/customer'
 
 type RemoveStockInput = RemoveTransactionData
 
@@ -38,6 +39,9 @@ export function RemoveStockForm() {
   >(null)
   const [stockError, setStockError] = useState<string | null>(null)
   const [showAddCustomerModal, setShowAddCustomerModal] = useState(false)
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
+    null
+  )
 
   const {
     register,
@@ -240,11 +244,27 @@ export function RemoveStockForm() {
             <option value="ceremony">{TRANSACTION_TYPE_LABELS.ceremony}</option>
             <option value="damaged">{TRANSACTION_TYPE_LABELS.damaged}</option>
           </select>
+          {selectedCustomer && (
+            <div className="px-4 py-2 m-1 rounded w-fit bg-blue-500 text-white">
+              {selectedCustomer.name} - {selectedCustomer.city}
+            </div>
+          )}
           {selectedTransactionType === 'sale' && (
-            <CustomerSearch onSelect={(id) => setValue('customer_id', id)} />
+            <CustomerSearch
+              onSelect={(customer) => {
+                setValue('customer_id', customer.id)
+                setSelectedCustomer(customer)
+              }}
+            />
           )}
           {showAddCustomerModal && (
-            <AddCustomerModal onClose={() => setShowAddCustomerModal(false)} />
+            <AddCustomerModal
+              onClose={() => setShowAddCustomerModal(false)}
+              onCustomerCreated={(customer) => {
+                setSelectedCustomer(customer)
+                setValue('customer_id', customer.id)
+              }}
+            />
           )}
           <button type="button" onClick={() => setShowAddCustomerModal(true)}>
             새 고객 추가

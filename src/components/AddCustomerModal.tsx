@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import { createCustomer } from '../api/customers'
+import type { Customer } from '../types/customer'
 
 type AddCustomerModalProps = {
   onClose: () => void
+  onCustomerCreated: (customer: Customer) => void
 }
 
-export function AddCustomerModal({ onClose }: AddCustomerModalProps) {
+export function AddCustomerModal({
+  onClose,
+  onCustomerCreated,
+}: AddCustomerModalProps) {
   const [name, setName] = useState<string>('')
   const [city, setCity] = useState<string>('')
   const [address, setAddress] = useState<string>('')
@@ -13,13 +18,14 @@ export function AddCustomerModal({ onClose }: AddCustomerModalProps) {
   const [notes, setNote] = useState<string>('')
 
   const handleSubmit = async () => {
-    await createCustomer({
+    const customer = await createCustomer({
       name,
       city,
       address: address || undefined,
       phone: phone || undefined,
       notes: notes || undefined,
     })
+    onCustomerCreated(customer)
     onClose()
   }
   return (

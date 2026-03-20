@@ -3,7 +3,7 @@ import { searchCustomers } from '../api/customers'
 import type { Customer } from '../types/customer'
 
 type CustomerSearchProps = {
-  onSelect: (customerId: number) => void
+  onSelect: (customer: Customer) => void
 }
 
 export function CustomerSearch({ onSelect }: CustomerSearchProps) {
@@ -37,7 +37,7 @@ export function CustomerSearch({ onSelect }: CustomerSearchProps) {
             type="button"
             onClick={() => {
               setSelectedCustomer(result)
-              onSelect(result.id)
+              onSelect(result)
             }}
           >
             {result.name} - {result.city} - {result.phone}

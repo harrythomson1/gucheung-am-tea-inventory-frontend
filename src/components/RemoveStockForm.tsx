@@ -224,7 +224,12 @@ export function RemoveStockForm() {
           <select
             {...register('transaction_type', {
               required: 'Please select a transaction reason',
-              onChange: (e) => setSelectedTransactionType(e.target.value),
+              onChange: (e) => {
+                setSelectedTransactionType(e.target.value)
+                if (e.target.value !== 'sale') {
+                  setValue('customer_id', undefined)
+                }
+              },
             })}
           >
             <option value="">{FORM_LABELS.transactionSelect}</option>

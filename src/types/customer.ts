@@ -12,5 +12,5 @@ export type CreateCustomerData = {
   city: string
   address?: string
   phone?: string
-  notes?: string
+  note?: string
 }

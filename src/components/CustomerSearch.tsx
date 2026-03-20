@@ -21,13 +21,15 @@ export function CustomerSearch() {
     <div>
       <input onChange={(e) => setSearch(e.target.value)}></input>
       {results.map((result) => (
-        <button
-          key={result.id}
-          type="button"
-          onClick={() => console.log('clicked')}
-        >
-          {result.name} - {result.city} - {result.phone}
-        </button>
+        <div>
+          <button
+            key={result.id}
+            type="button"
+            onClick={() => console.log('clicked')}
+          >
+            {result.name} - {result.city} - {result.phone}
+          </button>
+        </div>
       ))}
     </div>
   )

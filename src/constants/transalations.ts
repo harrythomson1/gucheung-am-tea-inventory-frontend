@@ -27,6 +27,7 @@ export const BUTTON_LABELS = {
   packaging: '포장',
   flush: '등급',
   year: '연도',
+  viewCustomers: '고객 관리',
 }
 
 export const TRANSACTION_TYPE_LABELS = {

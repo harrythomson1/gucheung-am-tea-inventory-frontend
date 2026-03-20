@@ -92,6 +92,12 @@ export default function Dashboard() {
       >
         {BUTTON_LABELS.addTea}
       </button>
+      <button
+        onClick={() => navigate('/customers')}
+        className="bg-gray-200 px-4 py-2 m-1 rounded"
+      >
+        {BUTTON_LABELS.viewCustomers}
+      </button>
       <ActivityFeed />
     </>
   )

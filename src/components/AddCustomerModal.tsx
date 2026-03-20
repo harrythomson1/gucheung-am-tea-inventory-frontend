@@ -10,7 +10,7 @@ export function AddCustomerModal({ onClose }: AddCustomerModalProps) {
   const [city, setCity] = useState<string>('')
   const [address, setAddress] = useState<string>('')
   const [phone, setPhone] = useState<string>('')
-  const [note, setNote] = useState<string>('')
+  const [notes, setNote] = useState<string>('')
 
   const handleSubmit = async () => {
     await createCustomer({
@@ -18,7 +18,7 @@ export function AddCustomerModal({ onClose }: AddCustomerModalProps) {
       city,
       address: address || undefined,
       phone: phone || undefined,
-      note: note || undefined,
+      notes: notes || undefined,
     })
     onClose()
   }
@@ -45,7 +45,7 @@ export function AddCustomerModal({ onClose }: AddCustomerModalProps) {
               onChange={(e) => setPhone(e.target.value)}
             ></input>
             <input
-              placeholder="Note"
+              placeholder="Notes"
               onChange={(e) => setNote(e.target.value)}
             ></input>
           </div>

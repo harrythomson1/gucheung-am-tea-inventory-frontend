@@ -32,6 +32,7 @@ export function Customers() {
         <div
           key={customer.id}
           onClick={() => navigate(`/customers/${customer.id}`)}
+          className="cursor-pointer w-fit"
         >
           {customer.name} - {customer.city}
         </div>

@@ -68,6 +68,9 @@ export function AddCustomerModal({
           <button onClick={() => handleSubmit()} type="button">
             Submit
           </button>
+          <button onClick={() => onClose()} type="button">
+            Cancel
+          </button>
           {error && <span className="text-red-500 text-sm">{error}</span>}
         </div>
       </div>

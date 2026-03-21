@@ -14,6 +14,7 @@ import {
   TRANSACTION_TYPE_LABELS,
 } from '../constants/transalations'
 import { timeAgo } from '../utils/time'
+import { UpdateCustomerModal } from '../components/UpdateCustomerModal'
 
 export function CustomerDetail() {
   const { customerId } = useParams<{ customerId: string }>()
@@ -22,6 +23,7 @@ export function CustomerDetail() {
   const [editingNotes, setEditingNotes] = useState(false)
   const [noteInput, setNoteInput] = useState(customerData?.notes ?? '')
   const [refreshCount, setRefreshCount] = useState<number>(0)
+  const [showUpdateModal, setShowUpdateModal] = useState(false)
 
   useEffect(() => {
     getCustomerWithId(Number(customerId)).then((response) => {
@@ -90,6 +92,16 @@ export function CustomerDetail() {
           </>
         ) : (
           <button onClick={() => setEditingNotes(true)}>Add note</button>
+        )}
+        <button onClick={() => setShowUpdateModal(true)}>
+          Update customer
+        </button>
+        {showUpdateModal && (
+          <UpdateCustomerModal
+            onClose={() => setShowUpdateModal(false)}
+            onCustomerUpdated={() => setRefreshCount((c) => c + 1)}
+            currentCustomer={customerData}
+          />
         )}
       </div>
     </div>

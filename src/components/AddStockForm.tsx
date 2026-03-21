@@ -60,7 +60,8 @@ export function AddStockForm() {
           (v) =>
             v.packaging === selectedPackaging &&
             v.flush === selectedFlush &&
-            v.harvest_year === selectedHarvestYear
+            v.harvest_year === selectedHarvestYear &&
+            v.current_stock > 0
         )
         .map((v) => v.weight_grams)
     ),

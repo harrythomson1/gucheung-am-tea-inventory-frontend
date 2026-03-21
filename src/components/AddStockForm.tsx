@@ -237,7 +237,7 @@ export function AddStockForm() {
       )}
       {selectedQuantityChange && (
         <div>
-          <input {...register('notes')} placeholder="수량" />
+          <input {...register('notes')} placeholder="메모" />
         </div>
       )}
       {errors.tea_id && <span>Tea name is required</span>}

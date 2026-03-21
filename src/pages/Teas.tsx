@@ -1,5 +1,5 @@
 import AddTeaModal from '../components/AddTeaModal'
 
-export default function AddTea() {
+export default function Teas() {
   return <AddTeaModal />
 }

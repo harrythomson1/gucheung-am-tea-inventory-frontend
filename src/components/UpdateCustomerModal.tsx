@@ -45,12 +45,12 @@ export function UpdateCustomerModal({
               onChange={(e) => setCity(e.target.value)}
             ></input>
             <input
-              value={currentCustomer.address}
+              value={currentCustomer.address || ''}
               placeholder="Address"
               onChange={(e) => setAddress(e.target.value)}
             ></input>
             <input
-              value={currentCustomer.phone}
+              value={currentCustomer.phone || ''}
               placeholder="Phone"
               onChange={(e) => setPhone(e.target.value)}
             ></input>

@@ -244,7 +244,9 @@ export function RemoveStockForm() {
             <option value="ceremony">{TRANSACTION_TYPE_LABELS.ceremony}</option>
             <option value="damaged">{TRANSACTION_TYPE_LABELS.damaged}</option>
           </select>
-          {selectedTransactionType === 'sale' && (
+          {(selectedTransactionType === 'sale' ||
+            selectedTransactionType === 'donation' ||
+            selectedTransactionType === 'ceremony') && (
             <div>
               {selectedCustomer ? (
                 <button

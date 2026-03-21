@@ -27,7 +27,7 @@ export default function Teas() {
           </button>
         </div>
       ))}
-      <AddTeaModal />
+      <AddTeaModal onTeaAdded={() => getTeas().then(setTeas)} />
     </>
   )
 }

@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { addTea } from '../api/tea'
-import { useNavigate } from 'react-router-dom'
 
-export default function AddTeaModal() {
+type AddTeaModalType = {
+  onTeaAdded: () => void
+}
+
+export default function AddTeaModal({ onTeaAdded }: AddTeaModalType) {
   const [teaName, setTeaName] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
-  const navigate = useNavigate()
 
   const handleSubmit = async () => {
     if (!teaName.trim()) {
@@ -14,7 +16,7 @@ export default function AddTeaModal() {
     }
     setError(null)
     await addTea(teaName)
-    navigate('/')
+    onTeaAdded()
   }
 
   return (

@@ -16,7 +16,15 @@ export default function Teas() {
       {teas.map((tea) => (
         <div key={tea.id}>
           {tea.name}{' '}
-          <button onClick={() => softDeleteTea(tea.id)}>Delete tea</button>
+          <button
+            onClick={() => {
+              softDeleteTea(tea.id).then(() => {
+                setTeas(teas.filter((t) => t.id !== tea.id))
+              })
+            }}
+          >
+            Delete tea
+          </button>
         </div>
       ))}
       <AddTeaModal />

@@ -21,12 +21,13 @@ export function CustomerDetail() {
   const [transactionData, setTransactionData] = useState<ActivityFeedType[]>([])
   const [editingNotes, setEditingNotes] = useState(false)
   const [noteInput, setNoteInput] = useState(customerData?.notes ?? '')
+  const [refreshCount, setRefreshCount] = useState<number>(0)
 
   useEffect(() => {
     getCustomerWithId(Number(customerId)).then((response) => {
       setCustomerData(response)
     })
-  }, [customerId])
+  }, [customerId, refreshCount])
 
   useEffect(() => {
     getTransactionsWithCustomerId(Number(customerId)).then((response) => {
@@ -38,6 +39,7 @@ export function CustomerDetail() {
     await updateCustomer(customerData!.id, { notes: noteInput })
     setEditingNotes(false)
     setNoteInput('')
+    setRefreshCount((c) => c + 1)
   }
 
   if (!customerData) return <div>로딩 중...</div>

@@ -35,22 +35,22 @@ export function UpdateCustomerModal({
           <div>EditCustomerModal</div>
           <div>
             <input
-              value={currentCustomer.name}
+              value={name}
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
             ></input>
             <input
-              value={currentCustomer.city}
+              value={city}
               placeholder="City"
               onChange={(e) => setCity(e.target.value)}
             ></input>
             <input
-              value={currentCustomer.address || ''}
+              value={address || ''}
               placeholder="Address"
               onChange={(e) => setAddress(e.target.value)}
             ></input>
             <input
-              value={currentCustomer.phone || ''}
+              value={phone || ''}
               placeholder="Phone"
               onChange={(e) => setPhone(e.target.value)}
             ></input>

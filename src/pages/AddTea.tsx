@@ -1,5 +1,5 @@
-import AddTeaForm from '../components/AddTeaModal'
+import AddTeaModal from '../components/AddTeaModal'
 
 export default function AddTea() {
-  return <AddTeaForm />
+  return <AddTeaModal />
 }

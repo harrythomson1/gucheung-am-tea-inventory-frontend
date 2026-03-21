@@ -5,7 +5,6 @@ import type { Customer, UpdateCustomerData } from '../types/customer'
 type UpdateCustomerModalProps = {
   onClose: () => void
   onCustomerUpdated: (customer: UpdateCustomerData) => void
-  customerId: number
   currentCustomer: Customer
 }
 

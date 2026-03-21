@@ -87,7 +87,7 @@ export default function Dashboard() {
         {BUTTON_LABELS.removeStock}
       </button>
       <button
-        onClick={() => navigate('/add-tea')}
+        onClick={() => navigate('/teas')}
         className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
       >
         {BUTTON_LABELS.addTea}

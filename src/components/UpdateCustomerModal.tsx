@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { updateCustomer } from '../api/customers'
-import type { Customer, UpdateCustomerData } from '../types/customer'
+import type { Customer } from '../types/customer'
 
 type UpdateCustomerModalProps = {
   onClose: () => void
-  onCustomerUpdated: (customer: UpdateCustomerData) => void
+  onCustomerUpdated: () => void
   currentCustomer: Customer
 }
 
@@ -19,13 +19,13 @@ export function UpdateCustomerModal({
   const [phone, setPhone] = useState<string>(currentCustomer.phone ?? '')
 
   const handleSubmit = async () => {
-    const customer = await updateCustomer(currentCustomer.id, {
+    await updateCustomer(currentCustomer.id, {
       name: name || undefined,
       city: city || undefined,
       address: address || undefined,
       phone: phone || undefined,
     })
-    onCustomerUpdated(customer)
+    onCustomerUpdated()
     onClose()
   }
   return (

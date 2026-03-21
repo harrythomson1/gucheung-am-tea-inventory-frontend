@@ -3,6 +3,7 @@ import type { Customer } from '../types/customer'
 import {
   getCustomerWithId,
   getTransactionsWithCustomerId,
+  updateCustomer,
 } from '../api/customers'
 import { useParams } from 'react-router-dom'
 import type { ActivityFeedType } from '../types/transaction'
@@ -19,6 +20,7 @@ export function CustomerDetail() {
   const [customerData, setCustomerData] = useState<Customer | null>(null)
   const [transactionData, setTransactionData] = useState<ActivityFeedType[]>([])
   const [editingNotes, setEditingNotes] = useState(false)
+  const [noteInput, setNoteInput] = useState(customerData?.notes ?? '')
 
   useEffect(() => {
     getCustomerWithId(Number(customerId)).then((response) => {
@@ -31,6 +33,12 @@ export function CustomerDetail() {
       setTransactionData(response)
     })
   }, [customerId])
+
+  const handleNoteInput = async () => {
+    await updateCustomer(customerData!.id, { notes: noteInput })
+    setEditingNotes(false)
+    setNoteInput('')
+  }
 
   if (!customerData) return <div>로딩 중...</div>
 
@@ -70,8 +78,8 @@ export function CustomerDetail() {
         ))}
         {editingNotes ? (
           <>
-            <input type="text" />
-            <button onClick={() => setEditingNotes(false)}>Save note</button>
+            <input onChange={(e) => setNoteInput(e.target.value)} type="text" />
+            <button onClick={() => handleNoteInput()}>Save note</button>
           </>
         ) : customerData.notes ? (
           <>

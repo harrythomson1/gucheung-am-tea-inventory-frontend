@@ -18,6 +18,7 @@ export function CustomerDetail() {
   const { customerId } = useParams<{ customerId: string }>()
   const [customerData, setCustomerData] = useState<Customer | null>(null)
   const [transactionData, setTransactionData] = useState<ActivityFeedType[]>([])
+  const [editingNotes, setEditingNotes] = useState(false)
 
   useEffect(() => {
     getCustomerWithId(Number(customerId)).then((response) => {
@@ -67,13 +68,18 @@ export function CustomerDetail() {
             </div>
           </div>
         ))}
-        {customerData.notes ? (
+        {editingNotes ? (
+          <>
+            <input type="text" />
+            <button onClick={() => setEditingNotes(false)}>Save note</button>
+          </>
+        ) : customerData.notes ? (
           <>
             <div>{customerData.notes}</div>
-            <button>Edit note</button>
+            <button onClick={() => setEditingNotes(true)}>Edit note</button>
           </>
         ) : (
-          <button>Add note</button>
+          <button onClick={() => setEditingNotes(true)}>Add note</button>
         )}
       </div>
     </div>

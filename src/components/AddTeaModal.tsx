@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { addTea } from '../api/tea'
 import { useNavigate } from 'react-router-dom'
 
-export default function AddTeaForm() {
+export default function AddTeaModal() {
   const [teaName, setTeaName] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()

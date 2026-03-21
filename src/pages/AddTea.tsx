@@ -1,4 +1,4 @@
-import AddTeaForm from '../components/AddTeaForm'
+import AddTeaForm from '../components/AddTeaModal'
 
 export default function AddTea() {
   return <AddTeaForm />

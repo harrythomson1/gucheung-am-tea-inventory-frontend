@@ -12,7 +12,6 @@ type UpdateCustomerModalProps = {
 export function UpdateCustomerModal({
   onClose,
   onCustomerUpdated,
-  customerId,
   currentCustomer,
 }: UpdateCustomerModalProps) {
   const [name, setName] = useState<string>(currentCustomer.name)
@@ -21,7 +20,7 @@ export function UpdateCustomerModal({
   const [phone, setPhone] = useState<string>(currentCustomer.phone ?? '')
 
   const handleSubmit = async () => {
-    const customer = await updateCustomer(customerId, {
+    const customer = await updateCustomer(currentCustomer.id, {
       name: name || undefined,
       city: city || undefined,
       address: address || undefined,

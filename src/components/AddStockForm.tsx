@@ -14,7 +14,7 @@ import {
 } from '../constants/transalations'
 
 type AddStockInputs = Omit<AddTransactionData, 'transaction_type'>
-const PACKAGING_TYPES = ['silver', 'wing', 'gift', 'standard', 'mixed']
+const PACKAGING_TYPES = ['silver', 'wing', 'gift']
 const FLUSH_TYPES = ['first', 'second', 'mixed']
 
 export function AddStockForm() {

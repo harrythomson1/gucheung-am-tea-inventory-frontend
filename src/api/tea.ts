@@ -14,3 +14,7 @@ export const addTea = async (teaName: string) => {
   const response = await api.post('/teas', { name: teaName })
   return response.data
 }
+
+export const softDeleteTea = async (teaId: number) => {
+  await api.delete(`/teas/${teaId}`)
+}

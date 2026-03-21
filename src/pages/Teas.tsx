@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import AddTeaModal from '../components/AddTeaModal'
 import type { Tea } from '../types/tea'
-import { getTeas } from '../api/tea'
+import { getTeas, softDeleteTea } from '../api/tea'
 
 export default function Teas() {
   const [teas, setTeas] = useState<Tea[]>([])
@@ -14,7 +14,10 @@ export default function Teas() {
   return (
     <>
       {teas.map((tea) => (
-        <div key={tea.id}>{tea.name}</div>
+        <div key={tea.id}>
+          {tea.name}{' '}
+          <button onClick={() => softDeleteTea(tea.id)}>Delete tea</button>
+        </div>
       ))}
       <AddTeaModal />
     </>

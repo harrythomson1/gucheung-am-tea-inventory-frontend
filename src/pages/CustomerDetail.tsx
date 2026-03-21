@@ -67,6 +67,14 @@ export function CustomerDetail() {
             </div>
           </div>
         ))}
+        {customerData.notes ? (
+          <>
+            <div>{customerData.notes}</div>
+            <button>Edit note</button>
+          </>
+        ) : (
+          <button>Add note</button>
+        )}
       </div>
     </div>
   )

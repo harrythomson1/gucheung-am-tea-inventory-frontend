@@ -1,4 +1,4 @@
-import type { CreateCustomerData } from '../types/customer'
+import type { CreateCustomerData, UpdateCustomerData } from '../types/customer'
 import api from './api'
 
 export const getCustomers = async ({
@@ -30,5 +30,10 @@ export const getCustomerWithId = async (customerId: number) => {
 
 export const getTransactionsWithCustomerId = async (customerId: number) => {
   const response = await api.get(`customers/${customerId}/transactions`)
+  return response.data
+}
+
+export const updateCustomer = async (id: number, data: UpdateCustomerData) => {
+  const response = await api.patch(`/customers/${id}`, data)
   return response.data
 }

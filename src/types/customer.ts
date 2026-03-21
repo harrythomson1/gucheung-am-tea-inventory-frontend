@@ -14,3 +14,11 @@ export type CreateCustomerData = {
   phone?: string
   notes?: string
 }
+
+export type UpdateCustomerData = {
+  name?: string
+  city?: string
+  address?: string
+  phone?: string
+  notes?: string
+}

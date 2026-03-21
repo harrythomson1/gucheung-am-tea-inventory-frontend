@@ -36,24 +36,26 @@ export function UpdateCustomerModal({
         <div className="bg-white p-6 rounded-lg w-80">
           <div>EditCustomerModal</div>
           <div>
-            <input placeholder="Name" onChange={(e) => setName(e.target.value)}>
-              {currentCustomer.name}
-            </input>
-            <input placeholder="City" onChange={(e) => setCity(e.target.value)}>
-              {currentCustomer.city}
-            </input>
             <input
+              value={currentCustomer.name}
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+            ></input>
+            <input
+              value={currentCustomer.city}
+              placeholder="City"
+              onChange={(e) => setCity(e.target.value)}
+            ></input>
+            <input
+              value={currentCustomer.address}
               placeholder="Address"
               onChange={(e) => setAddress(e.target.value)}
-            >
-              {currentCustomer.address}
-            </input>
+            ></input>
             <input
+              value={currentCustomer.phone}
               placeholder="Phone"
               onChange={(e) => setPhone(e.target.value)}
-            >
-              {currentCustomer.phone}
-            </input>
+            ></input>
           </div>
           <button onClick={() => handleSubmit()} type="button">
             Submit

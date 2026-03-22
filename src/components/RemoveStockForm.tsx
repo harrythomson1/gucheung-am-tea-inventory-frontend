@@ -8,13 +8,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { postRemovalTransaction } from '../api/transaction'
 import axios from 'axios'
-import {
-  FLUSH_LABELS,
-  FORM_LABELS,
-  PACKAGING_LABELS,
-  TEA_NAMES,
-  TRANSACTION_TYPE_LABELS,
-} from '../constants/translations'
+import { TEA_NAMES, t } from '../constants/translations'
 import { CustomerSearch } from './CustomerSearch'
 import { AddCustomerModal } from './AddCustomerModal'
 import type { Customer } from '../types/customer'
@@ -179,7 +173,7 @@ export function RemoveStockForm() {
                 setSelectedWeight(null)
               }}
             >
-              {PACKAGING_LABELS[packaging as keyof typeof PACKAGING_LABELS]}
+              {t(packaging)}
             </button>
           ))}
         </div>
@@ -196,7 +190,7 @@ export function RemoveStockForm() {
                 setSelectedWeight(null)
               }}
             >
-              {FLUSH_LABELS[flush as keyof typeof FLUSH_LABELS]}
+              {t(flush)}
             </button>
           ))}
         </div>
@@ -217,19 +211,21 @@ export function RemoveStockForm() {
       )}
       {selectedVariant && (
         <>
-          <p>현재 재고: {selectedVariant.current_stock}</p>
+          <p>
+            {t('currentStock')} {selectedVariant.current_stock}
+          </p>
           <input
             type="number"
-            placeholder="수량"
+            placeholder={t('quantityPlaceholder')}
             {...register('quantity_change', {
-              required: 'Please enter a quantity',
+              required: t('quantityRequired'),
               valueAsNumber: true,
-              validate: (value) => value > 0 || 'Must be greater than 0',
+              validate: (value) => value > 0 || t('quantityPositive'),
             })}
           />
           <select
             {...register('transaction_type', {
-              required: 'Please select a transaction reason',
+              required: t('transactionRequired'),
               onChange: (e) => {
                 setSelectedTransactionType(e.target.value)
                 if (e.target.value !== 'sale') {
@@ -238,11 +234,11 @@ export function RemoveStockForm() {
               },
             })}
           >
-            <option value="">{FORM_LABELS.transactionSelect}</option>
-            <option value="sale">{TRANSACTION_TYPE_LABELS.sale}</option>
-            <option value="donation">{TRANSACTION_TYPE_LABELS.donation}</option>
-            <option value="ceremony">{TRANSACTION_TYPE_LABELS.ceremony}</option>
-            <option value="damaged">{TRANSACTION_TYPE_LABELS.damaged}</option>
+            <option value="">{t('transactionSelect')}</option>
+            <option value="sale">{t('sale')}</option>
+            <option value="donation">{t('donation')}</option>
+            <option value="ceremony">{t('ceremony')}</option>
+            <option value="damaged">{t('damaged')}</option>
           </select>
           {(selectedTransactionType === 'sale' ||
             selectedTransactionType === 'donation' ||
@@ -271,7 +267,7 @@ export function RemoveStockForm() {
                 type="button"
                 onClick={() => setShowAddCustomerModal(true)}
               >
-                새 고객 추가
+                {t('addNewCustomer')}
               </button>
             </div>
           )}
@@ -285,8 +281,8 @@ export function RemoveStockForm() {
             />
           )}
           <input type="hidden" {...register('customer_id')} />
-          <input {...register('notes')} placeholder="메모" />
-          <input type="submit" value="제출" />
+          <input {...register('notes')} placeholder={t('notesPlaceholder')} />
+          <input type="submit" value={t('submitButton')} />
         </>
       )}
       {errors.quantity_change && <span>{errors.quantity_change.message}</span>}

@@ -16,24 +16,6 @@ export const BUTTON_LABELS = {
   viewCustomers: '고객 관리',
 }
 
-export const TRANSACTION_TYPE_LABELS = {
-  harvest: '수확',
-  sale: '판매',
-  donation: '기증',
-  ceremony: '다례',
-  damaged: '손상',
-}
-
-export const FORM_LABELS = {
-  transactionSelect: '이유 선택',
-  allOptions: '전체',
-  exportTransactions: '거래 내보내기',
-  cancel: '취소',
-  download: '다운로드',
-  startDate: '시작 날짜',
-  endDate: '종료 날짜',
-}
-
 export const LANGUAGE = 'ko'
 
 export const t = (key: string): string => {
@@ -71,6 +53,24 @@ export const TRANSLATIONS = {
     first: '첫물',
     second: '두물',
     mixed: '혼합',
+    currentStock: '현재 재고:',
+    quantityRequired: '수량을 입력해주세요',
+    quantityPositive: '0보다 커야 합니다',
+    transactionRequired: '거래 이유를 선택해주세요',
+    addNewCustomer: '새 고객 추가',
+    insufficientStock: '재고가 부족합니다',
+    harvest: '수확',
+    sale: '판매',
+    donation: '선물',
+    ceremony: '행사',
+    damaged: '파손',
+    transactionSelect: '이유 선택',
+    allOptions: '전체',
+    exportTransactions: '거래 내보내기',
+    cancel: '취소',
+    download: '다운로드',
+    startDate: '시작 날짜',
+    endDate: '종료 날짜',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -102,5 +102,23 @@ export const TRANSLATIONS = {
     first: 'First',
     second: 'Second',
     mixed: 'Mixed',
+    currentStock: 'Current stock:',
+    quantityRequired: 'Please enter a quantity',
+    quantityPositive: 'Must be greater than 0',
+    transactionRequired: 'Please select a transaction reason',
+    addNewCustomer: 'Add new customer',
+    insufficientStock: 'Insufficient stock',
+    harvest: 'Harvest',
+    sale: 'Sale',
+    donation: 'Donation',
+    ceremony: 'Ceremony',
+    damaged: 'Damaged',
+    transactionSelect: 'Transaction',
+    allOptions: 'All',
+    exportTransactions: 'Export transactions',
+    cancel: 'Cancel',
+    download: 'Download',
+    startDate: 'Start date',
+    endDate: 'End date',
   },
 }

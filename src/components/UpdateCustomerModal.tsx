@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { updateCustomer } from '../api/customers'
 import type { Customer } from '../types/customer'
+import { t } from '../constants/translations'
 
 type UpdateCustomerModalProps = {
   onClose: () => void
@@ -32,34 +33,34 @@ export function UpdateCustomerModal({
     <>
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
         <div className="bg-white p-6 rounded-lg w-80">
-          <div>EditCustomerModal</div>
+          <div>{t('editCustomerTitle')}</div>
           <div>
             <input
               value={name}
-              placeholder="Name"
+              placeholder={t('namePlaceholder')}
               onChange={(e) => setName(e.target.value)}
             ></input>
             <input
               value={city}
-              placeholder="City"
+              placeholder={t('cityPlaceholder')}
               onChange={(e) => setCity(e.target.value)}
             ></input>
             <input
               value={address || ''}
-              placeholder="Address"
+              placeholder={t('addressPlaceholder')}
               onChange={(e) => setAddress(e.target.value)}
             ></input>
             <input
               value={phone || ''}
-              placeholder="Phone"
+              placeholder={t('phonePlaceholder')}
               onChange={(e) => setPhone(e.target.value)}
             ></input>
           </div>
           <button onClick={() => handleSubmit()} type="button">
-            Submit
+            {t('submitButton')}
           </button>
           <button onClick={() => onClose()} type="button">
-            Cancel
+            {t('cancel')}
           </button>
         </div>
       </div>

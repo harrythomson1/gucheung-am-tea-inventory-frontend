@@ -92,6 +92,7 @@ export const TRANSLATIONS = {
     phonePlaceholder: '전화번호',
     nameRequired: '이름을 입력해주세요',
     cityRequired: '도시를 입력해주세요',
+    editCustomerTitle: '고객 정보 수정',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -162,5 +163,6 @@ export const TRANSLATIONS = {
     phonePlaceholder: 'Phone',
     nameRequired: 'Please enter a name',
     cityRequired: 'Please enter a city',
+    editCustomerTitle: 'Edit Customer',
   },
 }

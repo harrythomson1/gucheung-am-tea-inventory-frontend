@@ -3,14 +3,20 @@ import { getCustomers } from '../api/customers'
 import type { Customer } from '../types/customer'
 import { useNavigate } from 'react-router-dom'
 import { t } from '../constants/translations'
+import { AddCustomerModal } from '../components/AddCustomerModal'
 
 export function Customers() {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [customers, setCustomers] = useState<Customer[]>([])
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
+  const [showAddCustomerModal, setShowAddCustomerModal] = useState(false)
   const skip = (currentPage - 1) * 20
   const navigate = useNavigate()
+
+  const handleCustomerCreated = (customer: Customer) => {
+    navigate(`/customers/${customer.id}`)
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(search), 300)
@@ -53,6 +59,22 @@ export function Customers() {
         >
           {t('previousPage')}
         </button>
+      )}
+      <div>
+        <button
+          className="cursor-pointer"
+          onClick={() => setShowAddCustomerModal(true)}
+        >
+          Add a new customer
+        </button>
+      </div>
+      {showAddCustomerModal && (
+        <div>
+          <AddCustomerModal
+            onClose={() => setShowAddCustomerModal(false)}
+            onCustomerCreated={(customer) => handleCustomerCreated(customer)}
+          />
+        </div>
       )}
     </div>
   )

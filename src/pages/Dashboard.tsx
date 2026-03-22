@@ -3,7 +3,7 @@ import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
-import { TRANSLATIONS, LANGUAGE, t } from '../constants/translations'
+import { t } from '../constants/translations'
 
 type DashboardItem = {
   id: number
@@ -35,7 +35,7 @@ export default function Dashboard() {
     })
   }, [])
 
-  if (isLoading) return <div>{TRANSLATIONS[LANGUAGE].loading}</div>
+  if (isLoading) return <div>{t('loading')}</div>
 
   const chartData = filteredData.reduce(
     (acc, item) => {
@@ -69,9 +69,7 @@ export default function Dashboard() {
           </option>
         ))}
       </select>
-      <button onClick={() => setSelectedYear(null)}>
-        {TRANSLATIONS[LANGUAGE].allYears}
-      </button>
+      <button onClick={() => setSelectedYear(null)}>{t('allYears')}</button>
 
       <StockChart
         chartData={chartData}
@@ -86,13 +84,13 @@ export default function Dashboard() {
           onClick={() => navigate('/teas')}
           className="flex-1 flex items-center justify-center gap-2 bg-white border border-gray-200 rounded-xl py-3 text-sm"
         >
-          {TRANSLATIONS[LANGUAGE].manageTeas}
+          {t('manageTeas')}
         </button>
         <button
           onClick={() => navigate('/customers')}
           className="flex-1 flex items-center justify-center gap-2 bg-white border border-gray-200 rounded-xl py-3 text-sm"
         >
-          {TRANSLATIONS[LANGUAGE].manageCustomers}
+          {t('manageCustomers')}
         </button>
       </div>
 
@@ -106,13 +104,13 @@ export default function Dashboard() {
           onClick={() => navigate('/add-stock')}
           className="btn-primary btn-full"
         >
-          + {TRANSLATIONS[LANGUAGE].addStock}
+          + {t('addStock')}
         </button>
         <button
           onClick={() => navigate('/remove-stock')}
           className="btn btn-danger btn-full"
         >
-          − {TRANSLATIONS[LANGUAGE].removeStock}
+          − {t('removeStock')}
         </button>
       </div>
     </div>

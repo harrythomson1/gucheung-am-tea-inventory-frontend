@@ -38,7 +38,13 @@ export function StockChart({ chartData, onBarClick }: StockChartProps) {
             }
           }}
         >
-          <XAxis dataKey="name" tickFormatter={(value) => t(value) ?? value} />
+          <XAxis
+            dataKey="name"
+            tickFormatter={(value) => t(value) ?? value}
+            angle={-35}
+            textAnchor="end"
+            height={60}
+          />
           <YAxis />
           <Tooltip
             formatter={(value, name) => [value, t(String(name ?? ''))]}

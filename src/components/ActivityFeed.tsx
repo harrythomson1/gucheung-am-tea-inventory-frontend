@@ -7,6 +7,7 @@ import { getTeas } from '../api/tea'
 import { TEA_NAMES, t } from '../constants/translations'
 import type { ActivityFeedType } from '../types/transaction'
 import { timeAgo } from '../utils/time'
+import { Download, TrendingUp, TrendingDown } from 'lucide-react'
 
 export function ActivityFeed() {
   const [feedData, setFeedData] = useState<ActivityFeedType[]>([])
@@ -53,6 +54,7 @@ export function ActivityFeed() {
           onClick={() => setShowExportModal(true)}
           className="btn btn-secondary my-2"
         >
+          <Download size={14} />
           {t('export')}
         </button>
         {showExportModal && (
@@ -113,7 +115,11 @@ export function ActivityFeed() {
           <div
             className={`font-bold text-lg ${feed.quantity_change > 0 ? 'text-stock-add' : 'text-stock-remove'}`}
           >
-            {feed.quantity_change > 0 ? '+' : ''}
+            {feed.quantity_change > 0 ? (
+              <TrendingUp size={16} />
+            ) : (
+              <TrendingDown size={16} />
+            )}
             {feed.quantity_change}{' '}
             {`${TEA_NAMES[feed.tea_name as keyof typeof TEA_NAMES] ?? feed.tea_name}`}
           </div>

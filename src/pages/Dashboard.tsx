@@ -4,6 +4,7 @@ import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
 import { t } from '../constants/translations'
+import { Plus, Minus, Tag, Users } from 'lucide-react'
 
 type DashboardItem = {
   id: number
@@ -89,12 +90,14 @@ export default function Dashboard() {
           onClick={() => navigate('/teas')}
           className="btn-secondary btn-full"
         >
+          <Tag size={14} />
           {t('manageTeas')}
         </button>
         <button
           onClick={() => navigate('/customers')}
           className="btn-secondary btn-full"
         >
+          <Users size={14} />
           {t('manageCustomers')}
         </button>
       </div>
@@ -109,13 +112,15 @@ export default function Dashboard() {
           onClick={() => navigate('/add-stock')}
           className="btn-primary btn-full"
         >
-          + {t('addStock')}
+          <Plus size={18} />
+          {t('addStock')}
         </button>
         <button
           onClick={() => navigate('/remove-stock')}
           className="btn btn-danger btn-full"
         >
-          − {t('removeStock')}
+          <Minus size={18} />
+          {t('removeStock')}
         </button>
       </div>
     </div>

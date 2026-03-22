@@ -36,6 +36,7 @@ export function RemoveStockForm() {
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
     null
   )
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const {
     register,
@@ -108,6 +109,7 @@ export function RemoveStockForm() {
   }, [selectedVariant, setValue])
 
   const onSubmit: SubmitHandler<RemoveStockInput> = async (data) => {
+    setIsSubmitting(true)
     setStockError(null)
     try {
       await postRemovalTransaction({
@@ -122,6 +124,8 @@ export function RemoveStockForm() {
         setStockError(error.response.data.detail)
       }
       console.error(error)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -284,7 +288,11 @@ export function RemoveStockForm() {
           )}
           <input type="hidden" {...register('customer_id')} />
           <input {...register('notes')} placeholder={t('notesPlaceholder')} />
-          <input type="submit" value={t('submitButton')} />
+          <input
+            type="submit"
+            value={t('submitButton')}
+            disabled={isSubmitting}
+          />
         </>
       )}
       {errors.quantity_change && <span>{errors.quantity_change.message}</span>}

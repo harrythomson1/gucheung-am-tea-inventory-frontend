@@ -18,16 +18,22 @@ export function UpdateCustomerModal({
   const [city, setCity] = useState<string>(currentCustomer.city)
   const [address, setAddress] = useState<string>(currentCustomer.address ?? '')
   const [phone, setPhone] = useState<string>(currentCustomer.phone ?? '')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async () => {
-    await updateCustomer(currentCustomer.id, {
-      name: name || undefined,
-      city: city || undefined,
-      address: address || undefined,
-      phone: phone || undefined,
-    })
-    onCustomerUpdated()
-    onClose()
+    setIsSubmitting(true)
+    try {
+      await updateCustomer(currentCustomer.id, {
+        name: name || undefined,
+        city: city || undefined,
+        address: address || undefined,
+        phone: phone || undefined,
+      })
+      onCustomerUpdated()
+      onClose()
+    } finally {
+      setIsSubmitting(false)
+    }
   }
   return (
     <>
@@ -56,7 +62,11 @@ export function UpdateCustomerModal({
               onChange={(e) => setPhone(e.target.value)}
             ></input>
           </div>
-          <button onClick={() => handleSubmit()} type="button">
+          <button
+            onClick={() => handleSubmit()}
+            type="button"
+            disabled={isSubmitting}
+          >
             {t('submitButton')}
           </button>
           <button onClick={() => onClose()} type="button">

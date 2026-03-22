@@ -19,6 +19,7 @@ export function CustomerDetail() {
   const [noteInput, setNoteInput] = useState(customerData?.notes ?? '')
   const [refreshCount, setRefreshCount] = useState<number>(0)
   const [showUpdateModal, setShowUpdateModal] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     getCustomerWithId(Number(customerId)).then((response) => {
@@ -33,10 +34,15 @@ export function CustomerDetail() {
   }, [customerId])
 
   const handleNoteInput = async () => {
-    await updateCustomer(customerData!.id, { notes: noteInput })
-    setEditingNotes(false)
-    setNoteInput('')
-    setRefreshCount((c) => c + 1)
+    setIsSubmitting(false)
+    try {
+      await updateCustomer(customerData!.id, { notes: noteInput })
+      setEditingNotes(false)
+      setNoteInput('')
+      setRefreshCount((c) => c + 1)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (!customerData) return <div>{t('loading')}</div>
@@ -73,7 +79,9 @@ export function CustomerDetail() {
         {editingNotes ? (
           <>
             <input onChange={(e) => setNoteInput(e.target.value)} type="text" />
-            <button onClick={() => handleNoteInput()}>{t('saveNote')}</button>
+            <button onClick={() => handleNoteInput()} disabled={isSubmitting}>
+              {t('saveNote')}
+            </button>
           </>
         ) : customerData.notes ? (
           <>

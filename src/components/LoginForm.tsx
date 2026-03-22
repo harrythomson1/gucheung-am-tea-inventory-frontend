@@ -13,6 +13,7 @@ type Inputs = {
 export function LoginForm() {
   const navigate = useNavigate()
   const [authError, setAuthError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const {
     register,
@@ -21,15 +22,20 @@ export function LoginForm() {
   } = useForm<Inputs>()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email: data.email,
-      password: data.password,
-    })
-    if (error) {
-      console.error(error.message)
-      setAuthError(TRANSLATIONS[LANGUAGE].authError)
-    } else {
-      navigate('/dashboard', { replace: true })
+    setIsSubmitting(true)
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      })
+      if (error) {
+        console.error(error.message)
+        setAuthError(TRANSLATIONS[LANGUAGE].authError)
+      } else {
+        navigate('/dashboard', { replace: true })
+      }
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -62,6 +68,7 @@ export function LoginForm() {
             type="submit"
             className="text-white bg-transparent cursor-pointer text-center w-full"
             value={TRANSLATIONS[LANGUAGE].submitButton}
+            disabled={isSubmitting}
           />
         </div>
       </div>

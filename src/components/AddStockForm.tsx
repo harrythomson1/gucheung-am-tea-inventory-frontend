@@ -32,6 +32,7 @@ export function AddStockForm() {
   const [showCustomWeight, setShowCustomWeight] = useState(false)
   const currentYear = new Date().getFullYear()
   const HARVEST_YEARS = [currentYear, currentYear - 1, currentYear - 2]
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const {
     register,
     handleSubmit,
@@ -68,6 +69,7 @@ export function AddStockForm() {
   }, [])
 
   const onSubmit: SubmitHandler<AddStockInputs> = async (data) => {
+    setIsSubmitting(true)
     try {
       await postHarvestTransaction({
         ...data,
@@ -77,6 +79,8 @@ export function AddStockForm() {
       navigate('/')
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -242,7 +246,11 @@ export function AddStockForm() {
       {errors.weight_grams && <span>{errors.weight_grams.message}</span>}
       {errors.quantity_change && <span>{errors.quantity_change.message}</span>}
       {selectedQuantityChange && (
-        <input type="submit" value={t('submitButton')} />
+        <input
+          type="submit"
+          value={t('submitButton')}
+          disabled={isSubmitting}
+        />
       )}
     </form>
   )

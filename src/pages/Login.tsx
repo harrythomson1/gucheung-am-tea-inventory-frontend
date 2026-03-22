@@ -8,7 +8,7 @@ export default function Login() {
   if (session) return <Navigate to="/dashboard" replace />
 
   return (
-    <div className="bg-[#f2f2e1] min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <div className="flex-1 flex items-center justify-center">
         <div>
           <h1 className="text-center text-2xl font-bold">구층암</h1>

@@ -55,7 +55,7 @@ export default function Dashboard() {
   )
 
   return (
-    <>
+    <div className="px-6 safe-area-inset">
       <select
         value={selectedYear ?? ''}
         onChange={(e) =>
@@ -101,6 +101,6 @@ export default function Dashboard() {
         {TRANSLATIONS[LANGUAGE].manageCustomers}
       </button>
       <ActivityFeed />
-    </>
+    </div>
   )
 }

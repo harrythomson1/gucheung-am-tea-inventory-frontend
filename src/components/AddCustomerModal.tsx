@@ -72,16 +72,18 @@ export function AddCustomerModal({
               onChange={(e) => setNote(e.target.value)}
             ></input>
           </div>
-          <button
-            onClick={() => handleSubmit()}
-            type="button"
-            disabled={isSubmitting}
-          >
-            {t('submitButton')}
-          </button>
-          <button onClick={() => onClose()} type="button">
-            {t('cancel')}
-          </button>
+          <div className="space-x-4">
+            <button
+              onClick={() => handleSubmit()}
+              type="button"
+              disabled={isSubmitting}
+            >
+              {t('submitButton')}
+            </button>
+            <button onClick={() => onClose()} type="button">
+              {t('cancel')}
+            </button>
+          </div>
           {error && <span className="text-red-500 text-sm">{error}</span>}
         </div>
       </div>

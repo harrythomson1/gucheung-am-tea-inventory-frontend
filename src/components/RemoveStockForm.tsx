@@ -14,7 +14,7 @@ import {
   PACKAGING_LABELS,
   TEA_NAMES,
   TRANSACTION_TYPE_LABELS,
-} from '../constants/transalations'
+} from '../constants/translations'
 import { CustomerSearch } from './CustomerSearch'
 import { AddCustomerModal } from './AddCustomerModal'
 import type { Customer } from '../types/customer'

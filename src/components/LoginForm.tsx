@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
-import { supabase } from '../lib/subabase'
+import { supabase } from '../lib/supabase'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 

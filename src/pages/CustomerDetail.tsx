@@ -12,7 +12,7 @@ import {
   PACKAGING_LABELS,
   TEA_NAMES,
   TRANSACTION_TYPE_LABELS,
-} from '../constants/transalations'
+} from '../constants/translations'
 import { timeAgo } from '../utils/time'
 import { UpdateCustomerModal } from '../components/UpdateCustomerModal'
 

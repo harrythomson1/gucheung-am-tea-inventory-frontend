@@ -11,7 +11,7 @@ import {
   FLUSH_LABELS,
   PACKAGING_LABELS,
   TEA_NAMES,
-} from '../constants/transalations'
+} from '../constants/translations'
 
 type AddStockInputs = Omit<AddTransactionData, 'transaction_type'>
 const PACKAGING_TYPES = ['silver', 'wing', 'gift']

@@ -3,7 +3,7 @@ import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
-import { BUTTON_LABELS } from '../constants/transalations'
+import { BUTTON_LABELS } from '../constants/translations'
 
 type DashboardItem = {
   id: number

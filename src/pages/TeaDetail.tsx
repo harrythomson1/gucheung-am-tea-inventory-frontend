@@ -2,7 +2,7 @@ import { StockChart } from '../components/StockChart'
 import { useState, useEffect } from 'react'
 import { getTeaStock } from '../api/tea'
 import { useParams } from 'react-router-dom'
-import { BUTTON_LABELS, TEA_NAMES } from '../constants/transalations'
+import { BUTTON_LABELS, TEA_NAMES } from '../constants/translations'
 
 type TeaVariantStockItem = {
   id: number

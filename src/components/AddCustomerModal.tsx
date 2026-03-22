@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { createCustomer } from '../api/customers'
 import type { Customer } from '../types/customer'
+import { t } from '../constants/translations'
 
 type AddCustomerModalProps = {
   onClose: () => void
@@ -20,11 +21,11 @@ export function AddCustomerModal({
 
   const handleSubmit = async () => {
     if (!name.trim()) {
-      setError('이름을 입력해주세요')
+      setError(t('nameRequired'))
       return
     }
     if (!city.trim()) {
-      setError('도시를 입력해주세요')
+      setError(t('cityRequired'))
       return
     }
     setError(null)
@@ -42,34 +43,34 @@ export function AddCustomerModal({
     <>
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
         <div className="bg-white p-6 rounded-lg w-80">
-          <div>AddCustomerModal</div>
+          <div>{t('addCustomerTitle')}</div>
           <div>
             <input
-              placeholder="Name"
+              placeholder={t('namePlaceholder')}
               onChange={(e) => setName(e.target.value)}
             ></input>
             <input
-              placeholder="City"
+              placeholder={t('cityPlaceholder')}
               onChange={(e) => setCity(e.target.value)}
             ></input>
             <input
-              placeholder="Address"
+              placeholder={t('addressPlaceholder')}
               onChange={(e) => setAddress(e.target.value)}
             ></input>
             <input
-              placeholder="Phone"
+              placeholder={t('phonePlaceholder')}
               onChange={(e) => setPhone(e.target.value)}
             ></input>
             <input
-              placeholder="Notes"
+              placeholder={t('notesPlaceholder')}
               onChange={(e) => setNote(e.target.value)}
             ></input>
           </div>
           <button onClick={() => handleSubmit()} type="button">
-            Submit
+            {t('submitButton')}
           </button>
           <button onClick={() => onClose()} type="button">
-            Cancel
+            {t('cancel')}
           </button>
           {error && <span className="text-red-500 text-sm">{error}</span>}
         </div>

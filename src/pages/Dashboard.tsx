@@ -55,7 +55,7 @@ export default function Dashboard() {
   )
 
   return (
-    <div className="px-4 pb-28 safe-area-inset">
+    <div className="px-4 pb-28 safe-area-inset pt-4">
       <select
         value={selectedYear ?? ''}
         onChange={(e) =>

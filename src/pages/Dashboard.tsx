@@ -56,20 +56,25 @@ export default function Dashboard() {
 
   return (
     <div className="px-4 pb-28 safe-area-inset pt-4">
-      <select
-        value={selectedYear ?? ''}
-        onChange={(e) =>
-          setSelectedYear(e.target.value ? Number(e.target.value) : null)
-        }
-      >
-        <option value="">{t('allYears')}</option>
-        {availableYears.map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
-      <button onClick={() => setSelectedYear(null)}>{t('allYears')}</button>
+      <div className="relative inline-block mb-4">
+        <select
+          value={selectedYear ?? ''}
+          onChange={(e) =>
+            setSelectedYear(e.target.value ? Number(e.target.value) : null)
+          }
+          className="appearance-none bg-[#e0e0c8] text-stock-add font-medium text-sm px-4 py-2 pr-8 rounded-xl border-none cursor-pointer"
+        >
+          <option value="">{t('allYears')}</option>
+          {availableYears.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+        <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-stock-add text-xs">
+          ▼
+        </span>
+      </div>
 
       <StockChart
         chartData={chartData}

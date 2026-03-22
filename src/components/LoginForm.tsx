@@ -3,6 +3,7 @@ import type { SubmitHandler } from 'react-hook-form'
 import { supabase } from '../lib/supabase'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { TRANSLATIONS, LANGUAGE } from '../constants/translations'
 
 type Inputs = {
   email: string
@@ -26,7 +27,7 @@ export function LoginForm() {
     })
     if (error) {
       console.error(error.message)
-      setAuthError('이메일 또는 비밀번호가 올바르지 않습니다')
+      setAuthError(TRANSLATIONS[LANGUAGE].authError)
     } else {
       navigate('/dashboard', { replace: true })
     }
@@ -37,7 +38,7 @@ export function LoginForm() {
       <div className="space-y-2">
         <div>
           <input
-            placeholder="이메일"
+            placeholder={TRANSLATIONS[LANGUAGE].emailPlaceholder}
             {...register('email', {
               required: true,
               onChange: () => setAuthError(null),
@@ -48,7 +49,7 @@ export function LoginForm() {
         <div>
           <input
             type="password"
-            placeholder="비밀번호"
+            placeholder={TRANSLATIONS[LANGUAGE].passwordPlaceholder}
             {...register('password', {
               required: true,
               onChange: () => setAuthError(null),
@@ -60,17 +61,21 @@ export function LoginForm() {
           <input
             type="submit"
             className="text-white bg-transparent cursor-pointer text-center w-full"
-            value="제출"
+            value={TRANSLATIONS[LANGUAGE].submitButton}
           />
         </div>
       </div>
       <div className="mt-2">
         {authError && <span className="text-red-500 text-sm">{authError}</span>}
         {errors.password && (
-          <span className="text-red-500 text-sm">필수 입력 항목입니다</span>
+          <span className="text-red-500 text-sm">
+            {TRANSLATIONS[LANGUAGE].requiredField}
+          </span>
         )}
         {errors.email && (
-          <span className="text-red-500 text-sm">필수 입력 항목입니다</span>
+          <span className="text-red-500 text-sm">
+            {TRANSLATIONS[LANGUAGE].requiredField}
+          </span>
         )}
       </div>
     </form>

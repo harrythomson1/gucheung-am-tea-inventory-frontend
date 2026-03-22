@@ -47,3 +47,22 @@ export const FORM_LABELS = {
   startDate: '시작 날짜',
   endDate: '종료 날짜',
 }
+
+export const LANGUAGE = 'ko'
+
+export const TRANSLATIONS = {
+  ko: {
+    emailPlaceholder: '이메일',
+    passwordPlaceholder: '비밀번호',
+    submitButton: '제출',
+    authError: '이메일 또는 비밀번호가 올바르지 않습니다',
+    requiredField: '필수 입력 항목입니다',
+  },
+  en: {
+    emailPlaceholder: 'Email',
+    passwordPlaceholder: 'Password',
+    submitButton: 'Submit',
+    authError: 'Email or password in incorrect',
+    requiredField: 'This is a required field',
+  },
+}

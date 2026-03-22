@@ -4,7 +4,7 @@ import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
 import { t } from '../constants/translations'
-import { Plus, Minus, Tag, Users } from 'lucide-react'
+import { Plus, Minus, Leaf, Users } from 'lucide-react'
 
 type DashboardItem = {
   id: number
@@ -90,7 +90,7 @@ export default function Dashboard() {
           onClick={() => navigate('/teas')}
           className="btn-secondary btn-full"
         >
-          <Tag size={14} />
+          <Leaf size={14} />
           {t('manageTeas')}
         </button>
         <button

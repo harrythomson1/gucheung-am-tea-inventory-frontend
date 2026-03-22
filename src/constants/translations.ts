@@ -4,18 +4,6 @@ export const TEA_NAMES = {
   '발효차 (Fermented Tea)': '발효차',
 }
 
-export const BUTTON_LABELS = {
-  addStock: '재고 추가',
-  removeStock: '재고 제거',
-  addTea: '차 추가',
-  export: '내보내기',
-  all: '전체',
-  packaging: '포장',
-  flush: '등급',
-  year: '연도',
-  viewCustomers: '고객 관리',
-}
-
 export const LANGUAGE = 'en'
 
 export const t = (key: string): string => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getCustomers } from '../api/customers'
 import type { Customer } from '../types/customer'
+import { t } from '../constants/translations'
 
 type CustomerSearchProps = {
   onSelect: (customer: Customer) => void
@@ -24,7 +25,7 @@ export function CustomerSearch({ onSelect }: CustomerSearchProps) {
   return (
     <div>
       <input
-        placeholder="고객 검색"
+        placeholder={t('customerSearch')}
         onChange={(e) => setSearch(e.target.value)}
       ></input>
       {results.map((result) => (

@@ -7,11 +7,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import {
-  FLUSH_LABELS,
-  PACKAGING_LABELS,
-  TEA_NAMES,
-} from '../constants/translations'
+import { t, TEA_NAMES } from '../constants/translations'
 
 type StockChartProps = {
   chartData: Record<string, unknown>[]
@@ -42,37 +38,15 @@ export function StockChart({ chartData, onBarClick }: StockChartProps) {
             }
           }}
         >
-          <XAxis
-            dataKey="name"
-            tickFormatter={(value) =>
-              PACKAGING_LABELS[value as keyof typeof PACKAGING_LABELS] ??
-              FLUSH_LABELS[value as keyof typeof FLUSH_LABELS] ??
-              TEA_NAMES[value as keyof typeof TEA_NAMES] ??
-              value
-            }
-          />
+          <XAxis dataKey="name" tickFormatter={(value) => t(value) ?? value} />
           <YAxis />
           <Tooltip
-            formatter={(value, name) => [
-              value,
-              PACKAGING_LABELS[name as keyof typeof PACKAGING_LABELS] ??
-                FLUSH_LABELS[name as keyof typeof FLUSH_LABELS] ??
-                name,
-            ]}
+            formatter={(value, name) => [value, t(name) ?? name]}
             labelFormatter={(label) =>
-              TEA_NAMES[label as keyof typeof TEA_NAMES] ??
-              PACKAGING_LABELS[label as keyof typeof PACKAGING_LABELS] ??
-              FLUSH_LABELS[label as keyof typeof FLUSH_LABELS] ??
-              label
+              TEA_NAMES[label as keyof typeof TEA_NAMES] ?? t(label) ?? label
             }
           />
-          <Legend
-            formatter={(value) =>
-              PACKAGING_LABELS[value as keyof typeof PACKAGING_LABELS] ??
-              FLUSH_LABELS[value as keyof typeof FLUSH_LABELS] ??
-              value
-            }
-          />
+          <Legend formatter={(value) => t(value) ?? value} />
           {barKeys.map((key, index) => (
             <Bar
               key={key}

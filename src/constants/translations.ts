@@ -16,7 +16,7 @@ export const BUTTON_LABELS = {
   viewCustomers: '고객 관리',
 }
 
-export const LANGUAGE = 'ko'
+export const LANGUAGE = 'en'
 
 export const t = (key: string): string => {
   return (TRANSLATIONS[LANGUAGE] as Record<string, string>)[key] ?? key
@@ -78,6 +78,9 @@ export const TRANSLATIONS = {
     flush: '등급',
     year: '연도',
     viewCustomers: '고객 관리',
+    customerSearch: '고객 검색',
+    nextPage: '다음 페이지',
+    previousPage: '이전 페이지',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -134,5 +137,8 @@ export const TRANSLATIONS = {
     flush: 'Flush',
     year: 'Year',
     viewCustomers: 'View customers',
+    customerSearch: 'Search customers',
+    nextPage: 'Next page',
+    previousPage: 'Previous page',
   },
 }

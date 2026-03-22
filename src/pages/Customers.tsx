@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getCustomers } from '../api/customers'
 import type { Customer } from '../types/customer'
 import { useNavigate } from 'react-router-dom'
+import { t } from '../constants/translations'
 
 export function Customers() {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -25,7 +26,7 @@ export function Customers() {
   return (
     <div>
       <input
-        placeholder="고객 검색"
+        placeholder={t('customerSearch')}
         onChange={(e) => setSearch(e.target.value)}
       ></input>
       {customers.map((customer) => (
@@ -42,7 +43,7 @@ export function Customers() {
           onClick={() => setCurrentPage((p) => p + 1)}
           disabled={customers.length < 20}
         >
-          Next page
+          {t('nextPage')}
         </button>
       )}
       {currentPage != 1 && (
@@ -50,7 +51,7 @@ export function Customers() {
           onClick={() => setCurrentPage((p) => p - 1)}
           disabled={currentPage === 1}
         >
-          Previous page
+          {t('previousPage')}
         </button>
       )}
     </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import AddTeaModal from '../components/AddTeaModal'
 import type { Tea } from '../types/tea'
 import { getTeas, softDeleteTea } from '../api/tea'
+import { t } from '../constants/translations'
 
 export default function Teas() {
   const [teas, setTeas] = useState<Tea[]>([])
@@ -23,7 +24,7 @@ export default function Teas() {
               })
             }}
           >
-            Delete tea
+            {t('deleteTea')}
           </button>
         </div>
       ))}

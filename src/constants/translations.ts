@@ -81,6 +81,10 @@ export const TRANSLATIONS = {
     customerSearch: '고객 검색',
     nextPage: '다음 페이지',
     previousPage: '이전 페이지',
+    saveNote: '메모 저장',
+    editNote: '메모 수정',
+    addNote: '메모 추가',
+    updateCustomer: '고객 정보 수정',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -140,5 +144,9 @@ export const TRANSLATIONS = {
     customerSearch: 'Search customers',
     nextPage: 'Next page',
     previousPage: 'Previous page',
+    saveNote: 'Save note',
+    editNote: 'Edit note',
+    addNote: 'Add note',
+    updateCustomer: 'Update customer',
   },
 }

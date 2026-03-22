@@ -7,12 +7,7 @@ import {
 } from '../api/customers'
 import { useParams } from 'react-router-dom'
 import type { ActivityFeedType } from '../types/transaction'
-import {
-  FLUSH_LABELS,
-  PACKAGING_LABELS,
-  TEA_NAMES,
-  TRANSACTION_TYPE_LABELS,
-} from '../constants/translations'
+import { t, TEA_NAMES } from '../constants/translations'
 import { timeAgo } from '../utils/time'
 import { UpdateCustomerModal } from '../components/UpdateCustomerModal'
 
@@ -44,7 +39,7 @@ export function CustomerDetail() {
     setRefreshCount((c) => c + 1)
   }
 
-  if (!customerData) return <div>로딩 중...</div>
+  if (!customerData) return <div>{t('loading')}</div>
 
   return (
     <div>
@@ -63,18 +58,13 @@ export function CustomerDetail() {
               {`${TEA_NAMES[transaction.tea_name as keyof typeof TEA_NAMES] ?? transaction.tea_name}`}
             </div>
             <div className="text-sm text-gray-600">
-              {PACKAGING_LABELS[
-                transaction.packaging as keyof typeof PACKAGING_LABELS
-              ] ?? transaction.packaging}{' '}
-              · {transaction.weight_grams}g ·{' '}
-              {FLUSH_LABELS[transaction.flush as keyof typeof FLUSH_LABELS] ??
-                transaction.flush}{' '}
-              · {transaction.harvest_year}
+              {t(transaction.packaging) ?? transaction.packaging} ·{' '}
+              {transaction.weight_grams}g ·{' '}
+              {t(transaction.flush) ?? transaction.flush} ·{' '}
+              {transaction.harvest_year}
             </div>
             <div className="text-xs text-gray-400 mt-1">
-              {TRANSACTION_TYPE_LABELS[
-                transaction.transaction_type as keyof typeof TRANSACTION_TYPE_LABELS
-              ] ?? transaction.transaction_type}{' '}
+              {t(transaction.transaction_type) ?? transaction.transaction_type}{' '}
               · {transaction.performed_by_name} ·{' '}
               {timeAgo(transaction.created_at)}
             </div>
@@ -83,18 +73,20 @@ export function CustomerDetail() {
         {editingNotes ? (
           <>
             <input onChange={(e) => setNoteInput(e.target.value)} type="text" />
-            <button onClick={() => handleNoteInput()}>Save note</button>
+            <button onClick={() => handleNoteInput()}>{t('saveNote')}</button>
           </>
         ) : customerData.notes ? (
           <>
             <div>{customerData.notes}</div>
-            <button onClick={() => setEditingNotes(true)}>Edit note</button>
+            <button onClick={() => setEditingNotes(true)}>
+              {t('editNote')}
+            </button>
           </>
         ) : (
-          <button onClick={() => setEditingNotes(true)}>Add note</button>
+          <button onClick={() => setEditingNotes(true)}>{t('addNote')}</button>
         )}
         <button onClick={() => setShowUpdateModal(true)}>
-          Update customer
+          {t('updateCustomer')}
         </button>
         {showUpdateModal && (
           <UpdateCustomerModal

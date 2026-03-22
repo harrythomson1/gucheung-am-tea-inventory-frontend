@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { addTea } from '../api/tea'
+import { t } from '../constants/translations'
 
 type AddTeaModalType = {
   onTeaAdded: () => void
@@ -11,7 +12,7 @@ export default function AddTeaModal({ onTeaAdded }: AddTeaModalType) {
 
   const handleSubmit = async () => {
     if (!teaName.trim()) {
-      setError('차 이름을 입력해주세요')
+      setError(t('teaNameRequired'))
       return
     }
     setError(null)
@@ -24,9 +25,9 @@ export default function AddTeaModal({ onTeaAdded }: AddTeaModalType) {
       <input
         value={teaName}
         onChange={(e) => setTeaName(e.target.value)}
-        placeholder="차 이름"
+        placeholder={t('teaNamePlaceolder')}
       ></input>
-      <button onClick={handleSubmit}>차 추가</button>
+      <button onClick={handleSubmit}>{t('addTeaButton')}</button>
       {error && <span>{error}</span>}
     </div>
   )

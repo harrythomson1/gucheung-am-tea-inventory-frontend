@@ -82,6 +82,9 @@ export const TRANSLATIONS = {
     cityRequired: '도시를 입력해주세요',
     editCustomerTitle: '고객 정보 수정',
     deleteTea: '차 삭제',
+    teaNamePlaceholder: '차 이름',
+    addTeaButton: '차 추가',
+    teaNameRequired: '차 이름을 입력해주세요',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -154,5 +157,8 @@ export const TRANSLATIONS = {
     cityRequired: 'Please enter a city',
     editCustomerTitle: 'Edit Customer',
     deleteTea: 'Delete Tea',
+    teaNamePlaceholder: 'Tea name',
+    addTeaButton: 'Add tea',
+    teaNameRequired: 'Please enter a tea name',
   },
 }

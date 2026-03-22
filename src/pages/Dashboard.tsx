@@ -3,7 +3,7 @@ import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
-import { BUTTON_LABELS } from '../constants/translations'
+import { TRANSLATIONS, LANGUAGE } from '../constants/translations'
 
 type DashboardItem = {
   id: number
@@ -35,7 +35,7 @@ export default function Dashboard() {
     })
   }, [])
 
-  if (isLoading) return <div>로딩 중...</div>
+  if (isLoading) return <div>{TRANSLATIONS[LANGUAGE].loading}</div>
 
   const chartData = filteredData.reduce(
     (acc, item) => {
@@ -69,7 +69,9 @@ export default function Dashboard() {
           </option>
         ))}
       </select>
-      <button onClick={() => setSelectedYear(null)}>{BUTTON_LABELS.all}</button>
+      <button onClick={() => setSelectedYear(null)}>
+        {TRANSLATIONS[LANGUAGE].allYears}
+      </button>
       <StockChart
         chartData={chartData}
         onBarClick={(id) => navigate(`/teas/${id}`)}
@@ -78,25 +80,25 @@ export default function Dashboard() {
         onClick={() => navigate('/add-stock')}
         className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
       >
-        {BUTTON_LABELS.addStock}
+        {TRANSLATIONS[LANGUAGE].addStock}
       </button>
       <button
         onClick={() => navigate('/remove-stock')}
         className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
       >
-        {BUTTON_LABELS.removeStock}
+        {TRANSLATIONS[LANGUAGE].removeStock}
       </button>
       <button
         onClick={() => navigate('/teas')}
         className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
       >
-        {BUTTON_LABELS.addTea}
+        {TRANSLATIONS[LANGUAGE].manageTeas}
       </button>
       <button
         onClick={() => navigate('/customers')}
         className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
       >
-        {BUTTON_LABELS.viewCustomers}
+        {TRANSLATIONS[LANGUAGE].manageCustomers}
       </button>
       <ActivityFeed />
     </>

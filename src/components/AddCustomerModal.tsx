@@ -18,6 +18,7 @@ export function AddCustomerModal({
   const [phone, setPhone] = useState<string>('')
   const [notes, setNote] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async () => {
     if (!name.trim()) {
@@ -29,15 +30,20 @@ export function AddCustomerModal({
       return
     }
     setError(null)
-    const customer = await createCustomer({
-      name,
-      city,
-      address: address || undefined,
-      phone: phone || undefined,
-      notes: notes || undefined,
-    })
-    onCustomerCreated(customer)
-    onClose()
+    setIsSubmitting(true)
+    try {
+      const customer = await createCustomer({
+        name,
+        city,
+        address: address || undefined,
+        phone: phone || undefined,
+        notes: notes || undefined,
+      })
+      onCustomerCreated(customer)
+      onClose()
+    } finally {
+      setIsSubmitting(false)
+    }
   }
   return (
     <>
@@ -66,7 +72,11 @@ export function AddCustomerModal({
               onChange={(e) => setNote(e.target.value)}
             ></input>
           </div>
-          <button onClick={() => handleSubmit()} type="button">
+          <button
+            onClick={() => handleSubmit()}
+            type="button"
+            disabled={isSubmitting}
+          >
             {t('submitButton')}
           </button>
           <button onClick={() => onClose()} type="button">

@@ -25,7 +25,7 @@ export default function AddTeaModal({ onTeaAdded }: AddTeaModalType) {
       <input
         value={teaName}
         onChange={(e) => setTeaName(e.target.value)}
-        placeholder={t('teaNamePlaceolder')}
+        placeholder={t('teaNamePlaceholder')}
       ></input>
       <button onClick={handleSubmit}>{t('addTeaButton')}</button>
       {error && <span>{error}</span>}

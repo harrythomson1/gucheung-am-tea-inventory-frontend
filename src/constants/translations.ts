@@ -85,6 +85,9 @@ export const TRANSLATIONS = {
     teaNamePlaceholder: '차 이름',
     addTeaButton: '차 추가',
     teaNameRequired: '차 이름을 입력해주세요',
+    minutesAgo: '분 전',
+    hoursAgo: '시간 전',
+    daysAgo: '일 전',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -160,5 +163,8 @@ export const TRANSLATIONS = {
     teaNamePlaceholder: 'Tea name',
     addTeaButton: 'Add tea',
     teaNameRequired: 'Please enter a tea name',
+    minutesAgo: ' minutes ago',
+    hoursAgo: ' hours ago',
+    daysAgo: ' days ago',
   },
 }

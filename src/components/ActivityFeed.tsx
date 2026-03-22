@@ -51,7 +51,7 @@ export function ActivityFeed() {
       <div>
         <button
           onClick={() => setShowExportModal(true)}
-          className="cursor-pointer px-4 py-2 m-1 rounded bg-gray-200"
+          className="btn btn-secondary my-2"
         >
           {t('export')}
         </button>

@@ -3,7 +3,7 @@ import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
-import { TRANSLATIONS, LANGUAGE } from '../constants/translations'
+import { TRANSLATIONS, LANGUAGE, t } from '../constants/translations'
 
 type DashboardItem = {
   id: number
@@ -62,7 +62,7 @@ export default function Dashboard() {
           setSelectedYear(e.target.value ? Number(e.target.value) : null)
         }
       >
-        <option value="">전체</option>
+        <option value="">{t('allYears')}</option>
         {availableYears.map((year) => (
           <option key={year} value={year}>
             {year}

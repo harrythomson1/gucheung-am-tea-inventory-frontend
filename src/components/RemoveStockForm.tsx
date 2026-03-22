@@ -113,6 +113,8 @@ export function RemoveStockForm() {
       await postRemovalTransaction({
         ...data,
         quantity_change: -Math.abs(data.quantity_change),
+        customer_id: data.customer_id || undefined,
+        notes: data.notes || undefined,
       })
       navigate('/')
     } catch (error) {

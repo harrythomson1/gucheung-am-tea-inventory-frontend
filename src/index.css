@@ -27,3 +27,13 @@
     @apply w-full;
   }
 }
+
+@layer utilities {
+  .text-stock-add {
+    @apply text-[#1D9E75];
+  }
+
+  .text-stock-remove {
+    @apply text-[#8b3a22];
+  }
+}

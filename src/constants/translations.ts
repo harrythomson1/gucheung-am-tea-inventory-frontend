@@ -88,6 +88,8 @@ export const TRANSLATIONS = {
     minutesAgo: '분 전',
     hoursAgo: '시간 전',
     daysAgo: '일 전',
+    manage: '관리',
+    recentActivity: '최근 활동',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -166,5 +168,7 @@ export const TRANSLATIONS = {
     minutesAgo: ' minutes ago',
     hoursAgo: ' hours ago',
     daysAgo: ' days ago',
+    manage: 'Manage',
+    recentActivity: 'Recent Activity',
   },
 }

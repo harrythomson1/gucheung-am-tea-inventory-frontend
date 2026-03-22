@@ -14,7 +14,7 @@ type StockChartProps = {
   onBarClick?: (teaId: number) => void
 }
 
-const COLOURS = ['#94a3b8', '#60a5fa', '#f472b6', '#4ade80', '#fb923c']
+const COLOURS = ['#7a9e7e', '#c4a882', '#9b7b6b', '#b5c4a1', '#d4b896']
 
 export function StockChart({ chartData, onBarClick }: StockChartProps) {
   const barKeys = [

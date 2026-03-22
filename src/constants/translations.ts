@@ -68,7 +68,7 @@ export const TRANSLATIONS = {
     emailPlaceholder: 'Email',
     passwordPlaceholder: 'Password',
     submitButton: 'Submit',
-    authError: 'Email or password in incorrect',
+    authError: 'Email or password is incorrect',
     requiredField: 'This is a required field',
     loading: 'Loading...',
     allYears: 'All',

@@ -120,7 +120,7 @@ export function ActivityFeed() {
             ) : (
               <TrendingDown size={16} />
             )}
-            {feed.quantity_change}{' '}
+            {Math.abs(feed.quantity_change)}{' '}
             {`${TEA_NAMES[feed.tea_name as keyof typeof TEA_NAMES] ?? feed.tea_name}`}
           </div>
           <div className="text-sm text-gray-600">

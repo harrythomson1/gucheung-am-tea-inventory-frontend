@@ -41,7 +41,7 @@ export function StockChart({ chartData, onBarClick }: StockChartProps) {
           <XAxis dataKey="name" tickFormatter={(value) => t(value) ?? value} />
           <YAxis />
           <Tooltip
-            formatter={(value, name) => [value, t(name) ?? name]}
+            formatter={(value, name) => [value, t(String(name ?? ''))]}
             labelFormatter={(label) =>
               TEA_NAMES[label as keyof typeof TEA_NAMES] ?? t(label) ?? label
             }

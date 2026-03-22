@@ -47,7 +47,7 @@ export function TeaDetail() {
 
   return (
     <>
-      <div>{TEA_NAMES[teaName as keyof typeof TEA_NAMES]}</div>
+      <div>{TEA_NAMES[teaName as keyof typeof TEA_NAMES] ?? teaName}</div>
       <button
         onClick={() => setGroupBy('packaging')}
         className={`px-4 py-2 m-1 rounded ${groupBy === 'packaging' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}

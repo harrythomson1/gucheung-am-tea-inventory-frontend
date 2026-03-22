@@ -30,7 +30,7 @@
 
 @layer utilities {
   .text-stock-add {
-    @apply text-[#1D9E75];
+    @apply text-[#2a5034];
   }
 
   .text-stock-remove {

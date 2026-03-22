@@ -111,7 +111,7 @@ export function ActivityFeed() {
           className="p-3 mb-2 border rounded-lg"
         >
           <div
-            className={`font-bold text-lg ${feed.quantity_change > 0 ? 'text-green-600' : 'text-red-600'}`}
+            className={`font-bold text-lg ${feed.quantity_change > 0 ? 'text-stock-add' : 'text-stock-remove'}`}
           >
             {feed.quantity_change > 0 ? '+' : ''}
             {feed.quantity_change}{' '}

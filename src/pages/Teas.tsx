@@ -6,6 +6,7 @@ import { t } from '../constants/translations'
 
 export default function Teas() {
   const [teas, setTeas] = useState<Tea[]>([])
+  const [deletingId, setDeletingId] = useState<number | null>(null)
 
   useEffect(() => {
     getTeas().then((response) => {
@@ -18,9 +19,12 @@ export default function Teas() {
         <div key={tea.id}>
           {tea.name}{' '}
           <button
+            disabled={deletingId === tea.id}
             onClick={() => {
+              setDeletingId(tea.id)
               softDeleteTea(tea.id).then(() => {
                 setTeas(teas.filter((t) => t.id !== tea.id))
+                setDeletingId(null)
               })
             }}
           >

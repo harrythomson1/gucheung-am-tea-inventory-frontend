@@ -104,13 +104,13 @@ export default function Dashboard() {
       <div className="fixed bottom-0 left-0 right-0 bg-[#f2f2e1] border-t border-gray-200 px-4 pt-3 pb-6 grid grid-cols-2 gap-3">
         <button
           onClick={() => navigate('/add-stock')}
-          className="flex items-center justify-center gap-2 bg-emerald-600 text-white rounded-xl py-4 font-medium"
+          className="btn-primary btn-full"
         >
           + {TRANSLATIONS[LANGUAGE].addStock}
         </button>
         <button
           onClick={() => navigate('/remove-stock')}
-          className="flex items-center justify-center gap-2 bg-orange-600 text-white rounded-xl py-4 font-medium"
+          className="btn btn-danger btn-full"
         >
           − {TRANSLATIONS[LANGUAGE].removeStock}
         </button>

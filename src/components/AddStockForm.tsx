@@ -7,11 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import type { Tea } from '../types/tea'
 import type { Variant } from '../types/variant'
-import {
-  FLUSH_LABELS,
-  PACKAGING_LABELS,
-  TEA_NAMES,
-} from '../constants/translations'
+import { t, TEA_NAMES } from '../constants/translations'
 
 type AddStockInputs = Omit<AddTransactionData, 'transaction_type'>
 const PACKAGING_TYPES = ['silver', 'wing', 'gift']
@@ -115,7 +111,7 @@ export function AddStockForm() {
                 setValue('packaging', packaging)
               }}
             >
-              {PACKAGING_LABELS[packaging as keyof typeof PACKAGING_LABELS]}
+              {t(packaging)}
             </button>
           ))}
         </div>
@@ -135,7 +131,7 @@ export function AddStockForm() {
                 setValue('flush', flush)
               }}
             >
-              {FLUSH_LABELS[flush as keyof typeof FLUSH_LABELS]}
+              {t(flush)}
             </button>
           ))}
         </div>
@@ -185,18 +181,17 @@ export function AddStockForm() {
                   setSelectedWeight(null)
                 }}
               >
-                Other
+                {t('otherWeight')}
               </button>
               {showCustomWeight && (
                 <input
                   type="number"
-                  placeholder="무게 (g)"
+                  placeholder={t('weightPlaceholder')}
                   {...register('weight_grams', {
                     onChange: (e) => setSelectedWeight(Number(e.target.value)),
                     required: true,
                     valueAsNumber: true,
-                    validate: (value) =>
-                      value > 0 || 'Please enter a valid weight',
+                    validate: (value) => value > 0 || t('invalidWeight'),
                   })}
                 />
               )}
@@ -204,12 +199,12 @@ export function AddStockForm() {
           ) : (
             <input
               type="number"
-              placeholder="무게 (g)"
+              placeholder={t('weightPlaceholder')}
               {...register('weight_grams', {
                 onChange: (e) => setSelectedWeight(Number(e.target.value)),
                 required: true,
                 valueAsNumber: true,
-                validate: (value) => value > 0 || 'Please enter a valid weight',
+                validate: (value) => value > 0 || t('invalidWeight'),
               })}
             />
           )}
@@ -219,7 +214,7 @@ export function AddStockForm() {
         <div>
           <input
             type="number"
-            placeholder="수량"
+            placeholder={t('quantityPlaceholder')}
             {...register('quantity_change', {
               onChange: (e) =>
                 setSelectedQuantityChange(Number(e.target.value)),
@@ -227,8 +222,8 @@ export function AddStockForm() {
               valueAsNumber: true,
               validate: (value) => {
                 const weight = Number(value)
-                if (isNaN(weight)) return 'Please enter a valid'
-                else if (value <= 0) return 'Value must be positive'
+                if (isNaN(weight)) return t('invalidQuantity')
+                else if (value <= 0) return t('positiveQuantity')
                 return true
               },
             })}
@@ -237,16 +232,18 @@ export function AddStockForm() {
       )}
       {selectedQuantityChange && (
         <div>
-          <input {...register('notes')} placeholder="메모" />
+          <input {...register('notes')} placeholder={t('notesPlaceholder')} />
         </div>
       )}
-      {errors.tea_id && <span>Tea name is required</span>}
-      {errors.packaging && <span>Packaging type is required is required</span>}
-      {errors.flush && <span>Flush type is required</span>}
+      {errors.tea_id && <span>{t('teaRequired')}</span>}
+      {errors.packaging && <span>{t('packagingRequired')}</span>}
+      {errors.flush && <span>{t('flushRequired')}</span>}
       {errors.harvest_year && <span>{errors.harvest_year.message}</span>}
       {errors.weight_grams && <span>{errors.weight_grams.message}</span>}
       {errors.quantity_change && <span>{errors.quantity_change.message}</span>}
-      {selectedQuantityChange && <input type="submit" value="제출" />}
+      {selectedQuantityChange && (
+        <input type="submit" value={t('submitButton')} />
+      )}
     </form>
   )
 }

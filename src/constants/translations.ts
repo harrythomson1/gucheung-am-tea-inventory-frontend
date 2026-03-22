@@ -1,17 +1,3 @@
-export const PACKAGING_LABELS = {
-  silver: '은박',
-  wing: '날개',
-  gift: '선물',
-  standard: '일반',
-  mixed: '혼합',
-}
-
-export const FLUSH_LABELS = {
-  first: '첫물',
-  second: '두물',
-  mixed: '혼합',
-}
-
 export const TEA_NAMES = {
   '덖음차 (Roasted Tea)': '덖음차',
   '청차 (Cheongcha)': '청차',
@@ -50,6 +36,10 @@ export const FORM_LABELS = {
 
 export const LANGUAGE = 'ko'
 
+export const t = (key: string): string => {
+  return (TRANSLATIONS[LANGUAGE] as Record<string, string>)[key] ?? key
+}
+
 export const TRANSLATIONS = {
   ko: {
     emailPlaceholder: '이메일',
@@ -63,6 +53,24 @@ export const TRANSLATIONS = {
     removeStock: '재고 제거',
     manageTeas: '차 관리',
     manageCustomers: '고객 관리',
+    weightPlaceholder: '무게 (g)',
+    quantityPlaceholder: '수량',
+    notesPlaceholder: '메모',
+    otherWeight: '직접 입력',
+    teaRequired: '차를 선택해주세요',
+    packagingRequired: '포장 방식을 선택해주세요',
+    flushRequired: '등급을 선택해주세요',
+    invalidYear: '올바른 연도를 입력해주세요',
+    futureYear: '수확 연도는 미래일 수 없습니다',
+    invalidWeight: '올바른 무게를 입력해주세요',
+    invalidQuantity: '올바른 수량을 입력해주세요',
+    positiveQuantity: '수량은 양수여야 합니다',
+    silver: '은박',
+    wing: '날개',
+    gift: '선물',
+    first: '첫물',
+    second: '두물',
+    mixed: '혼합',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -76,5 +84,23 @@ export const TRANSLATIONS = {
     removeStock: 'Remove Stock',
     manageTeas: 'Manage Teas',
     manageCustomers: 'Manage Customers',
+    weightPlaceholder: 'Weight (g)',
+    quantityPlaceholder: 'Quantity',
+    notesPlaceholder: 'Notes',
+    otherWeight: 'Other',
+    teaRequired: 'Please select a tea',
+    packagingRequired: 'Please select a packaging type',
+    flushRequired: 'Please select a flush',
+    invalidYear: 'Please enter a valid year',
+    futureYear: 'Harvest year cannot be in the future',
+    invalidWeight: 'Please enter a valid weight',
+    invalidQuantity: 'Please enter a valid quantity',
+    positiveQuantity: 'Value must be positive',
+    silver: 'Silver',
+    wing: 'Wing',
+    gift: 'Gift',
+    first: 'First',
+    second: 'Second',
+    mixed: 'Mixed',
   },
 }

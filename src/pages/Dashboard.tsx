@@ -55,7 +55,7 @@ export default function Dashboard() {
   )
 
   return (
-    <div className="px-6 safe-area-inset">
+    <div className="px-4 pb-28 safe-area-inset">
       <select
         value={selectedYear ?? ''}
         onChange={(e) =>
@@ -72,35 +72,49 @@ export default function Dashboard() {
       <button onClick={() => setSelectedYear(null)}>
         {TRANSLATIONS[LANGUAGE].allYears}
       </button>
+
       <StockChart
         chartData={chartData}
         onBarClick={(id) => navigate(`/teas/${id}`)}
       />
-      <button
-        onClick={() => navigate('/add-stock')}
-        className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
-      >
-        {TRANSLATIONS[LANGUAGE].addStock}
-      </button>
-      <button
-        onClick={() => navigate('/remove-stock')}
-        className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
-      >
-        {TRANSLATIONS[LANGUAGE].removeStock}
-      </button>
-      <button
-        onClick={() => navigate('/teas')}
-        className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
-      >
-        {TRANSLATIONS[LANGUAGE].manageTeas}
-      </button>
-      <button
-        onClick={() => navigate('/customers')}
-        className="bg-gray-200 px-4 py-2 m-1 rounded cursor-pointer"
-      >
-        {TRANSLATIONS[LANGUAGE].manageCustomers}
-      </button>
+
+      <p className="text-xs text-gray-400 uppercase tracking-wider mt-4 mb-2">
+        {t('manage')}
+      </p>
+      <div className="flex gap-2 mb-6">
+        <button
+          onClick={() => navigate('/teas')}
+          className="flex-1 flex items-center justify-center gap-2 bg-white border border-gray-200 rounded-xl py-3 text-sm"
+        >
+          {TRANSLATIONS[LANGUAGE].manageTeas}
+        </button>
+        <button
+          onClick={() => navigate('/customers')}
+          className="flex-1 flex items-center justify-center gap-2 bg-white border border-gray-200 rounded-xl py-3 text-sm"
+        >
+          {TRANSLATIONS[LANGUAGE].manageCustomers}
+        </button>
+      </div>
+
+      <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">
+        {t('recentActivity')}
+      </p>
       <ActivityFeed />
+
+      <div className="fixed bottom-0 left-0 right-0 bg-[#f2f2e1] border-t border-gray-200 px-4 pt-3 pb-6 grid grid-cols-2 gap-3">
+        <button
+          onClick={() => navigate('/add-stock')}
+          className="flex items-center justify-center gap-2 bg-emerald-600 text-white rounded-xl py-4 font-medium"
+        >
+          + {TRANSLATIONS[LANGUAGE].addStock}
+        </button>
+        <button
+          onClick={() => navigate('/remove-stock')}
+          className="flex items-center justify-center gap-2 bg-orange-600 text-white rounded-xl py-4 font-medium"
+        >
+          − {TRANSLATIONS[LANGUAGE].removeStock}
+        </button>
+      </div>
     </div>
   )
 }

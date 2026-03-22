@@ -82,13 +82,13 @@ export default function Dashboard() {
       <div className="flex gap-2 mb-6">
         <button
           onClick={() => navigate('/teas')}
-          className="flex-1 flex items-center justify-center gap-2 bg-white border border-gray-200 rounded-xl py-3 text-sm"
+          className="btn-secondary btn-full"
         >
           {t('manageTeas')}
         </button>
         <button
           onClick={() => navigate('/customers')}
-          className="flex-1 flex items-center justify-center gap-2 bg-white border border-gray-200 rounded-xl py-3 text-sm"
+          className="btn-secondary btn-full"
         >
           {t('manageCustomers')}
         </button>

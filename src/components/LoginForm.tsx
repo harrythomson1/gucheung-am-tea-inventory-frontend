@@ -42,47 +42,37 @@ export function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-72">
       <div className="space-y-2">
-        <div>
-          <input
-            placeholder={TRANSLATIONS[LANGUAGE].emailPlaceholder}
-            {...register('email', {
-              required: true,
-              onChange: () => setAuthError(null),
-            })}
-            className="border border-black rounded-md w-full"
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            placeholder={TRANSLATIONS[LANGUAGE].passwordPlaceholder}
-            {...register('password', {
-              required: true,
-              onChange: () => setAuthError(null),
-            })}
-            className="border border-black rounded-md w-full"
-          />
-        </div>
-        <div className="bg-[#2a5034] mt-6 rounded-2xl p-1.5 shadow-md flex justify-center cursor-pointer">
-          <input
-            type="submit"
-            className="text-white bg-transparent cursor-pointer text-center w-full"
-            value={TRANSLATIONS[LANGUAGE].submitButton}
-            disabled={isSubmitting}
-          />
-        </div>
+        <input
+          placeholder={TRANSLATIONS[LANGUAGE].emailPlaceholder}
+          {...register('email', {
+            required: true,
+            onChange: () => setAuthError(null),
+          })}
+          className="input-base"
+        />
+        <input
+          type="password"
+          placeholder={TRANSLATIONS[LANGUAGE].passwordPlaceholder}
+          {...register('password', {
+            required: true,
+            onChange: () => setAuthError(null),
+          })}
+          className="input-base"
+        />
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="btn-primary btn-full mt-4 disabled:opacity-50"
+        >
+          {TRANSLATIONS[LANGUAGE].submitButton}
+        </button>
       </div>
       <div className="mt-2">
-        {authError && <span className="text-red-500 text-sm">{authError}</span>}
-        {errors.password && (
-          <span className="text-red-500 text-sm">
+        {authError && <p className="text-danger text-sm">{authError}</p>}
+        {(errors.email || errors.password) && (
+          <p className="text-danger text-sm">
             {TRANSLATIONS[LANGUAGE].requiredField}
-          </span>
-        )}
-        {errors.email && (
-          <span className="text-red-500 text-sm">
-            {TRANSLATIONS[LANGUAGE].requiredField}
-          </span>
+          </p>
         )}
       </div>
     </form>

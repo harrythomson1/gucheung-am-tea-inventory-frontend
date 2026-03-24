@@ -8,12 +8,14 @@ import { TEA_NAMES, t } from '../constants/translations'
 import type { ActivityFeedType } from '../types/transaction'
 import { timeAgo } from '../utils/time'
 import { Download, TrendingUp, TrendingDown } from 'lucide-react'
+import { useAuth } from '../hooks/useAuth'
 
 type ActivityFeedTypes = {
   teaId?: string
 }
 
 export function ActivityFeed({ teaId }: ActivityFeedTypes) {
+  const { isAdmin } = useAuth()
   const [feedData, setFeedData] = useState<ActivityFeedType[]>([])
   const [showExportModal, setShowExportModal] = useState(false)
   const [startDate, setStartDate] = useState<Date | null>(null)
@@ -53,7 +55,7 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
 
   return (
     <>
-      <div>
+      {isAdmin && (
         <button
           onClick={() => setShowExportModal(true)}
           className="btn btn-secondary my-2"
@@ -61,56 +63,8 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
           <Download size={14} />
           {t('export')}
         </button>
-        {showExportModal && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-            <div className="bg-white p-6 rounded-lg w-80">
-              <h2>{t('exportTransactions')}</h2>
-              <DatePicker
-                selected={startDate}
-                onChange={(date: Date | null) => setStartDate(date)}
-                placeholderText={t('startDate')}
-              />
-              <DatePicker
-                selected={endDate}
-                onChange={(date: Date | null) => setEndDate(date)}
-                placeholderText={t('endDate')}
-              />
-              <div>
-                <select
-                  value={transactionType}
-                  onChange={(e) => setTransactionType(e.target.value)}
-                >
-                  <option value="">{t('transactionSelect')}</option>
-                  <option value="harvest">{t('harvest')}</option>
-                  <option value="sale">{t('sale')}</option>
-                  <option value="donation">{t('donation')}</option>
-                  <option value="ceremony">{t('ceremony')}</option>
-                  <option value="damaged">{t('damaged')}</option>
-                </select>
-              </div>
-              <div>
-                <select
-                  value={tea}
-                  onChange={(e) =>
-                    setTea(e.target.value ? Number(e.target.value) : '')
-                  }
-                >
-                  <option value="">{t('allOptions')}</option>
-                  {teas.map((tea_data) => (
-                    <option key={tea_data.id} value={tea_data.id}>
-                      {tea_data.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <button onClick={() => setShowExportModal(false)}>
-                {t('cancel')}
-              </button>
-              <button onClick={handleExport}>{t('download')}</button>
-            </div>
-          </div>
-        )}
-      </div>
+      )}
+
       {showExportModal && (
         <div
           style={{ minHeight: '100vh' }}
@@ -134,7 +88,6 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
                 placeholderText={t('endDate')}
                 className="input-base"
               />
-
               <div className="relative">
                 <select
                   value={transactionType}
@@ -152,7 +105,6 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
                   ▼
                 </span>
               </div>
-
               <div className="relative">
                 <select
                   value={tea}

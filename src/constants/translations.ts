@@ -95,6 +95,7 @@ export const TRANSLATIONS = {
     addCustomer: '고객 추가',
     transactionHistory: '거래 내역',
     dashboard: '대시보드',
+    totalStock: '총 재고',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -181,5 +182,6 @@ export const TRANSLATIONS = {
     addCustomer: 'Add customer',
     transactionHistory: 'Transaction history',
     dashboard: 'Dashboard',
+    totalStock: 'Total stock',
   },
 }

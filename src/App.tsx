@@ -10,6 +10,7 @@ import { TeaDetail } from './pages/TeaDetail'
 import Teas from './pages/Teas'
 import { Customers } from './pages/Customers'
 import { CustomerDetail } from './pages/CustomerDetail'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/teas" element={<Teas />} />
           </Route>
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AuthProvider>
   )

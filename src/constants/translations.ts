@@ -102,6 +102,8 @@ export const TRANSLATIONS = {
     installApp: '앱 설치',
     iosInstallPrompt:
       '설치하려면: Safari에서 공유 버튼(□↑)을 누른 후 "홈 화면에 추가"를 선택하세요',
+    notFound: '페이지를 찾을 수 없습니다',
+    notFoundMessage: '존재하지 않는 페이지입니다',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -195,5 +197,7 @@ export const TRANSLATIONS = {
     installApp: 'Install app',
     iosInstallPrompt:
       'To install, open in Safari, tap the share button (□↑) then "Add to Home Screen"',
+    notFound: 'Page not found',
+    notFoundMessage: 'The page you are looking for does not exist',
   },
 }

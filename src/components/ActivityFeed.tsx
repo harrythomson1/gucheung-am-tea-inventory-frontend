@@ -111,13 +111,92 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
           </div>
         )}
       </div>
+      {showExportModal && (
+        <div
+          style={{ minHeight: '100vh' }}
+          className="fixed inset-0 bg-black/50 flex items-end justify-center z-50"
+        >
+          <div className="bg-[#f2f2e1] w-full rounded-t-2xl p-6">
+            <h2 className="text-sm font-medium text-[#2a5034] mb-4">
+              {t('exportTransactions')}
+            </h2>
+
+            <div className="flex flex-col gap-2 mb-4">
+              <DatePicker
+                selected={startDate}
+                onChange={(date: Date | null) => setStartDate(date)}
+                placeholderText={t('startDate')}
+                className="input-base"
+              />
+              <DatePicker
+                selected={endDate}
+                onChange={(date: Date | null) => setEndDate(date)}
+                placeholderText={t('endDate')}
+                className="input-base"
+              />
+
+              <div className="relative">
+                <select
+                  value={transactionType}
+                  onChange={(e) => setTransactionType(e.target.value)}
+                  className="input-base appearance-none pr-8"
+                >
+                  <option value="">{t('transactionSelect')}</option>
+                  <option value="harvest">{t('harvest')}</option>
+                  <option value="sale">{t('sale')}</option>
+                  <option value="donation">{t('donation')}</option>
+                  <option value="ceremony">{t('ceremony')}</option>
+                  <option value="damaged">{t('damaged')}</option>
+                </select>
+                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#2a5034] text-xs">
+                  ▼
+                </span>
+              </div>
+
+              <div className="relative">
+                <select
+                  value={tea}
+                  onChange={(e) =>
+                    setTea(e.target.value ? Number(e.target.value) : '')
+                  }
+                  className="input-base appearance-none pr-8"
+                >
+                  <option value="">{t('allOptions')}</option>
+                  {teas.map((tea_data) => (
+                    <option key={tea_data.id} value={tea_data.id}>
+                      {tea_data.name}
+                    </option>
+                  ))}
+                </select>
+                <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#2a5034] text-xs">
+                  ▼
+                </span>
+              </div>
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowExportModal(false)}
+                className="btn-secondary flex-1"
+              >
+                {t('cancel')}
+              </button>
+              <button onClick={handleExport} className="btn-primary flex-1">
+                <Download size={14} />
+                {t('download')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {feedData.map((feed) => (
         <div
           key={`${feed.tea_name}-${feed.created_at}`}
-          className="p-3 mb-2 border rounded-lg"
+          className="card px-4 py-3 mb-2"
         >
           <div
-            className={`font-bold text-lg ${feed.quantity_change > 0 ? 'text-stock-add' : 'text-stock-remove'}`}
+            className={`flex items-center gap-1 font-medium text-sm mb-1 ${feed.quantity_change > 0 ? 'text-stock-add' : 'text-stock-remove'}`}
           >
             {feed.quantity_change > 0 ? (
               <TrendingUp size={16} />
@@ -125,7 +204,8 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
               <TrendingDown size={16} />
             )}
             {Math.abs(feed.quantity_change)}{' '}
-            {`${TEA_NAMES[feed.tea_name as keyof typeof TEA_NAMES] ?? feed.tea_name}`}
+            {TEA_NAMES[feed.tea_name as keyof typeof TEA_NAMES] ??
+              feed.tea_name}
           </div>
           <div className="text-sm text-gray-600">
             {t(feed.packaging) ?? feed.packaging} · {feed.weight_grams}g ·{' '}

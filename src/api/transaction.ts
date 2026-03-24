@@ -18,8 +18,8 @@ export const postRemovalTransaction = async (
   return response.data
 }
 
-export const getActivityFeed = async () => {
-  const response = await api.get('/transactions')
+export const getActivityFeed = async (tea_id?: number) => {
+  const response = await api.get('/transactions', { params: { tea_id } })
   return response.data
 }
 

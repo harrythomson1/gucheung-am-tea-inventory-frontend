@@ -34,6 +34,7 @@ export function AddStockForm() {
   const currentYear = new Date().getFullYear()
   const HARVEST_YEARS = [currentYear, currentYear - 1, currentYear - 2]
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showCustomYear, setShowCustomYear] = useState(false)
 
   const {
     register,
@@ -185,6 +186,7 @@ export function AddStockForm() {
                   type="button"
                   onClick={() => {
                     setSelectedHarvestYear(harvestYear)
+                    setShowCustomYear(false)
                     setSelectedWeight(null)
                     setSelectedQuantityChange(null)
                     setValue('harvest_year', harvestYear)
@@ -193,6 +195,32 @@ export function AddStockForm() {
                   {harvestYear}
                 </button>
               ))}
+              <button
+                type="button"
+                className={toggleButtonClass(showCustomYear)}
+                onClick={() => {
+                  setShowCustomYear(true)
+                  setSelectedHarvestYear(null)
+                  setSelectedWeight(null)
+                  setSelectedQuantityChange(null)
+                }}
+              >
+                {t('otherYear')}
+              </button>
+              {showCustomYear && (
+                <input
+                  type="number"
+                  placeholder={t('yearPlaceholder')}
+                  className="input-base mt-2"
+                  {...register('harvest_year', {
+                    onChange: (e) =>
+                      setSelectedHarvestYear(Number(e.target.value)),
+                    required: true,
+                    valueAsNumber: true,
+                    validate: (value) => value > 1900 || t('invalidYear'),
+                  })}
+                />
+              )}
             </div>
           </>
         )}

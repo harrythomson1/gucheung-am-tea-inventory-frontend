@@ -123,7 +123,7 @@ export function CustomerDetail() {
           <div className="flex items-start justify-between gap-2">
             <p className="text-sm text-gray-600">{customerData.notes}</p>
             <button onClick={() => setEditingNotes(true)}>
-              <Pencil size={13} className="text-gray-300 flex-shrink-0" />
+              <Pencil size={13} className="text-gray-300 shrink-0" />
             </button>
           </div>
         ) : (

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { createCustomer } from '../api/customers'
 import type { Customer } from '../types/customer'
 import { t } from '../constants/translations'
+import { X } from 'lucide-react'
 
 type AddCustomerModalProps = {
   onClose: () => void
@@ -45,48 +46,70 @@ export function AddCustomerModal({
       setIsSubmitting(false)
     }
   }
+
   return (
-    <>
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-        <div className="bg-white p-6 rounded-lg w-80">
-          <div>{t('addCustomerTitle')}</div>
-          <div>
-            <input
-              placeholder={t('namePlaceholder')}
-              onChange={(e) => setName(e.target.value)}
-            ></input>
-            <input
-              placeholder={t('cityPlaceholder')}
-              onChange={(e) => setCity(e.target.value)}
-            ></input>
-            <input
-              placeholder={t('addressPlaceholder')}
-              onChange={(e) => setAddress(e.target.value)}
-            ></input>
-            <input
-              placeholder={t('phonePlaceholder')}
-              onChange={(e) => setPhone(e.target.value)}
-            ></input>
-            <input
-              placeholder={t('notesPlaceholder')}
-              onChange={(e) => setNote(e.target.value)}
-            ></input>
-          </div>
-          <div className="space-x-4">
-            <button
-              onClick={() => handleSubmit()}
-              type="button"
-              disabled={isSubmitting}
-            >
-              {t('submitButton')}
-            </button>
-            <button onClick={() => onClose()} type="button">
-              {t('cancel')}
-            </button>
-          </div>
-          {error && <span className="text-red-500 text-sm">{error}</span>}
+    <div
+      style={{ minHeight: '100vh' }}
+      className="fixed inset-0 bg-black/50 flex items-end justify-center z-50"
+    >
+      <div className="bg-[#f2f2e1] w-full rounded-t-2xl p-6 animate-slide-up">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-sm font-medium text-[#2a5034]">
+            {t('addCustomerTitle')}
+          </h2>
+          <button onClick={onClose}>
+            <X size={16} className="text-gray-400" />
+          </button>
+        </div>
+
+        <div className="flex flex-col gap-2 mb-4">
+          <input
+            placeholder={t('namePlaceholder')}
+            onChange={(e) => setName(e.target.value)}
+            className="input-base"
+          />
+          <input
+            placeholder={t('cityPlaceholder')}
+            onChange={(e) => setCity(e.target.value)}
+            className="input-base"
+          />
+          <input
+            placeholder={t('addressPlaceholder')}
+            onChange={(e) => setAddress(e.target.value)}
+            className="input-base"
+          />
+          <input
+            placeholder={t('phonePlaceholder')}
+            onChange={(e) => setPhone(e.target.value)}
+            className="input-base"
+          />
+          <input
+            placeholder={t('notesPlaceholder')}
+            onChange={(e) => setNote(e.target.value)}
+            className="input-base"
+          />
+        </div>
+
+        {error && <p className="text-danger text-xs mb-3">{error}</p>}
+
+        <div className="flex gap-2">
+          <button
+            onClick={onClose}
+            type="button"
+            className="btn-secondary flex-1"
+          >
+            {t('cancel')}
+          </button>
+          <button
+            onClick={handleSubmit}
+            type="button"
+            disabled={isSubmitting}
+            className="btn-primary flex-1 disabled:opacity-50"
+          >
+            {t('submitButton')}
+          </button>
         </div>
       </div>
-    </>
+    </div>
   )
 }

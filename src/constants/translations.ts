@@ -101,7 +101,7 @@ export const TRANSLATIONS = {
     logout: '로그아웃',
     installApp: '앱 설치',
     iosInstallPrompt:
-      '설치하려면: 공유 버튼(□↑)을 누른 후 "홈 화면에 추가"를 선택하세요',
+      '설치하려면: Safari에서 공유 버튼(□↑)을 누른 후 "홈 화면에 추가"를 선택하세요',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -194,6 +194,6 @@ export const TRANSLATIONS = {
     logout: 'Log out',
     installApp: 'Install app',
     iosInstallPrompt:
-      'To install: tap the share button (□↑) then "Add to Home Screen"',
+      'To install, open in Safari, tap the share button (□↑) then "Add to Home Screen"',
   },
 }

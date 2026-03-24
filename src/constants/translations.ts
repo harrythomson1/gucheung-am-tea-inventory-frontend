@@ -100,6 +100,8 @@ export const TRANSLATIONS = {
     yearPlaceholder: '연도 입력',
     logout: '로그아웃',
     installApp: '앱 설치',
+    iosInstallPrompt:
+      '설치하려면: 공유 버튼(□↑)을 누른 후 "홈 화면에 추가"를 선택하세요',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -191,5 +193,7 @@ export const TRANSLATIONS = {
     yearPlaceholder: 'Enter year',
     logout: 'Log out',
     installApp: 'Install app',
+    iosInstallPrompt:
+      'To install: tap the share button (□↑) then "Add to Home Screen"',
   },
 }

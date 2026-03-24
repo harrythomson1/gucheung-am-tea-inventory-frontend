@@ -84,7 +84,9 @@ export function CustomerDetail() {
       {customerData.phone && (
         <div className="card overflow-hidden mb-2">
           <div className="px-4 py-3 flex justify-between items-center">
-            <span className="text-xs text-gray-400">{t('phone')}</span>
+            <span className="text-xs text-gray-400">
+              {t('phonePlaceholder')}
+            </span>
             <span className="text-sm font-medium text-[#2a5034]">
               {customerData.phone}
             </span>
@@ -94,7 +96,7 @@ export function CustomerDetail() {
 
       {/* Notes */}
       <div className="card px-4 py-3 mb-4">
-        <p className="section-label mt-0">{t('notes')}</p>
+        <p className="section-label mt-0">{t('notesPlaceholder')}</p>
         {editingNotes ? (
           <div className="flex flex-col gap-2">
             <input

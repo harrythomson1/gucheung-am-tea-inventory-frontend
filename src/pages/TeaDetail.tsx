@@ -30,6 +30,8 @@ export function TeaDetail() {
     })
   }, [teaId])
 
+  const totalStock = data.reduce((sum, item) => sum + item.current_stock, 0)
+
   const chartData = data.reduce(
     (acc, item) => {
       const key = String(item[groupBy])
@@ -68,6 +70,7 @@ export function TeaDetail() {
         {t('year')}
       </button>
       <StockChart chartData={chartData} />
+      <div>{totalStock}</div>
       <div>
         <ActivityFeed teaId={teaId} />
       </div>

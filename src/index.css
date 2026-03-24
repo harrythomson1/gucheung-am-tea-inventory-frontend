@@ -7,6 +7,14 @@
 }
 
 @layer components {
+  .card {
+    @apply bg-white border border-gray-200 rounded-xl;
+  }
+
+  .avatar {
+    @apply w-9 h-9 rounded-full bg-[#e8f0e9] flex items-center justify-center text-sm font-medium text-[#2a5034] flex-shrink-0;
+  }
+
   .btn {
     @apply px-4 py-3 rounded-xl font-medium text-sm cursor-pointer transition-opacity active:opacity-80 flex items-center justify-center gap-2;
   }
@@ -43,5 +51,9 @@
 
   .text-danger {
     @apply text-[#8b3a22];
+  }
+
+  .section-label {
+    @apply text-xs text-gray-400 uppercase tracking-wider mt-4 mb-2;
   }
 }

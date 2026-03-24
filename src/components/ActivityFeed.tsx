@@ -9,7 +9,11 @@ import type { ActivityFeedType } from '../types/transaction'
 import { timeAgo } from '../utils/time'
 import { Download, TrendingUp, TrendingDown } from 'lucide-react'
 
-export function ActivityFeed() {
+type ActivityFeedTypes = {
+  tea_id?: number
+}
+
+export function ActivityFeed({ tea_id }: ActivityFeedTypes) {
   const [feedData, setFeedData] = useState<ActivityFeedType[]>([])
   const [showExportModal, setShowExportModal] = useState(false)
   const [startDate, setStartDate] = useState<Date | null>(null)
@@ -19,13 +23,13 @@ export function ActivityFeed() {
   const [tea, setTea] = useState<number | ''>('')
 
   useEffect(() => {
-    getActivityFeed().then((response) => {
+    getActivityFeed(tea_id).then((response) => {
       setFeedData(response)
     })
     getTeas().then((response) => {
       setTeas(response)
     })
-  }, [])
+  }, [tea_id])
 
   const handleExport = async () => {
     const params = new URLSearchParams()

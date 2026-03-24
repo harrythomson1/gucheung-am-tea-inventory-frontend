@@ -2,18 +2,40 @@ import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 import { supabase } from '../lib/supabase'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TRANSLATIONS, LANGUAGE } from '../constants/translations'
+import { Download } from 'lucide-react'
 
 type Inputs = {
   email: string
   password: string
 }
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>
+}
+
 export function LoginForm() {
   const navigate = useNavigate()
   const [authError, setAuthError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [installPrompt, setInstallPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null)
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      e.preventDefault()
+      setInstallPrompt(e as BeforeInstallPromptEvent)
+    }
+    window.addEventListener('beforeinstallprompt', handler)
+    return () => window.removeEventListener('beforeinstallprompt', handler)
+  }, [])
+
+  const handleInstall = async () => {
+    if (!installPrompt) return
+    await installPrompt.prompt()
+    setInstallPrompt(null)
+  }
 
   const {
     register,
@@ -66,6 +88,16 @@ export function LoginForm() {
         >
           {TRANSLATIONS[LANGUAGE].submitButton}
         </button>
+        {installPrompt && (
+          <button
+            type="button"
+            onClick={handleInstall}
+            className="btn-secondary btn-full"
+          >
+            <Download size={14} />
+            {TRANSLATIONS[LANGUAGE].installApp}
+          </button>
+        )}
       </div>
       <div className="mt-2">
         {authError && <p className="text-danger text-sm">{authError}</p>}

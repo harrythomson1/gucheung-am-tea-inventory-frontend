@@ -57,3 +57,16 @@
     @apply text-xs text-gray-400 uppercase tracking-wider mt-4 mb-2;
   }
 }
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}

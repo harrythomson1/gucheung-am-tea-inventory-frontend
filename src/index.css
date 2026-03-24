@@ -26,6 +26,10 @@
   .btn-full {
     @apply w-full;
   }
+
+  .input-base {
+    @apply w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-[#2a5034];
+  }
 }
 
 @layer utilities {
@@ -34,6 +38,10 @@
   }
 
   .text-stock-remove {
+    @apply text-[#8b3a22];
+  }
+
+  .text-danger {
     @apply text-[#8b3a22];
   }
 }

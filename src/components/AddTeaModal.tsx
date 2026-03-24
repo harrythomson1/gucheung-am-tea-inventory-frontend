@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { addTea } from '../api/tea'
 import { t } from '../constants/translations'
+import { Plus } from 'lucide-react'
 
 type AddTeaModalType = {
   onTeaAdded: () => void
@@ -20,6 +21,7 @@ export default function AddTeaModal({ onTeaAdded }: AddTeaModalType) {
       }
       setError(null)
       await addTea(teaName)
+      setTeaName('')
       onTeaAdded()
     } finally {
       setIsSubmitting(false)
@@ -27,16 +29,27 @@ export default function AddTeaModal({ onTeaAdded }: AddTeaModalType) {
   }
 
   return (
-    <div>
-      <input
-        value={teaName}
-        onChange={(e) => setTeaName(e.target.value)}
-        placeholder={t('teaNamePlaceholder')}
-      ></input>
-      <button onClick={handleSubmit} disabled={isSubmitting}>
-        {t('addTeaButton')}
-      </button>
-      {error && <span>{error}</span>}
+    <div className="flex flex-col gap-2">
+      <div className="flex gap-2">
+        <input
+          value={teaName}
+          onChange={(e) => {
+            setTeaName(e.target.value)
+            setError('')
+          }}
+          onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+          placeholder={t('teaNamePlaceholder')}
+          className="flex-1 input-base"
+        />
+        <button
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+          className="btn-primary disabled:opacity-50 px-4"
+        >
+          <Plus size={16} />
+        </button>
+      </div>
+      {error && <p className="text-xs text-danger px-1">{error}</p>}
     </div>
   )
 }

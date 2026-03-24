@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { t } from '../constants/translations'
 import { Plus, Minus, Leaf, Users } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
+import { supabase } from '../lib/supabase'
 
 type DashboardItem = {
   id: number
@@ -127,6 +128,12 @@ export default function Dashboard() {
           {t('removeStock')}
         </button>
       </div>
+      <button
+        onClick={() => supabase.auth.signOut()}
+        className="w-full text-xs text-gray-400 py-4 mt-2"
+      >
+        {t('logout')}
+      </button>
     </div>
   )
 }

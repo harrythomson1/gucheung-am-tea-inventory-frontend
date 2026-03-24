@@ -98,6 +98,7 @@ export const TRANSLATIONS = {
     totalStock: '총 재고',
     otherYear: '다른 연도',
     yearPlaceholder: '연도 입력',
+    logout: '로그아웃',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -187,5 +188,6 @@ export const TRANSLATIONS = {
     totalStock: 'Total stock',
     otherYear: 'Other year',
     yearPlaceholder: 'Enter year',
+    logout: 'Log out',
   },
 }

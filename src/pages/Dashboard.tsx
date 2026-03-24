@@ -19,15 +19,15 @@ export default function Dashboard() {
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  const nonZeroData = data.filter((item) => item.total_stock > 0)
+
   const availableYears = [
-    ...new Set(data.map((item) => item.harvest_year)),
+    ...new Set(nonZeroData.map((item) => item.harvest_year)),
   ].sort((a, b) => b - a)
 
-  const filteredData = (
-    selectedYear
-      ? data.filter((item) => item.harvest_year === selectedYear)
-      : data
-  ).filter((item) => item.total_stock > 0)
+  const filteredData = selectedYear
+    ? nonZeroData.filter((item) => item.harvest_year === selectedYear)
+    : nonZeroData
 
   useEffect(() => {
     getDashboard().then((response) => {

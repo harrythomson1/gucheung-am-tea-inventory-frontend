@@ -4,7 +4,7 @@ import type { Customer } from '../types/customer'
 import { useNavigate } from 'react-router-dom'
 import { t } from '../constants/translations'
 import { AddCustomerModal } from '../components/AddCustomerModal'
-import { Plus, Search, ChevronRight } from 'lucide-react'
+import { Plus, Search, ChevronRight, ChevronLeft } from 'lucide-react'
 
 export function Customers() {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -32,6 +32,13 @@ export function Customers() {
 
   return (
     <div className="px-4 pb-28 safe-area-inset">
+      <button
+        onClick={() => navigate('/')}
+        className="flex items-center gap-1 text-sm text-[#2a5034] mt-4 mb-3"
+      >
+        <ChevronLeft size={16} />
+        {t('dashboard')}
+      </button>
       <p className="section-label">{t('manageCustomers')}</p>
 
       <div className="relative mb-3">

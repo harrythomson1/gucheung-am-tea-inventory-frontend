@@ -94,6 +94,7 @@ export const TRANSLATIONS = {
     deleteTeaConfirmButton: '삭제 확인',
     addCustomer: '고객 추가',
     transactionHistory: '거래 내역',
+    dashboard: '대시보드',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -179,5 +180,6 @@ export const TRANSLATIONS = {
     deleteTeaConfirmButton: 'Delete tea',
     addCustomer: 'Add customer',
     transactionHistory: 'Transaction history',
+    dashboard: 'Dashboard',
   },
 }

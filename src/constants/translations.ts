@@ -4,7 +4,7 @@ export const TEA_NAMES = {
   '발효차 (Fermented Tea)': '발효차',
 }
 
-export const LANGUAGE = 'en'
+export const LANGUAGE = 'ko'
 
 export const t = (key: string): string => {
   return (TRANSLATIONS[LANGUAGE] as Record<string, string>)[key] ?? key
@@ -96,6 +96,8 @@ export const TRANSLATIONS = {
     transactionHistory: '거래 내역',
     dashboard: '대시보드',
     totalStock: '총 재고',
+    otherYear: '다른 연도',
+    yearPlaceholder: '연도 입력',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -183,5 +185,7 @@ export const TRANSLATIONS = {
     transactionHistory: 'Transaction history',
     dashboard: 'Dashboard',
     totalStock: 'Total stock',
+    otherYear: 'Other year',
+    yearPlaceholder: 'Enter year',
   },
 }

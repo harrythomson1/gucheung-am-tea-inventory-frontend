@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { getTeaStock } from '../api/tea'
 import { useParams } from 'react-router-dom'
 import { t, TEA_NAMES } from '../constants/translations'
+import { ActivityFeed } from '../components/ActivityFeed'
 
 type TeaVariantStockItem = {
   id: number
@@ -67,6 +68,9 @@ export function TeaDetail() {
         {t('year')}
       </button>
       <StockChart chartData={chartData} />
+      <div>
+        <ActivityFeed teaId={teaId} />
+      </div>
     </>
   )
 }

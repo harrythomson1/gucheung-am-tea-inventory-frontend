@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { AdminRoute } from './components/AdminRoute'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import AddStock from './pages/AddStock'
@@ -20,10 +21,12 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/add-stock" element={<AddStock />} />
           <Route path="/remove-stock" element={<RemoveStock />} />
-          <Route path="/teas" element={<Teas />} />
           <Route path="/teas/:teaId" element={<TeaDetail />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/customers/:customerId" element={<CustomerDetail />} />
+          <Route element={<AdminRoute />}>
+            <Route path="/teas" element={<Teas />} />
+          </Route>
         </Route>
       </Routes>
     </AuthProvider>

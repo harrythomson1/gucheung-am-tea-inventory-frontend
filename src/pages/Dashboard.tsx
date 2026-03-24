@@ -5,6 +5,7 @@ import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
 import { t } from '../constants/translations'
 import { Plus, Minus, Leaf, Users } from 'lucide-react'
+import { useAuth } from '../hooks/useAuth'
 
 type DashboardItem = {
   id: number
@@ -18,6 +19,7 @@ export default function Dashboard() {
   const [data, setData] = useState<DashboardItem[]>([])
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const { isAdmin } = useAuth()
 
   const nonZeroData = data.filter((item) => item.total_stock > 0)
 
@@ -86,13 +88,15 @@ export default function Dashboard() {
         {t('manage')}
       </p>
       <div className="flex gap-2 mb-6">
-        <button
-          onClick={() => navigate('/teas')}
-          className="btn-secondary btn-full"
-        >
-          <Leaf size={14} />
-          {t('manageTeas')}
-        </button>
+        {isAdmin && (
+          <button
+            onClick={() => navigate('/teas')}
+            className="btn-secondary btn-full"
+          >
+            <Leaf size={14} />
+            {t('manageTeas')}
+          </button>
+        )}
         <button
           onClick={() => navigate('/customers')}
           className="btn-secondary btn-full"

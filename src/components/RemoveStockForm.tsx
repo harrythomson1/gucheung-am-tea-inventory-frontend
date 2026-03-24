@@ -138,11 +138,7 @@ export function RemoveStockForm() {
         {t('dashboard')}
       </button>
 
-      <form
-        onSubmit={handleSubmit(onSubmit, (errors) =>
-          console.log('validation errors', errors)
-        )}
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         {/* Tea */}
         <p className="section-label">{t('selectTea')}</p>
         <div className="flex flex-wrap gap-2 mb-4">

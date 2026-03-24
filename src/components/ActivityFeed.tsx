@@ -116,7 +116,7 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
           style={{ minHeight: '100vh' }}
           className="fixed inset-0 bg-black/50 flex items-end justify-center z-50"
         >
-          <div className="bg-[#f2f2e1] w-full rounded-t-2xl p-6">
+          <div className="bg-[#f2f2e1] w-full rounded-t-2xl p-6 animate-slide-up">
             <h2 className="text-sm font-medium text-[#2a5034] mb-4">
               {t('exportTransactions')}
             </h2>

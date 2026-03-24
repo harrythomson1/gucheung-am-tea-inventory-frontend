@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getCustomers } from '../api/customers'
 import type { Customer } from '../types/customer'
 import { t } from '../constants/translations'
+import { Search } from 'lucide-react'
 
 type CustomerSearchProps = {
   onSelect: (customer: Customer) => void
@@ -12,37 +13,52 @@ export function CustomerSearch({ onSelect }: CustomerSearchProps) {
   const [results, setResults] = useState<Customer[]>([])
 
   useEffect(() => {
-    if (!search) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setResults([])
-      return
-    }
     const timer = setTimeout(() => {
-      getCustomers({ search: search }).then((response) => setResults(response))
+      if (!search) {
+        setResults([])
+        return
+      }
+      getCustomers({ search }).then((response) => setResults(response))
     }, 300)
     return () => clearTimeout(timer)
   }, [search])
+
   return (
-    <div>
-      <input
-        placeholder={t('customerSearch')}
-        onChange={(e) => setSearch(e.target.value)}
-      ></input>
-      {results.map((result) => (
-        <div
-          className={`px-4 py-2 m-1 rounded w-fit 'bg-gray-200'`}
-          key={result.id}
-        >
-          <button
-            type="button"
-            onClick={() => {
-              onSelect(result)
-            }}
-          >
-            {result.name} - {result.city} - {result.phone}
-          </button>
+    <div className="flex flex-col gap-2">
+      <div className="relative">
+        <Search
+          size={14}
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+        />
+        <input
+          placeholder={t('customerSearch')}
+          onChange={(e) => setSearch(e.target.value)}
+          className="input-base pl-9"
+        />
+      </div>
+      {results.length > 0 && (
+        <div className="flex flex-col gap-1">
+          {results.map((result) => (
+            <button
+              key={result.id}
+              type="button"
+              onClick={() => onSelect(result)}
+              className="card px-4 py-3 flex items-center gap-3 text-left active:opacity-70"
+            >
+              <div className="avatar">{result.name.charAt(0)}</div>
+              <div>
+                <p className="text-sm font-medium text-[#2a5034]">
+                  {result.name}
+                </p>
+                <p className="text-xs text-gray-400">
+                  {result.city}
+                  {result.phone ? ` · ${result.phone}` : ''}
+                </p>
+              </div>
+            </button>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   )
 }

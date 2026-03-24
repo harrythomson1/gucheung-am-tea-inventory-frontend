@@ -173,7 +173,6 @@ export function RemoveStockForm() {
                     setSelectedPackaging(null)
                     setSelectedFlush(null)
                     setSelectedWeight(null)
-                    setValue('harvest_year', year)
                   }}
                 >
                   {year}

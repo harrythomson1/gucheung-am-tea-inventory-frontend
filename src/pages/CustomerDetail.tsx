@@ -62,10 +62,10 @@ export function CustomerDetail() {
     setIsSubmitting(true)
     try {
       await updateCustomer(customerData!.id, {
-        name: nameInput || undefined,
-        city: cityInput || undefined,
-        address: addressInput || undefined,
-        phone: phoneInput || undefined,
+        name: nameInput || customerData!.name,
+        city: cityInput || customerData!.city,
+        address: addressInput || null,
+        phone: phoneInput || null,
       })
       setEditingCustomer(false)
       setRefreshCount((c) => c + 1)

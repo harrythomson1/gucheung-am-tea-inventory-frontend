@@ -9,8 +9,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import type { ActivityFeedType } from '../types/transaction'
 import { t, TEA_NAMES } from '../constants/translations'
 import { timeAgo } from '../utils/time'
-import { UpdateCustomerModal } from '../components/UpdateCustomerModal'
-import { TrendingUp, TrendingDown, Pencil, ChevronLeft } from 'lucide-react'
+import { TrendingUp, TrendingDown, Pencil, ChevronLeft, X } from 'lucide-react'
 
 export function CustomerDetail() {
   const { customerId } = useParams<{ customerId: string }>()
@@ -18,9 +17,13 @@ export function CustomerDetail() {
   const [customerData, setCustomerData] = useState<Customer | null>(null)
   const [transactionData, setTransactionData] = useState<ActivityFeedType[]>([])
   const [editingNotes, setEditingNotes] = useState(false)
-  const [noteInput, setNoteInput] = useState(customerData?.notes ?? '')
+  const [noteInput, setNoteInput] = useState('')
+  const [editingCustomer, setEditingCustomer] = useState(false)
+  const [nameInput, setNameInput] = useState('')
+  const [cityInput, setCityInput] = useState('')
+  const [addressInput, setAddressInput] = useState('')
+  const [phoneInput, setPhoneInput] = useState('')
   const [refreshCount, setRefreshCount] = useState<number>(0)
-  const [showUpdateModal, setShowUpdateModal] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
@@ -35,6 +38,14 @@ export function CustomerDetail() {
     })
   }, [customerId])
 
+  const handleOpenEdit = () => {
+    setNameInput(customerData?.name ?? '')
+    setCityInput(customerData?.city ?? '')
+    setAddressInput(customerData?.address ?? '')
+    setPhoneInput(customerData?.phone ?? '')
+    setEditingCustomer(true)
+  }
+
   const handleNoteInput = async () => {
     setIsSubmitting(true)
     try {
@@ -47,11 +58,26 @@ export function CustomerDetail() {
     }
   }
 
+  const handleCustomerUpdate = async () => {
+    setIsSubmitting(true)
+    try {
+      await updateCustomer(customerData!.id, {
+        name: nameInput || undefined,
+        city: cityInput || undefined,
+        address: addressInput || undefined,
+        phone: phoneInput || undefined,
+      })
+      setEditingCustomer(false)
+      setRefreshCount((c) => c + 1)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   if (!customerData) return <div className="px-4 pt-4">{t('loading')}</div>
 
   return (
     <div className="px-4 pb-28 safe-area-inset">
-      {/* Back button */}
       <button
         onClick={() => navigate('/customers')}
         className="flex items-center gap-1 text-sm text-[#2a5034] mt-4 mb-3"
@@ -60,28 +86,84 @@ export function CustomerDetail() {
         {t('manageCustomers')}
       </button>
 
-      {/* Avatar + name card */}
-      <div className="card px-4 py-4 flex items-center justify-between mb-2">
-        <div className="flex items-center gap-3">
-          <div className="avatar text-base">{customerData.name.charAt(0)}</div>
-          <div>
+      {/* Avatar card / inline edit */}
+      {editingCustomer ? (
+        <div className="card px-4 py-4 mb-2">
+          <div className="flex items-center justify-between mb-3">
             <p className="text-sm font-medium text-[#2a5034]">
-              {customerData.name}
+              {t('updateCustomer')}
             </p>
-            <p className="text-xs text-gray-400">{customerData.city}</p>
+            <button onClick={() => setEditingCustomer(false)}>
+              <X size={14} className="text-gray-400" />
+            </button>
+          </div>
+          <div className="flex flex-col gap-2">
+            <input
+              value={nameInput}
+              placeholder={t('namePlaceholder')}
+              onChange={(e) => setNameInput(e.target.value)}
+              className="input-base"
+            />
+            <input
+              value={cityInput}
+              placeholder={t('cityPlaceholder')}
+              onChange={(e) => setCityInput(e.target.value)}
+              className="input-base"
+            />
+            <input
+              value={addressInput}
+              placeholder={t('addressPlaceholder')}
+              onChange={(e) => setAddressInput(e.target.value)}
+              className="input-base"
+            />
+            <input
+              value={phoneInput}
+              placeholder={t('phonePlaceholder')}
+              onChange={(e) => setPhoneInput(e.target.value)}
+              className="input-base"
+            />
+            <div className="flex gap-2 mt-1">
+              <button
+                onClick={() => setEditingCustomer(false)}
+                className="btn-secondary flex-1"
+              >
+                {t('cancel')}
+              </button>
+              <button
+                onClick={handleCustomerUpdate}
+                disabled={isSubmitting}
+                className="btn-primary flex-1 disabled:opacity-50"
+              >
+                {t('submitButton')}
+              </button>
+            </div>
           </div>
         </div>
-        <button
-          onClick={() => setShowUpdateModal(true)}
-          className="flex items-center gap-1.5 text-xs text-gray-400 border border-gray-200 rounded-lg px-3 py-1.5"
-        >
-          <Pencil size={11} />
-          {t('updateCustomer')}
-        </button>
-      </div>
+      ) : (
+        <div className="card px-4 py-4 flex items-center justify-between mb-2">
+          <div className="flex items-center gap-3">
+            <div className="avatar text-base">
+              {customerData.name.charAt(0)}
+            </div>
+            <div>
+              <p className="text-sm font-medium text-[#2a5034]">
+                {customerData.name}
+              </p>
+              <p className="text-xs text-gray-400">{customerData.city}</p>
+            </div>
+          </div>
+          <button
+            onClick={handleOpenEdit}
+            className="flex items-center gap-1.5 text-xs text-gray-400 border border-gray-200 rounded-lg px-3 py-1.5"
+          >
+            <Pencil size={11} />
+            {t('updateCustomer')}
+          </button>
+        </div>
+      )}
 
-      {/* Details */}
-      {customerData.phone && (
+      {/* Phone */}
+      {customerData.phone && !editingCustomer && (
         <div className="card overflow-hidden mb-2">
           <div className="px-4 py-3 flex justify-between items-center">
             <span className="text-xs text-gray-400">
@@ -177,14 +259,6 @@ export function CustomerDetail() {
             ))}
           </div>
         </>
-      )}
-
-      {showUpdateModal && (
-        <UpdateCustomerModal
-          onClose={() => setShowUpdateModal(false)}
-          onCustomerUpdated={() => setRefreshCount((c) => c + 1)}
-          currentCustomer={customerData}
-        />
       )}
     </div>
   )

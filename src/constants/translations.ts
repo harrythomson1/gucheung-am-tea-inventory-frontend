@@ -90,6 +90,8 @@ export const TRANSLATIONS = {
     daysAgo: '일 전',
     manage: '관리',
     recentActivity: '최근 활동',
+    deleteTeaConfirm: '을 삭제하시겠습니까?',
+    deleteTeaConfirmButton: '삭제 확인',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -170,5 +172,8 @@ export const TRANSLATIONS = {
     daysAgo: ' days ago',
     manage: 'Manage',
     recentActivity: 'Recent Activity',
+    deleteTeaConfirm:
+      'This will delete the tea please confirm before proceeding',
+    deleteTeaConfirmButton: 'Delete tea',
   },
 }

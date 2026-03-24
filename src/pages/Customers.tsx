@@ -60,6 +60,9 @@ export function Customers() {
                   {customer.name}
                 </p>
                 <p className="text-xs text-gray-400">{customer.city}</p>
+                {customer.phone && (
+                  <p className="text-xs text-gray-400">{customer.phone}</p>
+                )}
               </div>
             </div>
             <ChevronRight size={14} className="text-gray-300" />

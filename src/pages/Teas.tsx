@@ -74,7 +74,6 @@ export default function Teas() {
             {confirmDeleteId === tea.id && (
               <div className="px-4 pb-3">
                 <p className="text-xs text-red-500 mb-2">
-                  {tea.name}
                   {t('deleteTeaConfirm')}
                 </p>
                 <div className="flex gap-2">

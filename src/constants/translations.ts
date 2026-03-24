@@ -92,6 +92,7 @@ export const TRANSLATIONS = {
     recentActivity: '최근 활동',
     deleteTeaConfirm: '을 삭제하시겠습니까?',
     deleteTeaConfirmButton: '삭제 확인',
+    addCustomer: '고객 추가',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -175,5 +176,6 @@ export const TRANSLATIONS = {
     deleteTeaConfirm:
       'This will delete the tea please confirm before proceeding',
     deleteTeaConfirmButton: 'Delete tea',
+    addCustomer: 'Add customer',
   },
 }

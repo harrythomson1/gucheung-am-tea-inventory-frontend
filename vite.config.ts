@@ -39,6 +39,8 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: null,
+        skipWaiting: true,
+        clientsClaim: true,
       },
     }),
   ],

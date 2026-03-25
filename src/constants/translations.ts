@@ -4,7 +4,7 @@ export const TEA_NAMES = {
   '발효차 (Fermented Tea)': '발효차',
 }
 
-export const LANGUAGE = 'ko'
+export const LANGUAGE = 'en'
 
 export const t = (key: string): string => {
   return (TRANSLATIONS[LANGUAGE] as Record<string, string>)[key] ?? key

@@ -171,16 +171,28 @@ export function CustomerDetail() {
       )}
 
       {/* Phone */}
-      {customerData.phone && !editingCustomer && (
+      {(customerData.phone || customerData.address) && !editingCustomer && (
         <div className="card overflow-hidden mb-2">
-          <div className="px-4 py-3 flex justify-between items-center">
-            <span className="text-xs text-gray-400">
-              {t('phonePlaceholder')}
-            </span>
-            <span className="text-sm font-medium text-[#2a5034]">
-              {customerData.phone}
-            </span>
-          </div>
+          {customerData.phone && (
+            <div className="px-4 py-3 flex justify-between items-center border-b border-gray-100">
+              <span className="text-xs text-gray-400">
+                {t('phonePlaceholder')}
+              </span>
+              <span className="text-sm font-medium text-[#2a5034]">
+                {customerData.phone}
+              </span>
+            </div>
+          )}
+          {customerData.address && (
+            <div className="px-4 py-3 flex justify-between items-center">
+              <span className="text-xs text-gray-400">
+                {t('addressPlaceholder')}
+              </span>
+              <span className="text-sm font-medium text-[#2a5034]">
+                {customerData.address}
+              </span>
+            </div>
+          )}
         </div>
       )}
 

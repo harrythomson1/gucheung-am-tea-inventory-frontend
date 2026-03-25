@@ -10,11 +10,9 @@ export const getCustomers = async ({
   limit?: number
   search?: string
 } = {}) => {
-  const params = new URLSearchParams()
-  params.append('skip', String(skip))
-  params.append('limit', String(limit))
-  if (search) params.append('search', search)
-  const response = await api.get(`/customers?${params.toString()}`)
+  const response = await api.get('/customers', {
+    params: { skip, limit, search },
+  })
   return response.data
 }
 

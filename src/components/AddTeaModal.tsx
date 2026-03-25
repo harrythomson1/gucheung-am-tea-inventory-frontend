@@ -23,6 +23,8 @@ export default function AddTeaModal({ onTeaAdded }: AddTeaModalType) {
       await addTea(teaName)
       setTeaName('')
       onTeaAdded()
+    } catch {
+      setError(t('teaAddError'))
     } finally {
       setIsSubmitting(false)
     }

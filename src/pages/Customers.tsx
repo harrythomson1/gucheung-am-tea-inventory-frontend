@@ -25,9 +25,9 @@ export function Customers() {
   }, [search])
 
   useEffect(() => {
-    getCustomers({ skip, search: debouncedSearch || undefined }).then(
-      (response) => setCustomers(response)
-    )
+    getCustomers({ skip, search: debouncedSearch || undefined })
+      .then((response) => setCustomers(response))
+      .catch((error) => console.error('Failed to fetch customers:', error))
   }, [currentPage, skip, debouncedSearch])
 
   return (

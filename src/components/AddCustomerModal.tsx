@@ -42,6 +42,8 @@ export function AddCustomerModal({
       })
       onCustomerCreated(customer)
       onClose()
+    } catch {
+      setError(t('customerCreateError'))
     } finally {
       setIsSubmitting(false)
     }

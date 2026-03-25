@@ -12,9 +12,9 @@ export const postHarvestTransaction = async (
 }
 
 export const postRemovalTransaction = async (
-  transction_data: RemoveTransactionData
+  transaction_data: RemoveTransactionData
 ) => {
-  const response = await api.post('/transactions', transction_data)
+  const response = await api.post('/transactions', transaction_data)
   return response.data
 }
 

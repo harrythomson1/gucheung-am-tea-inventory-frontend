@@ -41,8 +41,16 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
   const handleExport = async () => {
     try {
       const params = new URLSearchParams()
-      if (startDate) params.append('start_date', startDate.toISOString())
-      if (endDate) params.append('end_date', endDate.toISOString())
+      if (startDate) {
+        const start = new Date(startDate)
+        start.setHours(0, 0, 0, 0)
+        params.append('start_date', start.toISOString())
+      }
+      if (endDate) {
+        const end = new Date(endDate)
+        end.setHours(23, 59, 59, 999)
+        params.append('end_date', end.toISOString())
+      }
       if (transactionType) params.append('transaction_type', transactionType)
       if (tea) {
         const teaName = teas.find((t) => t.id === tea)?.name

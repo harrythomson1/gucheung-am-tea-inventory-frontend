@@ -31,11 +31,11 @@ export function AddStockForm() {
   >(null)
   const [variants, setVariants] = useState<Variant[]>([])
   const [showCustomWeight, setShowCustomWeight] = useState(false)
+  const [showCustomYear, setShowCustomYear] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const currentYear = new Date().getFullYear()
   const HARVEST_YEARS = [currentYear, currentYear - 1, currentYear - 2]
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [showCustomYear, setShowCustomYear] = useState(false)
-  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const {
     register,
@@ -47,12 +47,13 @@ export function AddStockForm() {
   const handleTeaSelect = async (teaId: number) => {
     try {
       setSelectedTeaId(teaId)
-      const data = await getTeaStock(teaId)
-      setVariants(data)
-      setSelectedHarvestYear(null)
       setSelectedPackaging(null)
       setSelectedFlush(null)
+      setSelectedHarvestYear(null)
       setSelectedWeight(null)
+      setSelectedQuantityChange(null)
+      const data = await getTeaStock(teaId)
+      setVariants(data)
     } catch {
       console.error('Failed to fetch tea stock')
     }
@@ -95,9 +96,13 @@ export function AddStockForm() {
     }
   }
 
-  const toggleButtonClass = (selected: boolean) =>
+  const activeClass = 'bg-[#2a5034] text-white'
+  const enabledClass = 'bg-[#e0e0c8] text-[#2a5034]'
+  const disabledClass = 'bg-[#f0f0e0] text-gray-300 cursor-not-allowed'
+
+  const toggleButtonClass = (selected: boolean, disabled: boolean) =>
     `px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-      selected ? 'bg-[#2a5034] text-white' : 'bg-[#e0e0c8] text-[#2a5034]'
+      selected ? activeClass : disabled ? disabledClass : enabledClass
     }`
 
   return (
@@ -111,13 +116,13 @@ export function AddStockForm() {
       </button>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Tea selection */}
+        {/* Tea */}
         <p className="section-label">{t('selectTea')}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {teas.map((tea) => (
             <button
               key={tea.id}
-              className={toggleButtonClass(selectedTeaId === tea.id)}
+              className={toggleButtonClass(selectedTeaId === tea.id, false)}
               type="button"
               onClick={() => {
                 handleTeaSelect(tea.id)
@@ -130,160 +135,149 @@ export function AddStockForm() {
         </div>
 
         {/* Packaging */}
-        {selectedTeaId && (
-          <>
-            <p className="section-label">{t('packaging')}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {PACKAGING_TYPES.map((packaging) => (
-                <button
-                  key={packaging}
-                  className={toggleButtonClass(selectedPackaging === packaging)}
-                  type="button"
-                  onClick={() => {
-                    setSelectedPackaging(packaging)
-                    setSelectedFlush(null)
-                    setSelectedHarvestYear(null)
-                    setSelectedWeight(null)
-                    setSelectedQuantityChange(null)
-                    setValue('packaging', packaging)
-                  }}
-                >
-                  {t(packaging)}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
+        <p className="section-label">{t('packaging')}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {PACKAGING_TYPES.map((packaging) => (
+            <button
+              key={packaging}
+              className={toggleButtonClass(
+                selectedPackaging === packaging,
+                !selectedTeaId
+              )}
+              type="button"
+              disabled={!selectedTeaId}
+              onClick={() => {
+                setSelectedPackaging(packaging)
+                setSelectedFlush(null)
+                setSelectedHarvestYear(null)
+                setSelectedWeight(null)
+                setSelectedQuantityChange(null)
+                setValue('packaging', packaging)
+              }}
+            >
+              {t(packaging)}
+            </button>
+          ))}
+        </div>
 
         {/* Flush */}
-        {selectedPackaging && (
-          <>
-            <p className="section-label">{t('flush')}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {FLUSH_TYPES.map((flush) => (
-                <button
-                  key={flush}
-                  className={toggleButtonClass(selectedFlush === flush)}
-                  type="button"
-                  onClick={() => {
-                    setSelectedFlush(flush)
-                    setSelectedHarvestYear(null)
-                    setSelectedWeight(null)
-                    setSelectedQuantityChange(null)
-                    setValue('flush', flush)
-                  }}
-                >
-                  {t(flush)}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
+        <p className="section-label">{t('flush')}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {FLUSH_TYPES.map((flush) => (
+            <button
+              key={flush}
+              className={toggleButtonClass(
+                selectedFlush === flush,
+                !selectedPackaging
+              )}
+              type="button"
+              disabled={!selectedPackaging}
+              onClick={() => {
+                setSelectedFlush(flush)
+                setSelectedHarvestYear(null)
+                setSelectedWeight(null)
+                setSelectedQuantityChange(null)
+                setValue('flush', flush)
+              }}
+            >
+              {t(flush)}
+            </button>
+          ))}
+        </div>
 
-        {/* Harvest year */}
-        {selectedFlush && (
-          <>
-            <p className="section-label">{t('year')}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {HARVEST_YEARS.map((harvestYear) => (
+        {/* Year */}
+        <p className="section-label">{t('year')}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {HARVEST_YEARS.map((harvestYear) => (
+            <button
+              key={harvestYear}
+              className={toggleButtonClass(
+                selectedHarvestYear === harvestYear,
+                !selectedFlush
+              )}
+              type="button"
+              disabled={!selectedFlush}
+              onClick={() => {
+                setSelectedHarvestYear(harvestYear)
+                setShowCustomYear(false)
+                setSelectedWeight(null)
+                setSelectedQuantityChange(null)
+                setValue('harvest_year', harvestYear)
+              }}
+            >
+              {harvestYear}
+            </button>
+          ))}
+          <button
+            type="button"
+            className={toggleButtonClass(showCustomYear, !selectedFlush)}
+            disabled={!selectedFlush}
+            onClick={() => {
+              setShowCustomYear(true)
+              setSelectedHarvestYear(null)
+              setSelectedWeight(null)
+              setSelectedQuantityChange(null)
+            }}
+          >
+            {t('otherYear')}
+          </button>
+          {showCustomYear && (
+            <input
+              type="number"
+              placeholder={t('yearPlaceholder')}
+              className="input-base mt-2"
+              {...register('harvest_year', {
+                onChange: (e) => setSelectedHarvestYear(Number(e.target.value)),
+                required: true,
+                valueAsNumber: true,
+                validate: (value) => value > 1900 || t('invalidYear'),
+              })}
+            />
+          )}
+        </div>
+
+        {/* Weight */}
+        <p className="section-label">{t('weight')}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {suggestedWeights.length > 0 ? (
+            <>
+              {suggestedWeights.map((weight) => (
                 <button
-                  key={harvestYear}
+                  key={weight}
                   className={toggleButtonClass(
-                    selectedHarvestYear === harvestYear
+                    selectedWeight === weight,
+                    !selectedHarvestYear
                   )}
                   type="button"
+                  disabled={!selectedHarvestYear}
                   onClick={() => {
-                    setSelectedHarvestYear(harvestYear)
-                    setShowCustomYear(false)
-                    setSelectedWeight(null)
+                    setSelectedWeight(weight)
                     setSelectedQuantityChange(null)
-                    setValue('harvest_year', harvestYear)
+                    setValue('weight_grams', weight)
                   }}
                 >
-                  {harvestYear}
+                  {weight}g
                 </button>
               ))}
               <button
                 type="button"
-                className={toggleButtonClass(showCustomYear)}
+                className={toggleButtonClass(
+                  showCustomWeight,
+                  !selectedHarvestYear
+                )}
+                disabled={!selectedHarvestYear}
                 onClick={() => {
-                  setShowCustomYear(true)
-                  setSelectedHarvestYear(null)
+                  setShowCustomWeight(true)
                   setSelectedWeight(null)
-                  setSelectedQuantityChange(null)
                 }}
               >
-                {t('otherYear')}
+                {t('otherWeight')}
               </button>
-              {showCustomYear && (
-                <input
-                  type="number"
-                  placeholder={t('yearPlaceholder')}
-                  className="input-base mt-2"
-                  {...register('harvest_year', {
-                    onChange: (e) =>
-                      setSelectedHarvestYear(Number(e.target.value)),
-                    required: true,
-                    valueAsNumber: true,
-                    validate: (value) => value > 1900 || t('invalidYear'),
-                  })}
-                />
-              )}
-            </div>
-          </>
-        )}
-
-        {/* Weight */}
-        {selectedHarvestYear && (
-          <>
-            <p className="section-label">{t('weight')}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {suggestedWeights.length > 0 ? (
-                <>
-                  {suggestedWeights.map((weight) => (
-                    <button
-                      key={weight}
-                      className={toggleButtonClass(selectedWeight === weight)}
-                      type="button"
-                      onClick={() => {
-                        setSelectedWeight(weight)
-                        setSelectedQuantityChange(null)
-                        setValue('weight_grams', weight)
-                      }}
-                    >
-                      {weight}g
-                    </button>
-                  ))}
-                  <button
-                    type="button"
-                    className={toggleButtonClass(showCustomWeight)}
-                    onClick={() => {
-                      setShowCustomWeight(true)
-                      setSelectedWeight(null)
-                    }}
-                  >
-                    {t('otherWeight')}
-                  </button>
-                  {showCustomWeight && (
-                    <input
-                      type="number"
-                      placeholder={t('weightPlaceholder')}
-                      className="input-base mt-2"
-                      {...register('weight_grams', {
-                        onChange: (e) =>
-                          setSelectedWeight(Number(e.target.value)),
-                        required: true,
-                        valueAsNumber: true,
-                        validate: (value) => value > 0 || t('invalidWeight'),
-                      })}
-                    />
-                  )}
-                </>
-              ) : (
+              {showCustomWeight && (
                 <input
                   type="number"
                   placeholder={t('weightPlaceholder')}
-                  className="input-base"
+                  className="input-base mt-2"
                   {...register('weight_grams', {
                     onChange: (e) => setSelectedWeight(Number(e.target.value)),
                     required: true,
@@ -292,45 +286,47 @@ export function AddStockForm() {
                   })}
                 />
               )}
-            </div>
-          </>
-        )}
-
-        {/* Quantity */}
-        {selectedWeight && (
-          <>
-            <p className="section-label">{t('quantity')}</p>
+            </>
+          ) : (
             <input
               type="number"
-              placeholder={t('quantityPlaceholder')}
-              className="input-base mb-4"
-              {...register('quantity_change', {
-                onChange: (e) =>
-                  setSelectedQuantityChange(Number(e.target.value)),
+              placeholder={t('weightPlaceholder')}
+              className={`input-base ${!selectedHarvestYear ? 'opacity-40 pointer-events-none' : ''}`}
+              {...register('weight_grams', {
+                onChange: (e) => setSelectedWeight(Number(e.target.value)),
                 required: true,
                 valueAsNumber: true,
-                validate: (value) => {
-                  const weight = Number(value)
-                  if (isNaN(weight)) return t('invalidQuantity')
-                  else if (value <= 0) return t('positiveQuantity')
-                  return true
-                },
+                validate: (value) => value > 0 || t('invalidWeight'),
               })}
             />
-          </>
-        )}
+          )}
+        </div>
+
+        {/* Quantity */}
+        <p className="section-label">{t('quantity')}</p>
+        <input
+          type="number"
+          placeholder={t('quantityPlaceholder')}
+          className={`input-base mb-4 ${!selectedWeight ? 'opacity-40 pointer-events-none' : ''}`}
+          {...register('quantity_change', {
+            onChange: (e) => setSelectedQuantityChange(Number(e.target.value)),
+            required: true,
+            valueAsNumber: true,
+            validate: (value) => {
+              if (isNaN(Number(value))) return t('invalidQuantity')
+              if (value <= 0) return t('positiveQuantity')
+              return true
+            },
+          })}
+        />
 
         {/* Notes */}
-        {selectedQuantityChange && (
-          <>
-            <p className="section-label">{t('notes')}</p>
-            <input
-              className="input-base mb-4"
-              {...register('notes')}
-              placeholder={t('notesPlaceholder')}
-            />
-          </>
-        )}
+        <p className="section-label">{t('notes')}</p>
+        <input
+          className={`input-base mb-4 ${!selectedQuantityChange ? 'opacity-40 pointer-events-none' : ''}`}
+          {...register('notes')}
+          placeholder={t('notesPlaceholder')}
+        />
 
         {/* Errors */}
         {Object.values(errors).map((error, i) => (
@@ -338,20 +334,17 @@ export function AddStockForm() {
             {error?.message}
           </p>
         ))}
-
-        {/* Submit */}
         {submitError && (
           <p className="text-danger text-xs mb-2">{submitError}</p>
         )}
-        {selectedQuantityChange && (
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="btn-primary btn-full disabled:opacity-50"
-          >
-            {t('submitButton')}
-          </button>
-        )}
+
+        <button
+          type="submit"
+          disabled={isSubmitting || !selectedQuantityChange}
+          className="btn-primary btn-full disabled:opacity-50"
+        >
+          {t('submitButton')}
+        </button>
       </form>
     </div>
   )

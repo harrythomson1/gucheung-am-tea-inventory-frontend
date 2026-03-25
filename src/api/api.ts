@@ -9,11 +9,15 @@ const api = axios.create({
 })
 
 api.interceptors.request.use(async (config) => {
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-  if (session) {
-    config.headers.Authorization = `Bearer ${session.access_token}`
+  try {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+    if (session) {
+      config.headers.Authorization = `Bearer ${session.access_token}`
+    }
+  } catch (error) {
+    console.error('Failed to get session:', error)
   }
   return config
 })

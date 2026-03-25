@@ -18,7 +18,9 @@ export function CustomerSearch({ onSelect }: CustomerSearchProps) {
         setResults([])
         return
       }
-      getCustomers({ search }).then((response) => setResults(response))
+      getCustomers({ search })
+        .then((response) => setResults(response))
+        .catch(() => setResults([]))
     }, 300)
     return () => clearTimeout(timer)
   }, [search])

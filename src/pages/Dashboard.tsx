@@ -33,10 +33,15 @@ export default function Dashboard() {
     : nonZeroData
 
   useEffect(() => {
-    getDashboard().then((response) => {
-      setData(response)
-      setIsLoading(false)
-    })
+    getDashboard()
+      .then((response) => {
+        setData(response)
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        console.error('Failed to fetch dashboard:', error)
+        setIsLoading(false)
+      })
   }, [])
 
   if (isLoading) return <div>{t('loading')}</div>

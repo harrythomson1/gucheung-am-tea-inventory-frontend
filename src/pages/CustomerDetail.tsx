@@ -27,15 +27,19 @@ export function CustomerDetail() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
-    getCustomerWithId(Number(customerId)).then((response) => {
-      setCustomerData(response)
-    })
+    getCustomerWithId(Number(customerId))
+      .then((response) => {
+        setCustomerData(response)
+      })
+      .catch((error) => console.error('Failed to fetch customer:', error))
   }, [customerId, refreshCount])
 
   useEffect(() => {
-    getTransactionsWithCustomerId(Number(customerId)).then((response) => {
-      setTransactionData(response)
-    })
+    getTransactionsWithCustomerId(Number(customerId))
+      .then((response) => {
+        setTransactionData(response)
+      })
+      .catch((error) => console.error('Failed to fetch transactions:', error))
   }, [customerId])
 
   const handleOpenEdit = () => {
@@ -53,6 +57,8 @@ export function CustomerDetail() {
       setEditingNotes(false)
       setNoteInput('')
       setRefreshCount((c) => c + 1)
+    } catch {
+      console.error('Failed to update note')
     } finally {
       setIsSubmitting(false)
     }
@@ -69,6 +75,8 @@ export function CustomerDetail() {
       })
       setEditingCustomer(false)
       setRefreshCount((c) => c + 1)
+    } catch {
+      console.error('Failed to update customer')
     } finally {
       setIsSubmitting(false)
     }

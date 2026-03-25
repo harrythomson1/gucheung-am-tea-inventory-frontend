@@ -107,6 +107,7 @@ export const TRANSLATIONS = {
     teaAddError: '차 추가에 실패했습니다. 이미 존재하는 이름일 수 있습니다.',
     noStockData: '재고 데이터가 없습니다',
     customerCreateError: '고객 추가에 실패했습니다. 다시 시도해주세요.',
+    submitError: '오류가 발생했습니다. 다시 시도해주세요.',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -205,5 +206,6 @@ export const TRANSLATIONS = {
     noStockData: 'No stock data available',
     teaAddError: 'Failed to add tea. A tea with this name may already exist.',
     customerCreateError: 'Failed to create customer. Please try again.',
+    submitError: 'Something went wrong. Please try again.',
   },
 }

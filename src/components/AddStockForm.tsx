@@ -35,6 +35,7 @@ export function AddStockForm() {
   const HARVEST_YEARS = [currentYear, currentYear - 1, currentYear - 2]
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showCustomYear, setShowCustomYear] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const {
     register,
@@ -44,13 +45,17 @@ export function AddStockForm() {
   } = useForm<AddStockInputs>()
 
   const handleTeaSelect = async (teaId: number) => {
-    setSelectedTeaId(teaId)
-    const data = await getTeaStock(teaId)
-    setVariants(data)
-    setSelectedHarvestYear(null)
-    setSelectedPackaging(null)
-    setSelectedFlush(null)
-    setSelectedWeight(null)
+    try {
+      setSelectedTeaId(teaId)
+      const data = await getTeaStock(teaId)
+      setVariants(data)
+      setSelectedHarvestYear(null)
+      setSelectedPackaging(null)
+      setSelectedFlush(null)
+      setSelectedWeight(null)
+    } catch {
+      console.error('Failed to fetch tea stock')
+    }
   }
 
   const suggestedWeights = [
@@ -68,11 +73,14 @@ export function AddStockForm() {
   ]
 
   useEffect(() => {
-    getTeas().then((response) => setTeas(response))
+    getTeas()
+      .then((response) => setTeas(response))
+      .catch((error) => console.error('Failed to fetch teas:', error))
   }, [])
 
   const onSubmit: SubmitHandler<AddStockInputs> = async (data) => {
     setIsSubmitting(true)
+    setSubmitError(null)
     try {
       await postHarvestTransaction({
         ...data,
@@ -80,8 +88,8 @@ export function AddStockForm() {
         notes: data.notes || undefined,
       })
       navigate('/')
-    } catch (error) {
-      console.error(error)
+    } catch {
+      setSubmitError(t('submitError'))
     } finally {
       setIsSubmitting(false)
     }
@@ -332,6 +340,9 @@ export function AddStockForm() {
         ))}
 
         {/* Submit */}
+        {submitError && (
+          <p className="text-danger text-xs mb-2">{submitError}</p>
+        )}
         {selectedQuantityChange && (
           <button
             type="submit"

@@ -13,6 +13,8 @@ export function Customers() {
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const [showAddCustomerModal, setShowAddCustomerModal] = useState(false)
   const skip = (currentPage - 1) * 20
+  const hasNextPage = customers.length === 21
+  const displayedCustomers = customers.slice(0, 20)
   const navigate = useNavigate()
 
   const handleCustomerCreated = (customer: Customer) => {
@@ -25,7 +27,7 @@ export function Customers() {
   }, [search])
 
   useEffect(() => {
-    getCustomers({ skip, search: debouncedSearch || undefined })
+    getCustomers({ skip, limit: 21, search: debouncedSearch || undefined })
       .then((response) => setCustomers(response))
       .catch((error) => console.error('Failed to fetch customers:', error))
   }, [currentPage, skip, debouncedSearch])
@@ -54,7 +56,7 @@ export function Customers() {
       </div>
 
       <div className="flex flex-col gap-2 mb-4">
-        {customers.map((customer) => (
+        {displayedCustomers.map((customer) => (
           <div
             key={customer.id}
             onClick={() => navigate(`/customers/${customer.id}`)}
@@ -77,7 +79,7 @@ export function Customers() {
         ))}
       </div>
 
-      {(customers.length === 20 || currentPage !== 1) && (
+      {(hasNextPage || currentPage !== 1) && (
         <div className="flex gap-2 mb-4">
           {currentPage !== 1 && (
             <button
@@ -87,7 +89,7 @@ export function Customers() {
               {t('previousPage')}
             </button>
           )}
-          {customers.length === 20 && (
+          {hasNextPage && (
             <button
               onClick={() => setCurrentPage((p) => p + 1)}
               className="btn-secondary flex-1"

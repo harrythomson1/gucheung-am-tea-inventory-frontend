@@ -24,7 +24,8 @@ export const getActivityFeed = async (tea_id?: string) => {
 }
 
 export const getCSVExport = async (params: URLSearchParams) => {
-  const response = await api.get(`/transactions/export?${params.toString()}`, {
+  const response = await api.get('/transactions/export', {
+    params: Object.fromEntries(params),
     responseType: 'blob',
   })
   return response.data

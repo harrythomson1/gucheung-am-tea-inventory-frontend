@@ -12,6 +12,7 @@ export function Customers() {
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
   const [showAddCustomerModal, setShowAddCustomerModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const skip = (currentPage - 1) * 20
   const hasNextPage = customers.length === 21
   const displayedCustomers = customers.slice(0, 20)
@@ -28,8 +29,11 @@ export function Customers() {
 
   useEffect(() => {
     getCustomers({ skip, limit: 21, search: debouncedSearch || undefined })
-      .then((response) => setCustomers(response))
+      .then((response) => {
+        setCustomers(response)
+      })
       .catch((error) => console.error('Failed to fetch customers:', error))
+      .finally(() => setIsLoading(false))
   }, [currentPage, skip, debouncedSearch])
 
   return (
@@ -83,16 +87,24 @@ export function Customers() {
         <div className="flex gap-2 mb-4">
           {currentPage !== 1 && (
             <button
-              onClick={() => setCurrentPage((p) => p - 1)}
-              className="btn-secondary flex-1"
+              onClick={() => {
+                setIsLoading(true)
+                setCurrentPage((p) => p - 1)
+              }}
+              disabled={isLoading}
+              className="btn-secondary flex-1 disabled:opacity-50"
             >
               {t('previousPage')}
             </button>
           )}
           {hasNextPage && (
             <button
-              onClick={() => setCurrentPage((p) => p + 1)}
-              className="btn-secondary flex-1"
+              onClick={() => {
+                setIsLoading(true)
+                setCurrentPage((p) => p + 1)
+              }}
+              disabled={isLoading}
+              className="btn-secondary flex-1 disabled:opacity-50"
             >
               {t('nextPage')}
             </button>

@@ -47,13 +47,17 @@ export function RemoveStockForm() {
   } = useForm<RemoveTransactionData>()
 
   const handleTeaSelect = async (teaId: number) => {
-    setSelectedTeaId(teaId)
-    setSelectedHarvestYear(null)
-    setSelectedPackaging(null)
-    setSelectedFlush(null)
-    setSelectedWeight(null)
-    const data = await getTeaStock(teaId)
-    setVariants(data)
+    try {
+      setSelectedTeaId(teaId)
+      setSelectedHarvestYear(null)
+      setSelectedPackaging(null)
+      setSelectedFlush(null)
+      setSelectedWeight(null)
+      const data = await getTeaStock(teaId)
+      setVariants(data)
+    } catch {
+      console.error('Failed to fetch tea stock')
+    }
   }
 
   const variantsWithStock = variants.filter((v) => v.current_stock > 0)
@@ -95,7 +99,9 @@ export function RemoveStockForm() {
   )
 
   useEffect(() => {
-    getTeas().then((response) => setTeas(response))
+    getTeas()
+      .then((response) => setTeas(response))
+      .catch((error) => console.error('Failed to fetch teas:', error))
   }, [])
 
   useEffect(() => {

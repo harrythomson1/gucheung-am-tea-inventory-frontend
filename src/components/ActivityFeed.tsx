@@ -25,12 +25,17 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
   const [tea, setTea] = useState<number | ''>('')
 
   useEffect(() => {
-    getActivityFeed(teaId).then((response) => {
-      setFeedData(response)
-    })
-    getTeas().then((response) => {
-      setTeas(response)
-    })
+    getActivityFeed(teaId)
+      .then((response) => {
+        setFeedData(response)
+      })
+      .catch((error) => console.error('Failed to fetch activity feed:', error))
+
+    getTeas()
+      .then((response) => {
+        setTeas(response)
+      })
+      .catch((error) => console.error('Failed to fetch teas:', error))
   }, [teaId])
 
   const handleExport = async () => {

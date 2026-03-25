@@ -39,23 +39,27 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
   }, [teaId])
 
   const handleExport = async () => {
-    const params = new URLSearchParams()
-    if (startDate) params.append('start_date', startDate.toISOString())
-    if (endDate) params.append('end_date', endDate.toISOString())
-    if (transactionType) params.append('transaction_type', transactionType)
-    if (tea) {
-      const teaName = teas.find((t) => t.id === tea)?.name
-      if (teaName) params.append('tea_name', teaName)
+    try {
+      const params = new URLSearchParams()
+      if (startDate) params.append('start_date', startDate.toISOString())
+      if (endDate) params.append('end_date', endDate.toISOString())
+      if (transactionType) params.append('transaction_type', transactionType)
+      if (tea) {
+        const teaName = teas.find((t) => t.id === tea)?.name
+        if (teaName) params.append('tea_name', teaName)
+      }
+      const response = await getCSVExport(params)
+      const url = window.URL.createObjectURL(new Blob([response]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', 'transactions.csv')
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+      setShowExportModal(false)
+    } catch (error) {
+      console.error('Export failed:', error)
     }
-    const response = await getCSVExport(params)
-    const url = window.URL.createObjectURL(new Blob([response]))
-    const link = document.createElement('a')
-    link.href = url
-    link.setAttribute('download', 'transactions.csv')
-    document.body.appendChild(link)
-    link.click()
-    link.remove()
-    setShowExportModal(false)
   }
 
   return (

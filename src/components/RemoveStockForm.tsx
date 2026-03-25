@@ -230,7 +230,7 @@ export function RemoveStockForm() {
         )}
 
         {/* Weight */}
-        {
+        {selectedFlush && (
           <>
             <p className="section-label">{t('weight')}</p>
             <div className="flex flex-wrap gap-2 mb-4">
@@ -246,7 +246,7 @@ export function RemoveStockForm() {
               ))}
             </div>
           </>
-        }
+        )}
 
         {/* Variant selected */}
         {selectedVariant && (

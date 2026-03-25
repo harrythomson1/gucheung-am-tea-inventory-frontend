@@ -129,9 +129,13 @@ export function RemoveStockForm() {
     }
   }
 
-  const toggleButtonClass = (selected: boolean) =>
+  const activeClass = 'bg-[#2a5034] text-white'
+  const enabledClass = 'bg-[#e0e0c8] text-[#2a5034]'
+  const disabledClass = 'bg-[#f0f0e0] text-gray-300 cursor-not-allowed'
+
+  const toggleButtonClass = (selected: boolean, disabled: boolean) =>
     `px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-      selected ? 'bg-[#2a5034] text-white' : 'bg-[#e0e0c8] text-[#2a5034]'
+      selected ? activeClass : disabled ? disabledClass : enabledClass
     }`
 
   return (
@@ -151,7 +155,7 @@ export function RemoveStockForm() {
           {teas.map((tea) => (
             <button
               key={tea.id}
-              className={toggleButtonClass(selectedTeaId === tea.id)}
+              className={toggleButtonClass(selectedTeaId === tea.id, false)}
               type="button"
               onClick={() => handleTeaSelect(tea.id)}
             >
@@ -161,224 +165,257 @@ export function RemoveStockForm() {
         </div>
 
         {/* Year */}
-        {selectedTeaId && (
-          <>
-            <p className="section-label">{t('year')}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {availableHarvestYear.map((year) => (
-                <button
-                  key={year}
-                  className={toggleButtonClass(selectedHarvestYear === year)}
-                  type="button"
-                  onClick={() => {
-                    setSelectedHarvestYear(year)
-                    setSelectedPackaging(null)
-                    setSelectedFlush(null)
-                    setSelectedWeight(null)
-                  }}
-                >
-                  {year}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
+        <p className="section-label">{t('year')}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {availableHarvestYear.length > 0 ? (
+            availableHarvestYear.map((year) => (
+              <button
+                key={year}
+                className={toggleButtonClass(
+                  selectedHarvestYear === year,
+                  !selectedTeaId
+                )}
+                type="button"
+                disabled={!selectedTeaId}
+                onClick={() => {
+                  setSelectedHarvestYear(year)
+                  setSelectedPackaging(null)
+                  setSelectedFlush(null)
+                  setSelectedWeight(null)
+                }}
+              >
+                {year}
+              </button>
+            ))
+          ) : (
+            <p
+              className={`text-sm ${!selectedTeaId ? 'text-gray-300' : 'text-gray-400'}`}
+            >
+              {selectedTeaId ? t('noStockData') : '—'}
+            </p>
+          )}
+        </div>
 
         {/* Packaging */}
-        {selectedHarvestYear && (
-          <>
-            <p className="section-label">{t('packaging')}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {availablePackaging.map((packaging) => (
-                <button
-                  key={packaging}
-                  className={toggleButtonClass(selectedPackaging === packaging)}
-                  type="button"
-                  onClick={() => {
-                    setSelectedPackaging(packaging)
-                    setSelectedFlush(null)
-                    setSelectedWeight(null)
-                  }}
-                >
-                  {t(packaging)}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
+        <p className="section-label">{t('packaging')}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {availablePackaging.length > 0 ? (
+            availablePackaging.map((packaging) => (
+              <button
+                key={packaging}
+                className={toggleButtonClass(
+                  selectedPackaging === packaging,
+                  !selectedHarvestYear
+                )}
+                type="button"
+                disabled={!selectedHarvestYear}
+                onClick={() => {
+                  setSelectedPackaging(packaging)
+                  setSelectedFlush(null)
+                  setSelectedWeight(null)
+                }}
+              >
+                {t(packaging)}
+              </button>
+            ))
+          ) : (
+            <p
+              className={`text-sm ${!selectedHarvestYear ? 'text-gray-300' : 'text-gray-400'}`}
+            >
+              —
+            </p>
+          )}
+        </div>
 
         {/* Flush */}
-        {selectedPackaging && (
-          <>
-            <p className="section-label">{t('flush')}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {availableFlush.map((flush) => (
-                <button
-                  key={flush}
-                  className={toggleButtonClass(selectedFlush === flush)}
-                  type="button"
-                  onClick={() => {
-                    setSelectedFlush(flush)
-                    setSelectedWeight(null)
-                  }}
-                >
-                  {t(flush)}
-                </button>
-              ))}
-            </div>
-          </>
-        )}
+        <p className="section-label">{t('flush')}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {availableFlush.length > 0 ? (
+            availableFlush.map((flush) => (
+              <button
+                key={flush}
+                className={toggleButtonClass(
+                  selectedFlush === flush,
+                  !selectedPackaging
+                )}
+                type="button"
+                disabled={!selectedPackaging}
+                onClick={() => {
+                  setSelectedFlush(flush)
+                  setSelectedWeight(null)
+                }}
+              >
+                {t(flush)}
+              </button>
+            ))
+          ) : (
+            <p
+              className={`text-sm ${!selectedPackaging ? 'text-gray-300' : 'text-gray-400'}`}
+            >
+              —
+            </p>
+          )}
+        </div>
 
         {/* Weight */}
-        {selectedFlush && (
-          <>
-            <p className="section-label">{t('weight')}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {availableWeights.map((weight) => (
-                <button
-                  key={weight}
-                  className={toggleButtonClass(selectedWeight === weight)}
-                  type="button"
-                  onClick={() => setSelectedWeight(weight)}
-                >
-                  {weight}g
-                </button>
-              ))}
-            </div>
-          </>
-        )}
-
-        {/* Variant selected */}
-        {selectedVariant && (
-          <>
-            <div className="card px-4 py-3 mb-4 flex justify-between items-center">
-              <span className="text-xs text-gray-400">{t('currentStock')}</span>
-              <span className="text-sm font-medium text-[#2a5034]">
-                {selectedVariant.current_stock}
-              </span>
-            </div>
-
-            <p className="section-label">{t('quantity')}</p>
-            <input
-              type="number"
-              placeholder={t('quantityPlaceholder')}
-              className="input-base mb-4"
-              {...register('quantity_change', {
-                required: t('quantityRequired'),
-                valueAsNumber: true,
-                validate: (value) => value > 0 || t('quantityPositive'),
-              })}
-            />
-
-            <p className="section-label">{t('transactionType')}</p>
-            <div className="relative mb-4">
-              <select
-                className="input-base appearance-none pr-8"
-                {...register('transaction_type', {
-                  required: t('transactionRequired'),
-                  onChange: (e) => {
-                    setSelectedTransactionType(e.target.value)
-                    if (e.target.value !== 'sale')
-                      setValue('customer_id', undefined)
-                  },
-                })}
-              >
-                <option value="">{t('transactionSelect')}</option>
-                <option value="sale">{t('sale')}</option>
-                <option value="donation">{t('donation')}</option>
-                <option value="ceremony">{t('ceremony')}</option>
-                <option value="damaged">{t('damaged')}</option>
-              </select>
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#2a5034] text-xs">
-                ▼
-              </span>
-            </div>
-
-            {/* Customer */}
-            {(selectedTransactionType === 'sale' ||
-              selectedTransactionType === 'donation' ||
-              selectedTransactionType === 'ceremony') && (
-              <div className="mb-4">
-                <p className="section-label">{t('customer')}</p>
-                {selectedCustomer ? (
-                  <div className="card px-4 py-3 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        {selectedCustomer.name.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-[#2a5034]">
-                          {selectedCustomer.name}
-                        </p>
-                        <p className="text-xs text-gray-400">
-                          {selectedCustomer.city}
-                        </p>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      className="text-xs text-gray-400 border border-gray-200 rounded-lg px-3 py-1.5"
-                      onClick={() => {
-                        setSelectedCustomer(null)
-                        setValue('customer_id', undefined)
-                      }}
-                    >
-                      {t('change')}
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex flex-col gap-2">
-                    <CustomerSearch
-                      onSelect={(customer) => {
-                        setValue('customer_id', customer.id)
-                        setSelectedCustomer(customer)
-                      }}
-                    />
-                    <button
-                      type="button"
-                      className="btn-secondary"
-                      onClick={() => setShowAddCustomerModal(true)}
-                    >
-                      {t('addNewCustomer')}
-                    </button>
-                  </div>
+        <p className="section-label">{t('weight')}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {availableWeights.length > 0 ? (
+            availableWeights.map((weight) => (
+              <button
+                key={weight}
+                className={toggleButtonClass(
+                  selectedWeight === weight,
+                  !selectedFlush
                 )}
+                type="button"
+                disabled={!selectedFlush}
+                onClick={() => setSelectedWeight(weight)}
+              >
+                {weight}g
+              </button>
+            ))
+          ) : (
+            <p
+              className={`text-sm ${!selectedFlush ? 'text-gray-300' : 'text-gray-400'}`}
+            >
+              —
+            </p>
+          )}
+        </div>
+
+        {/* Current stock */}
+        <div
+          className={`card px-4 py-3 mb-4 flex justify-between items-center ${!selectedVariant ? 'opacity-40' : ''}`}
+        >
+          <span className="text-xs text-gray-400">{t('currentStock')}</span>
+          <span className="text-sm font-medium text-[#2a5034]">
+            {selectedVariant ? selectedVariant.current_stock : '—'}
+          </span>
+        </div>
+
+        {/* Quantity */}
+        <p className="section-label">{t('quantity')}</p>
+        <input
+          type="number"
+          placeholder={t('quantityPlaceholder')}
+          className={`input-base mb-4 ${!selectedVariant ? 'opacity-40 pointer-events-none' : ''}`}
+          {...register('quantity_change', {
+            required: t('quantityRequired'),
+            valueAsNumber: true,
+            validate: (value) => value > 0 || t('quantityPositive'),
+          })}
+        />
+
+        {/* Transaction type */}
+        <p className="section-label">{t('transactionType')}</p>
+        <div
+          className={`relative mb-4 ${!selectedVariant ? 'opacity-40 pointer-events-none' : ''}`}
+        >
+          <select
+            className="input-base appearance-none pr-8"
+            {...register('transaction_type', {
+              required: t('transactionRequired'),
+              onChange: (e) => {
+                setSelectedTransactionType(e.target.value)
+                if (e.target.value !== 'sale')
+                  setValue('customer_id', undefined)
+              },
+            })}
+          >
+            <option value="">{t('transactionSelect')}</option>
+            <option value="sale">{t('sale')}</option>
+            <option value="donation">{t('donation')}</option>
+            <option value="ceremony">{t('ceremony')}</option>
+            <option value="damaged">{t('damaged')}</option>
+          </select>
+          <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#2a5034] text-xs">
+            ▼
+          </span>
+        </div>
+
+        {/* Customer */}
+        {(selectedTransactionType === 'sale' ||
+          selectedTransactionType === 'donation' ||
+          selectedTransactionType === 'ceremony') && (
+          <div className="mb-4">
+            <p className="section-label">{t('customer')}</p>
+            {selectedCustomer ? (
+              <div className="card px-4 py-3 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="avatar">
+                    {selectedCustomer.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-[#2a5034]">
+                      {selectedCustomer.name}
+                    </p>
+                    <p className="text-xs text-gray-400">
+                      {selectedCustomer.city}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="text-xs text-gray-400 border border-gray-200 rounded-lg px-3 py-1.5"
+                  onClick={() => {
+                    setSelectedCustomer(null)
+                    setValue('customer_id', undefined)
+                  }}
+                >
+                  {t('change')}
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2">
+                <CustomerSearch
+                  onSelect={(customer) => {
+                    setValue('customer_id', customer.id)
+                    setSelectedCustomer(customer)
+                  }}
+                />
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={() => setShowAddCustomerModal(true)}
+                >
+                  {t('addNewCustomer')}
+                </button>
               </div>
             )}
-
-            <input type="hidden" {...register('customer_id')} />
-
-            <p className="section-label">{t('notes')}</p>
-            <input
-              className="input-base mb-4"
-              {...register('notes')}
-              placeholder={t('notesPlaceholder')}
-            />
-
-            {/* Errors */}
-            {errors.quantity_change && (
-              <p className="text-danger text-xs mb-2">
-                {errors.quantity_change.message}
-              </p>
-            )}
-            {errors.transaction_type && (
-              <p className="text-danger text-xs mb-2">
-                {errors.transaction_type.message}
-              </p>
-            )}
-            {stockError && (
-              <p className="text-danger text-xs mb-2">{stockError}</p>
-            )}
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="btn-danger btn-full disabled:opacity-50"
-            >
-              {t('submitButton')}
-            </button>
-          </>
+          </div>
         )}
+
+        <input type="hidden" {...register('customer_id')} />
+
+        {/* Notes */}
+        <p className="section-label">{t('notes')}</p>
+        <input
+          className={`input-base mb-4 ${!selectedVariant ? 'opacity-40 pointer-events-none' : ''}`}
+          {...register('notes')}
+          placeholder={t('notesPlaceholder')}
+        />
+
+        {/* Errors */}
+        {errors.quantity_change && (
+          <p className="text-danger text-xs mb-2">
+            {errors.quantity_change.message}
+          </p>
+        )}
+        {errors.transaction_type && (
+          <p className="text-danger text-xs mb-2">
+            {errors.transaction_type.message}
+          </p>
+        )}
+        {stockError && <p className="text-danger text-xs mb-2">{stockError}</p>}
+
+        <button
+          type="submit"
+          disabled={isSubmitting || !selectedVariant}
+          className="btn-danger btn-full disabled:opacity-50"
+        >
+          {t('submitButton')}
+        </button>
       </form>
 
       {showAddCustomerModal && (

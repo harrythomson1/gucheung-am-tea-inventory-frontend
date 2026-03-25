@@ -96,8 +96,11 @@ export function TeaDetail() {
       {/* Tea name + total stock */}
       <div className="card bg-[#e8e8d5] border border-[#d4d4bc] px-4 py-4 flex items-center justify-between my-2">
         <p className="text-3xl font-medium text-[#2a5034]">
-          {TEA_NAMES[teaName as keyof typeof TEA_NAMES] ?? teaName}
+          {teaName
+            ? (TEA_NAMES[teaName as keyof typeof TEA_NAMES] ?? teaName)
+            : '...'}
         </p>
+
         <div className="text-right">
           <p className="text-sm text-gray-400">{t('totalStock')}</p>
           <p className="text-lg font-medium text-[#2a5034]">{totalStock}</p>

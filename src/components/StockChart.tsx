@@ -24,6 +24,15 @@ export function StockChart({ chartData, onBarClick }: StockChartProps) {
       )
     ),
   ]
+
+  if (chartData.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-75 text-sm text-gray-400">
+        {t('noStockData')}
+      </div>
+    )
+  }
+
   return (
     <div>
       <ResponsiveContainer width="100%" height={300}>

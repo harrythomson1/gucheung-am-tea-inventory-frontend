@@ -4,7 +4,7 @@ export const TEA_NAMES = {
   '발효차 (Fermented Tea)': '발효차',
 }
 
-export const LANGUAGE = 'en'
+export const LANGUAGE = 'ko'
 
 export const t = (key: string): string => {
   return (TRANSLATIONS[LANGUAGE] as Record<string, string>)[key] ?? key
@@ -104,6 +104,7 @@ export const TRANSLATIONS = {
       '설치하려면: Safari에서 공유 버튼(□↑)을 누른 후 "홈 화면에 추가"를 선택하세요',
     notFound: '페이지를 찾을 수 없습니다',
     notFoundMessage: '존재하지 않는 페이지입니다',
+    noStockData: '재고 데이터가 없습니다',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -199,5 +200,6 @@ export const TRANSLATIONS = {
       'To install, open in Safari, tap the share button (□↑) then "Add to Home Screen"',
     notFound: 'Page not found',
     notFoundMessage: 'The page you are looking for does not exist',
+    noStockData: 'No stock data available',
   },
 }

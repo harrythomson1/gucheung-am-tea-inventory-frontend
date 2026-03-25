@@ -1,8 +1,11 @@
 import axios from 'axios'
 import { supabase } from '../lib/supabase'
 
+const apiUrl = import.meta.env.VITE_API_URL
+if (!apiUrl) throw new Error('VITE_API_URL is not set')
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: apiUrl,
 })
 
 api.interceptors.request.use(async (config) => {

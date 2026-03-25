@@ -28,9 +28,11 @@ export function TeaDetail() {
 
   useEffect(() => {
     const id = Number(teaId)
-    getTeaStock(id).then((response) => {
-      setData(response)
-    })
+    getTeaStock(id)
+      .then((response) => {
+        setData(response)
+      })
+      .catch((error) => console.error('Failed to fetch tea stock:', error))
   }, [teaId])
 
   const totalStock = data.reduce((sum, item) => sum + item.current_stock, 0)

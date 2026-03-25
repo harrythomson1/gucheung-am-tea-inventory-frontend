@@ -1,6 +1,7 @@
 import {
   Bar,
   BarChart,
+  LabelList,
   Legend,
   ResponsiveContainer,
   Tooltip,
@@ -69,7 +70,17 @@ export function StockChart({ chartData, onBarClick }: StockChartProps) {
               dataKey={key}
               stackId="a"
               fill={COLOURS[index % COLOURS.length]}
-            />
+            >
+              <LabelList
+                dataKey={key}
+                position="inside"
+                style={{ fill: 'white', fontSize: 11, fontWeight: 500 }}
+                formatter={(value: unknown) => {
+                  const num = Number(value)
+                  return num > 0 ? num : ''
+                }}
+              />
+            </Bar>
           ))}
         </BarChart>
       </ResponsiveContainer>

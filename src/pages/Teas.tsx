@@ -13,18 +13,25 @@ export default function Teas() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    getTeas().then((response) => {
-      setTeas(response)
-    })
+    getTeas()
+      .then((response) => {
+        setTeas(response)
+      })
+      .catch((error) => console.error('Failed to fetch teas:', error))
   }, [])
 
   const handleDelete = (id: number) => {
     setDeletingId(id)
-    softDeleteTea(id).then(() => {
-      setTeas(teas.filter((t) => t.id !== id))
-      setDeletingId(null)
-      setConfirmDeleteId(null)
-    })
+    softDeleteTea(id)
+      .then(() => {
+        setTeas(teas.filter((t) => t.id !== id))
+        setDeletingId(null)
+        setConfirmDeleteId(null)
+      })
+      .catch((error) => {
+        console.error('Failed to delete tea:', error)
+        setDeletingId(null)
+      })
   }
 
   return (

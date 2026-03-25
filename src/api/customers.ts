@@ -27,7 +27,7 @@ export const getCustomerWithId = async (customerId: number) => {
 }
 
 export const getTransactionsWithCustomerId = async (customerId: number) => {
-  const response = await api.get(`customers/${customerId}/transactions`)
+  const response = await api.get(`/customers/${customerId}/transactions`)
   return response.data
 }
 

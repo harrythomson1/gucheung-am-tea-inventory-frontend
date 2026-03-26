@@ -150,7 +150,7 @@ export function RemoveStockForm() {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Tea */}
-        <p className="section-label">{t('selectTea')}</p>
+        <p className="section-label">{t('teaNamePlaceholder')}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {teas.map((tea) => (
             <button
@@ -258,7 +258,7 @@ export function RemoveStockForm() {
         </div>
 
         {/* Weight */}
-        <p className="section-label">{t('weight')}</p>
+        <p className="section-label">{t('weightPlaceholder')}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {availableWeights.length > 0 ? (
             availableWeights.map((weight) => (
@@ -295,7 +295,7 @@ export function RemoveStockForm() {
         </div>
 
         {/* Quantity */}
-        <p className="section-label">{t('quantity')}</p>
+        <p className="section-label">{t('quantityPlaceholder')}</p>
         <input
           type="number"
           placeholder={t('quantityPlaceholder')}
@@ -308,7 +308,7 @@ export function RemoveStockForm() {
         />
 
         {/* Transaction type */}
-        <p className="section-label">{t('transactionType')}</p>
+        <p className="section-label">{t('transactionSelect')}</p>
         <div
           className={`relative mb-4 ${!selectedVariant ? 'opacity-40 pointer-events-none' : ''}`}
         >
@@ -389,7 +389,7 @@ export function RemoveStockForm() {
         <input type="hidden" {...register('customer_id')} />
 
         {/* Notes */}
-        <p className="section-label">{t('notes')}</p>
+        <p className="section-label">{t('notesPlaceholder')}</p>
         <input
           className={`input-base mb-4 ${!selectedVariant ? 'opacity-40 pointer-events-none' : ''}`}
           {...register('notes')}

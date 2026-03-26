@@ -108,6 +108,7 @@ export const TRANSLATIONS = {
     noStockData: '재고 데이터가 없습니다',
     customerCreateError: '고객 추가에 실패했습니다. 다시 시도해주세요.',
     submitError: '오류가 발생했습니다. 다시 시도해주세요.',
+    customer: '고객',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -180,7 +181,7 @@ export const TRANSLATIONS = {
     cityRequired: 'Please enter a city',
     editCustomerTitle: 'Edit Customer',
     deleteTea: 'Delete Tea',
-    teaNamePlaceholder: 'Tea name',
+    teaNamePlaceholder: 'Tea',
     addTeaButton: 'Add tea',
     teaNameRequired: 'Please enter a tea name',
     minutesAgo: ' minutes ago',
@@ -207,5 +208,6 @@ export const TRANSLATIONS = {
     teaAddError: 'Failed to add tea. A tea with this name may already exist.',
     customerCreateError: 'Failed to create customer. Please try again.',
     submitError: 'Something went wrong. Please try again.',
+    customer: 'Customer',
   },
 }

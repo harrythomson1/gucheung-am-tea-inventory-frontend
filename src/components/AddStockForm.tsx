@@ -117,7 +117,7 @@ export function AddStockForm() {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Tea */}
-        <p className="section-label">{t('selectTea')}</p>
+        <p className="section-label">{t('teaNamePlaceholder')}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {teas.map((tea) => (
             <button
@@ -237,7 +237,7 @@ export function AddStockForm() {
         </div>
 
         {/* Weight */}
-        <p className="section-label">{t('weight')}</p>
+        <p className="section-label">{t('weightPlaceholder')}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {suggestedWeights.length > 0 ? (
             <>
@@ -303,7 +303,7 @@ export function AddStockForm() {
         </div>
 
         {/* Quantity */}
-        <p className="section-label">{t('quantity')}</p>
+        <p className="section-label">{t('quantityPlaceholder')}</p>
         <input
           type="number"
           placeholder={t('quantityPlaceholder')}
@@ -321,7 +321,7 @@ export function AddStockForm() {
         />
 
         {/* Notes */}
-        <p className="section-label">{t('notes')}</p>
+        <p className="section-label">{t('notesPlaceholder')}</p>
         <input
           className={`input-base mb-4 ${!selectedQuantityChange ? 'opacity-40 pointer-events-none' : ''}`}
           {...register('notes')}

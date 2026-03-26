@@ -10,6 +10,7 @@ import type { ActivityFeedType } from '../types/transaction'
 import { t, TEA_NAMES } from '../constants/translations'
 import { timeAgo } from '../utils/time'
 import { TrendingUp, TrendingDown, Pencil, ChevronLeft, X } from 'lucide-react'
+import { LoadingScreen } from '../components/LoadingScreen'
 
 export function CustomerDetail() {
   const { customerId } = useParams<{ customerId: string }>()
@@ -82,7 +83,7 @@ export function CustomerDetail() {
     }
   }
 
-  if (!customerData) return <div className="px-4 pt-4">{t('loading')}</div>
+  if (!customerData) return <LoadingScreen />
 
   return (
     <div className="px-4 pb-28 safe-area-inset">

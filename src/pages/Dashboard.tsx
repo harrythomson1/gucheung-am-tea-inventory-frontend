@@ -7,6 +7,7 @@ import { t } from '../constants/translations'
 import { Plus, Minus, Leaf, Users } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
+import { LoadingScreen } from '../components/LoadingScreen'
 
 type DashboardItem = {
   id: number
@@ -44,7 +45,7 @@ export default function Dashboard() {
       })
   }, [])
 
-  if (isLoading) return <div>{t('loading')}</div>
+  if (isLoading) return <LoadingScreen />
 
   const chartData = filteredData.reduce(
     (acc, item) => {

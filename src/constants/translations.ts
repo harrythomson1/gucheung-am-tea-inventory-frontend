@@ -109,6 +109,9 @@ export const TRANSLATIONS = {
     customerCreateError: '고객 추가에 실패했습니다. 다시 시도해주세요.',
     submitError: '오류가 발생했습니다. 다시 시도해주세요.',
     customer: '고객',
+    address1Placeholder: '주소 1',
+    address2Placeholder: '주소 2',
+    postcodePlaceholder: '우편번호',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -209,5 +212,8 @@ export const TRANSLATIONS = {
     customerCreateError: 'Failed to create customer. Please try again.',
     submitError: 'Something went wrong. Please try again.',
     customer: 'Customer',
+    address1Placeholder: 'Address line 1',
+    address2Placeholder: 'Address line 2',
+    postcodePlaceholder: 'Postcode',
   },
 }

@@ -11,12 +11,14 @@ import Teas from './pages/Teas'
 import { Customers } from './pages/Customers'
 import { CustomerDetail } from './pages/CustomerDetail'
 import NotFound from './pages/NotFound'
+import ResetPassword from './pages/ResetPassword'
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />

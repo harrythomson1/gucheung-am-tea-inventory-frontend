@@ -22,7 +22,9 @@ export function CustomerDetail() {
   const [editingCustomer, setEditingCustomer] = useState(false)
   const [nameInput, setNameInput] = useState('')
   const [cityInput, setCityInput] = useState('')
-  const [addressInput, setAddressInput] = useState('')
+  const [address1Input, setAddress1Input] = useState('')
+  const [address2Input, setAddress2Input] = useState('')
+  const [postcodeInput, setPostcodeInput] = useState('')
   const [phoneInput, setPhoneInput] = useState('')
   const [refreshCount, setRefreshCount] = useState<number>(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -46,7 +48,9 @@ export function CustomerDetail() {
   const handleOpenEdit = () => {
     setNameInput(customerData?.name ?? '')
     setCityInput(customerData?.city ?? '')
-    setAddressInput(customerData?.address ?? '')
+    setAddress1Input(customerData?.address_1 ?? '')
+    setAddress2Input(customerData?.address_2 ?? '')
+    setPostcodeInput(customerData?.postcode ?? '')
     setPhoneInput(customerData?.phone ?? '')
     setEditingCustomer(true)
   }
@@ -71,7 +75,9 @@ export function CustomerDetail() {
       await updateCustomer(customerData!.id, {
         name: nameInput || customerData!.name,
         city: cityInput || customerData!.city,
-        address: addressInput || null,
+        address_1: address1Input || null,
+        address_2: address2Input || null,
+        postcode: postcodeInput || null,
         phone: phoneInput || null,
       })
       setEditingCustomer(false)
@@ -120,9 +126,21 @@ export function CustomerDetail() {
               className="input-base"
             />
             <input
-              value={addressInput}
-              placeholder={t('addressPlaceholder')}
-              onChange={(e) => setAddressInput(e.target.value)}
+              value={address1Input}
+              placeholder={t('address1Placeholder')}
+              onChange={(e) => setAddress1Input(e.target.value)}
+              className="input-base"
+            />
+            <input
+              value={address2Input}
+              placeholder={t('address2Placeholder')}
+              onChange={(e) => setAddress2Input(e.target.value)}
+              className="input-base"
+            />
+            <input
+              value={postcodeInput}
+              placeholder={t('postcodePlaceholder')}
+              onChange={(e) => setPostcodeInput(e.target.value)}
               className="input-base"
             />
             <input
@@ -172,7 +190,7 @@ export function CustomerDetail() {
       )}
 
       {/* Phone */}
-      {(customerData.phone || customerData.address) && !editingCustomer && (
+      {(customerData.phone || customerData.address_1) && !editingCustomer && (
         <div className="card overflow-hidden mb-2">
           {customerData.phone && (
             <div className="px-4 py-3 flex justify-between items-center border-b border-gray-100">
@@ -184,13 +202,19 @@ export function CustomerDetail() {
               </span>
             </div>
           )}
-          {customerData.address && (
+          {customerData.address_1 && (
             <div className="px-4 py-3 flex justify-between items-center">
               <span className="text-xs text-gray-400">
                 {t('addressPlaceholder')}
               </span>
               <span className="text-sm font-medium text-[#2a5034]">
-                {customerData.address}
+                {[
+                  customerData.address_1,
+                  customerData.address_2,
+                  customerData.postcode,
+                ]
+                  .filter(Boolean)
+                  .join(', ')}
               </span>
             </div>
           )}

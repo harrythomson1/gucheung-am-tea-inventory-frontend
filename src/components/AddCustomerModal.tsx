@@ -15,7 +15,9 @@ export function AddCustomerModal({
 }: AddCustomerModalProps) {
   const [name, setName] = useState<string>('')
   const [city, setCity] = useState<string>('')
-  const [address, setAddress] = useState<string>('')
+  const [address1, setAddress1] = useState<string>('')
+  const [address2, setAddress2] = useState<string>('')
+  const [postcode, setPostcode] = useState<string>('')
   const [phone, setPhone] = useState<string>('')
   const [notes, setNote] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
@@ -36,7 +38,9 @@ export function AddCustomerModal({
       const customer = await createCustomer({
         name,
         city,
-        address: address || undefined,
+        address_1: address1 || undefined,
+        address_2: address2 || undefined,
+        postcode: postcode || undefined,
         phone: phone || undefined,
         notes: notes || undefined,
       })
@@ -76,8 +80,18 @@ export function AddCustomerModal({
             className="input-base"
           />
           <input
-            placeholder={t('addressPlaceholder')}
-            onChange={(e) => setAddress(e.target.value)}
+            placeholder={t('address1Placeholder')}
+            onChange={(e) => setAddress1(e.target.value)}
+            className="input-base"
+          />
+          <input
+            placeholder={t('address2Placeholder')}
+            onChange={(e) => setAddress2(e.target.value)}
+            className="input-base"
+          />
+          <input
+            placeholder={t('postcodePlaceholder')}
+            onChange={(e) => setPostcode(e.target.value)}
             className="input-base"
           />
           <input

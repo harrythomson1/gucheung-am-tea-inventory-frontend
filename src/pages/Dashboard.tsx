@@ -3,7 +3,7 @@ import { getDashboard } from '../api/dashboard'
 import { StockChart } from '../components/StockChart'
 import { ActivityFeed } from '../components/ActivityFeed'
 import { useNavigate } from 'react-router-dom'
-import { t } from '../constants/translations'
+import { LANGUAGE, t } from '../constants/translations'
 import { Plus, Minus, Leaf, Users } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
@@ -134,12 +134,24 @@ export default function Dashboard() {
           {t('removeStock')}
         </button>
       </div>
-      <button
-        onClick={() => supabase.auth.signOut()}
-        className="w-full text-xs text-gray-400 py-4 mt-2"
-      >
-        {t('logout')}
-      </button>
+      <div className="flex items-center justify-center gap-4 py-4 mt-2">
+        <button
+          onClick={() => {
+            localStorage.setItem('language', LANGUAGE === 'ko' ? 'en' : 'ko')
+            window.location.reload()
+          }}
+          className="text-xs text-gray-400 flex items-center gap-1"
+        >
+          🌐 {LANGUAGE === 'ko' ? 'English' : '한국어'}
+        </button>
+        <span className="text-gray-300 text-xs">|</span>
+        <button
+          onClick={() => supabase.auth.signOut()}
+          className="text-xs text-gray-400"
+        >
+          {t('logout')}
+        </button>
+      </div>
     </div>
   )
 }

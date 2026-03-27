@@ -9,6 +9,7 @@ import type { ActivityFeedType } from '../types/transaction'
 import { timeAgo } from '../utils/time'
 import { Download, TrendingUp, TrendingDown } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
+import { LoadingScreen } from './LoadingScreen'
 
 type ActivityFeedTypes = {
   teaId?: string
@@ -23,11 +24,13 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
   const [transactionType, setTransactionType] = useState<string>('')
   const [teas, setTeas] = useState<Tea[]>([])
   const [tea, setTea] = useState<number | ''>('')
+  const [isLoading, setIslLoading] = useState(true)
 
   useEffect(() => {
     getActivityFeed(teaId)
       .then((response) => {
         setFeedData(response)
+        setIslLoading(false)
       })
       .catch((error) => console.error('Failed to fetch activity feed:', error))
 
@@ -69,6 +72,8 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
       console.error('Export failed:', error)
     }
   }
+
+  if (isLoading) return <LoadingScreen />
 
   return (
     <>

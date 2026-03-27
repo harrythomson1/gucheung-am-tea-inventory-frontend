@@ -24,13 +24,13 @@ export function ActivityFeed({ teaId }: ActivityFeedTypes) {
   const [transactionType, setTransactionType] = useState<string>('')
   const [teas, setTeas] = useState<Tea[]>([])
   const [tea, setTea] = useState<number | ''>('')
-  const [isLoading, setIslLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     getActivityFeed(teaId)
       .then((response) => {
         setFeedData(response)
-        setIslLoading(false)
+        setIsLoading(false)
       })
       .catch((error) => console.error('Failed to fetch activity feed:', error))
 

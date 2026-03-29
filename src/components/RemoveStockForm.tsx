@@ -38,6 +38,8 @@ export function RemoveStockForm() {
     null
   )
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const FLUSH_ORDER = ['first', 'second', 'mixed']
+  const PACKAGING_ORDER = ['wing', 'silver', 'gift']
 
   const {
     register,
@@ -61,6 +63,7 @@ export function RemoveStockForm() {
   }
 
   const variantsWithStock = variants.filter((v) => v.current_stock > 0)
+
   const availableHarvestYear = [
     ...new Set(variantsWithStock.map((v) => v.harvest_year)),
   ].sort((a, b) => b - a)
@@ -70,7 +73,8 @@ export function RemoveStockForm() {
         .filter((v) => v.harvest_year === selectedHarvestYear)
         .map((v) => v.packaging)
     ),
-  ]
+  ].sort((a, b) => PACKAGING_ORDER.indexOf(a) - PACKAGING_ORDER.indexOf(b))
+
   const availableFlush = [
     ...new Set(
       variantsWithStock
@@ -81,7 +85,8 @@ export function RemoveStockForm() {
         )
         .map((v) => v.flush)
     ),
-  ]
+  ].sort((a, b) => FLUSH_ORDER.indexOf(a) - FLUSH_ORDER.indexOf(b))
+
   const availableWeights = variantsWithStock
     .filter(
       (v) =>
@@ -90,6 +95,8 @@ export function RemoveStockForm() {
         v.flush === selectedFlush
     )
     .map((v) => v.weight_grams)
+    .sort((a, b) => b - a)
+
   const selectedVariant = variants.find(
     (v) =>
       v.harvest_year == selectedHarvestYear &&

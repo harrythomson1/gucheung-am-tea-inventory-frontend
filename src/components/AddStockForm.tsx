@@ -11,7 +11,7 @@ import { t, TEA_NAMES } from '../constants/translations'
 import { ChevronLeft } from 'lucide-react'
 
 type AddStockInputs = Omit<AddTransactionData, 'transaction_type'>
-const PACKAGING_TYPES = ['silver', 'wing', 'gift']
+const PACKAGING_TYPES = ['wing', 'silver', 'gift']
 const FLUSH_TYPES = ['first', 'second', 'mixed']
 
 export function AddStockForm() {
@@ -71,7 +71,7 @@ export function AddStockForm() {
         )
         .map((v) => v.weight_grams)
     ),
-  ]
+  ].sort((a, b) => b - a)
 
   useEffect(() => {
     getTeas()

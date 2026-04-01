@@ -51,7 +51,8 @@ export default function Dashboard() {
     (acc, item) => {
       const existing = acc.find((t) => t.name === item.name)
       if (existing) {
-        existing[item.packaging] = item.total_stock
+        existing[item.packaging] =
+          ((existing[item.packaging] as number) || 0) + item.total_stock
       } else {
         acc.push({
           id: item.id,

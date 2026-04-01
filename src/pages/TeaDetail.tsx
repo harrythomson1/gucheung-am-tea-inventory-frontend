@@ -21,9 +21,8 @@ export function TeaDetail() {
   const navigate = useNavigate()
   const [data, setData] = useState<TeaVariantStockItem[]>([])
   const teaName = data[0]?.tea_name
-  const [groupBy, setGroupBy] = useState<
-    'flush' | 'packaging' | 'harvest_year'
-  >('packaging')
+  const [groupBy, setGroupBy] = useState<'flush' | 'packaging'>('packaging')
+  const [selectedYear, setSelectedYear] = useState<number | null>(null)
   const stackBy = groupBy === 'packaging' ? 'flush' : 'packaging'
 
   useEffect(() => {
@@ -35,9 +34,24 @@ export function TeaDetail() {
       .catch((error) => console.error('Failed to fetch tea stock:', error))
   }, [teaId])
 
-  const totalStock = data.reduce((sum, item) => sum + item.current_stock, 0)
+  const availableYears = [
+    ...new Set(
+      data
+        .filter((item) => item.current_stock > 0)
+        .map((item) => item.harvest_year)
+    ),
+  ].sort((a, b) => b - a)
 
-  const chartData = data.reduce(
+  const filteredData = selectedYear
+    ? data.filter((item) => item.harvest_year === selectedYear)
+    : data
+
+  const totalStock = filteredData.reduce(
+    (sum, item) => sum + item.current_stock,
+    0
+  )
+
+  const chartData = filteredData.reduce(
     (acc, item) => {
       const key = String(item[groupBy])
       const existing = acc.find((t) => t.name === key)
@@ -53,13 +67,9 @@ export function TeaDetail() {
     [] as Record<string, unknown>[]
   )
 
-  const filters: {
-    key: 'packaging' | 'flush' | 'harvest_year'
-    label: string
-  }[] = [
+  const filters: { key: 'packaging' | 'flush'; label: string }[] = [
     { key: 'packaging', label: t('packaging') },
     { key: 'flush', label: t('flush') },
-    { key: 'harvest_year', label: t('year') },
   ]
 
   return (
@@ -73,8 +83,28 @@ export function TeaDetail() {
         {t('dashboard')}
       </button>
 
-      {/* Filter toggles */}
-      <div className="flex gap-2 mb-3">
+      {/* Year dropdown + filter toggles */}
+      <div className="flex items-center gap-2 mb-3">
+        <div className="relative">
+          <select
+            value={selectedYear ?? ''}
+            onChange={(e) =>
+              setSelectedYear(e.target.value ? Number(e.target.value) : null)
+            }
+            className="appearance-none bg-[#e0e0c8] text-[#2a5034] font-medium text-sm px-4 py-2 pr-8 rounded-xl border-none cursor-pointer"
+          >
+            <option value="">{t('allYears')}</option>
+            {availableYears.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+          <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[#2a5034] text-xs">
+            ▼
+          </span>
+        </div>
+
         {filters.map(({ key, label }) => (
           <button
             key={key}
@@ -100,7 +130,6 @@ export function TeaDetail() {
             ? (TEA_NAMES[teaName as keyof typeof TEA_NAMES] ?? teaName)
             : '...'}
         </p>
-
         <div className="text-right">
           <p className="text-sm text-gray-400">{t('totalStock')}</p>
           <p className="text-lg font-medium text-[#2a5034]">{totalStock}</p>

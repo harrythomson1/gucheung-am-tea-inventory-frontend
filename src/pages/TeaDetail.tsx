@@ -44,9 +44,11 @@ export function TeaDetail() {
     ),
   ].sort((a, b) => b - a)
 
-  const filteredData = selectedYear
-    ? data.filter((item) => item.harvest_year === selectedYear)
-    : data
+  const filteredData = (
+    selectedYear
+      ? data.filter((item) => item.harvest_year === selectedYear)
+      : data
+  ).filter((item) => item.current_stock > 0)
 
   const totalStock = filteredData.reduce(
     (sum, item) => sum + item.current_stock,

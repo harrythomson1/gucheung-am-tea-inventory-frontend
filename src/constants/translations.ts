@@ -113,6 +113,7 @@ export const TRANSLATIONS = {
     address1Placeholder: '주소 1',
     address2Placeholder: '주소 2',
     postcodePlaceholder: '우편번호',
+    weight: '무게',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -216,5 +217,6 @@ export const TRANSLATIONS = {
     address1Placeholder: 'Address line 1',
     address2Placeholder: 'Address line 2',
     postcodePlaceholder: 'Postcode',
+    weight: 'Weight',
   },
 }

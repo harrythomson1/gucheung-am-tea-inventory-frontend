@@ -21,7 +21,9 @@ export function TeaDetail() {
   const navigate = useNavigate()
   const [data, setData] = useState<TeaVariantStockItem[]>([])
   const teaName = data[0]?.tea_name
-  const [groupBy, setGroupBy] = useState<'flush' | 'packaging'>('packaging')
+  const [groupBy, setGroupBy] = useState<
+    'flush' | 'packaging' | 'weight_grams'
+  >('packaging')
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
   const stackBy = groupBy === 'packaging' ? 'flush' : 'packaging'
 
@@ -67,9 +69,13 @@ export function TeaDetail() {
     [] as Record<string, unknown>[]
   )
 
-  const filters: { key: 'packaging' | 'flush'; label: string }[] = [
+  const filters: {
+    key: 'packaging' | 'flush' | 'weight_grams'
+    label: string
+  }[] = [
     { key: 'packaging', label: t('packaging') },
     { key: 'flush', label: t('flush') },
+    { key: 'weight_grams', label: t('weight') },
   ]
 
   return (

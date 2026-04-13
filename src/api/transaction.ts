@@ -30,3 +30,8 @@ export const getCSVExport = async (params: URLSearchParams) => {
   })
   return response.data
 }
+
+export const getRecentRemovalVariants = async () => {
+  const response = await api.get('/transactions/recently_removed_transactions')
+  return response.data
+}

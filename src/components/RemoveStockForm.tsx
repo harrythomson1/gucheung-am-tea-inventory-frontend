@@ -13,6 +13,8 @@ import { CustomerSearch } from './CustomerSearch'
 import { AddCustomerModal } from './AddCustomerModal'
 import type { Customer } from '../types/customer'
 import { ChevronLeft } from 'lucide-react'
+import { getRecentRemovalVariants } from '../api/transaction'
+import type { RecentlyRemoved } from '../types/transaction'
 
 type RemoveStockInput = RemoveTransactionData
 
@@ -37,6 +39,7 @@ export function RemoveStockForm() {
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
     null
   )
+  const [recentVariants, setRecentVariants] = useState<RecentlyRemoved[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const FLUSH_ORDER = ['first', 'second', 'mixed']
   const PACKAGING_ORDER = ['wing', 'silver', 'gift']
@@ -109,6 +112,12 @@ export function RemoveStockForm() {
     getTeas()
       .then((response) => setTeas(response))
       .catch((error) => console.error('Failed to fetch teas:', error))
+
+    getRecentRemovalVariants()
+      .then((response) => setRecentVariants(response))
+      .catch((error) =>
+        console.error('Failed to fetch recent variants:', error)
+      )
   }, [])
 
   useEffect(() => {
@@ -145,6 +154,27 @@ export function RemoveStockForm() {
       selected ? activeClass : disabled ? disabledClass : enabledClass
     }`
 
+  const handleRecentVariantSelect = async (variant: RecentlyRemoved) => {
+    const tea = teas.find((t) => t.name === variant.tea_name)
+    if (!tea) return
+
+    const data = await getTeaStock(tea.id)
+    setVariants(data)
+    setSelectedTeaId(tea.id)
+    setSelectedHarvestYear(variant.harvest_year)
+    setSelectedPackaging(variant.packaging)
+    setSelectedFlush(variant.flush)
+    setSelectedWeight(variant.weight_grams)
+
+    const selectedVariant = data.find(
+      (v: Variant) =>
+        v.harvest_year === variant.harvest_year &&
+        v.packaging === variant.packaging &&
+        v.flush === variant.flush &&
+        v.weight_grams === variant.weight_grams
+    )
+    if (selectedVariant) setValue('tea_variant_id', selectedVariant.id)
+  }
   return (
     <div className="px-4 pb-28 safe-area-inset">
       <button
@@ -154,6 +184,31 @@ export function RemoveStockForm() {
         <ChevronLeft size={16} />
         {t('dashboard')}
       </button>
+
+      {recentVariants.length > 0 && (
+        <div className="mb-4">
+          <p className="section-label">{t('recent')}</p>
+          <div className="flex flex-col gap-2">
+            {recentVariants.map((variant, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => handleRecentVariantSelect(variant)}
+                className="card px-4 py-3 text-left bg-[#e0e0c8]"
+              >
+                <p className="text-sm font-medium text-[#2a5034]">
+                  {TEA_NAMES[variant.tea_name as keyof typeof TEA_NAMES] ??
+                    variant.tea_name}
+                </p>
+                <p className="text-xs text-black mt-0.5">
+                  {t(variant.packaging)} · {variant.weight_grams}g ·{' '}
+                  {t(variant.flush)} · {variant.harvest_year}
+                </p>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Tea */}

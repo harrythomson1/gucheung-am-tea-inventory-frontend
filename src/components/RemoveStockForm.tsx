@@ -390,6 +390,7 @@ export function RemoveStockForm() {
             <option value="donation">{t('donation')}</option>
             <option value="ceremony">{t('ceremony')}</option>
             <option value="damaged">{t('damaged')}</option>
+            <option value="repackage">{t('repackage')}</option>
           </select>
           <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#2a5034] text-xs">
             ▼

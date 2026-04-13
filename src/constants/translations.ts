@@ -118,6 +118,7 @@ export const TRANSLATIONS = {
     allFlush: '전체 등급',
     allWeights: '전체 무게',
     recent: '최근 거래',
+    repackage: '포장',
   },
   en: {
     emailPlaceholder: 'Email',
@@ -226,5 +227,6 @@ export const TRANSLATIONS = {
     allFlush: 'All flush',
     allWeights: 'All weights',
     recent: 'Recent',
+    repackage: 'Repackage',
   },
 }

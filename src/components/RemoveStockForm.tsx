@@ -187,7 +187,7 @@ export function RemoveStockForm() {
 
       {recentVariants.length > 0 && (
         <div className="mb-4">
-          <p className="section-label">{t('recentTransactions')}</p>
+          <p className="section-label">{t('recent')}</p>
           <div className="flex flex-col gap-2">
             {recentVariants.map((variant, i) => (
               <button

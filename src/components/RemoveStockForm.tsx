@@ -194,13 +194,13 @@ export function RemoveStockForm() {
                 key={i}
                 type="button"
                 onClick={() => handleRecentVariantSelect(variant)}
-                className="card px-4 py-3 text-left"
+                className="card px-4 py-3 text-left bg-[#e0e0c8]"
               >
                 <p className="text-sm font-medium text-[#2a5034]">
                   {TEA_NAMES[variant.tea_name as keyof typeof TEA_NAMES] ??
                     variant.tea_name}
                 </p>
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p className="text-xs text-black mt-0.5">
                   {t(variant.packaging)} · {variant.weight_grams}g ·{' '}
                   {t(variant.flush)} · {variant.harvest_year}
                 </p>

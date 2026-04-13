@@ -31,3 +31,11 @@ export type ActivityFeedType = {
   tea_name: string
   created_at: string
 }
+
+export type RecentlyRemoved = {
+  tea_name: string
+  harvest_year: number
+  packaging: string
+  flush: string
+  weight_grams: number
+}

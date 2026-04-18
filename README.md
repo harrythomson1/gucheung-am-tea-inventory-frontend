@@ -1,73 +1,136 @@
-# React + TypeScript + Vite
+<a id="readme-top"></a>
+<br />
+<div align="center">
+    <img width="320" height="320" alt="logo" src="https://github.com/user-attachments/assets/c59d1d4d-f13b-4a5c-924c-0d4a0f359270" />
+  </a>
+</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 구층암 재고 관리 / Gucheongam Tea Inventory - Frontend
 
-Currently, two official plugins are available:
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Whilst I was volunteering in Gucheongam temple in Gurye-gun in South Korea I approached the manager of the temple asking if they has any technology they would like built. She asked if I could build an inventory management for the tea they sell which is what you have here.
 
-## React Compiler
+Problems this solves:
+* Allows accurate tracking of sales with an append only ledger
+* Prevents old stock going unsold as it isn't visible
+* Tracks sales by customer
+* Easy stock visualisation 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Built With
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* [![React][React]][React-url]
+* [![TypeScript][TypeScript]][TypeScript-url]
+* [![Vite][Vite]][Vite-url]
+* [![TailwindCSS][Tailwind]][Tailwind-url]
+* [![Vercel][Vercel]][Vercel-url]
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Architecture
+
+This project uses standard React component based architecture. Key patterns:
+
+- **API layer** — all requests are made through typed functions in `src/api/`, using a central axios instance that automatically attaches the Supabase JWT
+- **Auth context** — session and admin status are managed via `AuthContext` and exposed through the `useAuth` hook
+- **Translations** — all user-facing strings use a `t()` helper from `src/constants/translations.ts` supporting Korean and English
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+### Prerequisites
+
+* Node.js 18+
+
+### Installation
+
+1. Clone the repo
+```sh
+   git clone https://github.com/harrythomson1/gucheung-am-tea-inventory-frontend
+```
+2. Install dependencies
+```sh
+   npm install
+```
+3. Copy and fill in environment variables
+```sh
+   cp .env.example .env.local
+```
+4. Start the dev server
+```sh
+   npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Environment Variables
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_API_URL=http://localhost:8000
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- ROADMAP -->
+
+## Roadmap
+
+- [ ] Barcode/QR scanning for remove stock form
+- [ ] Conversion feature to convert silver packages into wing or gift packages
+- [ ] Password reset UI
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- KNOW ISSUES -->
+## Known Issues
+
+- **Chart double tap on mobile** — Recharts requires a first tap to select a bar before the click event fires on mobile
+- **PWA auto update** — the service worker may not update immediately after a new deployment. Users can pull down to refresh
+- **iOS install** — must use Safari, not Chrome
+  
+<!-- CONTACT -->
+## Contact
+
+Harry Thomson - [LinkedIn](https://www.linkedin.com/in/harry-thomson-536674211/) - haroldt95@hotmail.com
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[React]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[TypeScript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
+[TypeScript-url]: https://www.typescriptlang.org/
+[Vite]: https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white
+[Vite-url]: https://vitejs.dev/
+[Tailwind]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[Tailwind-url]: https://tailwindcss.com/
+[Vercel]: https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white
+[Vercel-url]: https://vercel.com/
+

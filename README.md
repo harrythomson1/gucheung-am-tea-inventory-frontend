@@ -1,8 +1,11 @@
+
+
 <a id="readme-top"></a>
 <br />
 <div align="center">
-    <img width="320" height="320" alt="logo" src="https://github.com/user-attachments/assets/c59d1d4d-f13b-4a5c-924c-0d4a0f359270" />
-  </a>
+    
+https://github.com/user-attachments/assets/638090be-f47c-4dce-b7ff-c8ad0b4a1056
+
 </div>
 
 # 구층암 재고 관리 / Gucheongam Tea Inventory - Frontend

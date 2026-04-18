@@ -2,13 +2,12 @@
 
 <a id="readme-top"></a>
 <br />
+# 구층암 재고 관리 / Gucheongam Tea Inventory - Backend
 <div align="center">
     
 https://github.com/user-attachments/assets/638090be-f47c-4dce-b7ff-c8ad0b4a1056
 
 </div>
-
-# 구층암 재고 관리 / Gucheongam Tea Inventory - Frontend
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
